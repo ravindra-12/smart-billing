@@ -113,7 +113,6 @@ const aiItems = [
 ];
 
 function Header({ page, setPage }: { page: string; setPage: (page: string) => void }) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const navLinks = [
     { label: "Home", key: "home" },
     { label: "Features", key: "features" },
