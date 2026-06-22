@@ -276,8 +276,8 @@ export default function SmartBillingLiteHome() {
       <section className="mx-auto max-w-7xl px-5 pb-16">
         <div className="grid gap-5 rounded-[2rem] bg-gradient-to-r from-blue-700 to-purple-700 p-8 text-white md:grid-cols-4 md:p-10">
           {[
-            ["10,000+", "Happy Users"],
-            ["1L+", "Bills Generated"],
+            ["26+", "Happy Users"],
+            ["560+", "Bills Generated"],
             ["99.9%", "Uptime"],
             ["24x7", "Support"],
           ].map(([num, label]) => (
