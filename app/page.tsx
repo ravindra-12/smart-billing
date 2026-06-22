@@ -314,7 +314,7 @@ function HomePage() {
       {/* Stats */}
       <section style={{ maxWidth: 1280, margin: "0 auto", padding: "0 20px 60px" }}>
         <div style={{ background: "linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%)", borderRadius: 32, padding: "40px 40px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
-          {[["10,000+", "Happy Users"], ["1L+", "Bills Generated"], ["99.9%", "Uptime"], ["24x7", "Support"]].map(([num, label]) => (
+          {[["26+", "Happy Users"], ["560+", "Bills Generated"], ["99.9%", "Uptime"], ["24x7", "Support"]].map(([num, label]) => (
             <div key={label} style={{ textAlign: "center" }}>
               <div style={{ fontSize: 36, fontWeight: 900, color: "#fff" }}>{num}</div>
               <div style={{ fontSize: 13, color: "#bfdbfe", fontWeight: 600, marginTop: 6 }}>{label}</div>
