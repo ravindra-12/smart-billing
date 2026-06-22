@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DownloadApkPromo from "./DownloadApkPromo";
 
 const featureGroups = [
   {
@@ -100,11 +101,11 @@ export default function SmartBillingLiteFeaturesPage() {
               Features
             </Link>
             <Link href="/smart-billing-lite/pricing">Pricing</Link>
-            <Link href="/login">Login</Link>
+            <Link href="#download-apk">Login</Link>
           </nav>
 
           <Link
-            href="/smart-billing-lite/pricing"
+            href="#download-apk"
             className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
           >
             Start Free Trial
@@ -131,13 +132,13 @@ export default function SmartBillingLiteFeaturesPage() {
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link
-                  href="/smart-billing-lite/pricing"
+                  href="#download-apk"
                   className="rounded-2xl bg-white px-7 py-4 text-center font-black text-blue-700 shadow-xl"
                 >
                   Start 30-Day Free Trial
                 </Link>
                 <Link
-                  href="/demo"
+                  href="#download-apk"
                   className="rounded-2xl border border-white/30 bg-white/10 px-7 py-4 text-center font-black text-white"
                 >
                   Request Demo
@@ -298,7 +299,7 @@ export default function SmartBillingLiteFeaturesPage() {
             </div>
 
             <Link
-              href="/smart-billing-lite/pricing"
+              href="#download-apk"
               className="mt-8 block rounded-2xl bg-blue-600 px-7 py-4 text-center font-black text-white shadow-lg shadow-blue-200 hover:bg-blue-700"
             >
               View Pricing & Start Trial
@@ -306,6 +307,7 @@ export default function SmartBillingLiteFeaturesPage() {
           </div>
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }

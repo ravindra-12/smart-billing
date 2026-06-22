@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DownloadApkPromo from "./DownloadApkPromo";
 
 const plans = [
   {
@@ -106,11 +107,11 @@ export default function SmartBillingLitePricingPage() {
             <Link href="/smart-billing-lite/pricing" className="text-blue-600">
               Pricing
             </Link>
-            <Link href="/login">Login</Link>
+            <Link href="#download-apk">Login</Link>
           </nav>
 
           <Link
-            href="#get-started"
+            href="#download-apk"
             className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
           >
             Start Free Trial
@@ -195,7 +196,7 @@ export default function SmartBillingLitePricingPage() {
               </ul>
 
               <Link
-                href="#get-started"
+                href="#download-apk"
                 className={`mt-8 block rounded-2xl px-7 py-4 text-center font-black text-white shadow-lg ${
                   plan.color === "green"
                     ? "bg-green-600 shadow-green-100 hover:bg-green-700"
@@ -268,13 +269,13 @@ export default function SmartBillingLitePricingPage() {
               />
             </div>
 
-            <button className="mt-5 w-full rounded-2xl bg-blue-600 px-7 py-4 font-black text-white shadow-lg shadow-blue-100 hover:bg-blue-700">
+            <a href="#download-apk" className="mt-5 block w-full rounded-2xl bg-blue-600 px-7 py-4 text-center font-black text-white shadow-lg shadow-blue-100 hover:bg-blue-700">
               Send OTP
-            </button>
+            </a>
 
             <p className="mt-5 text-center text-sm font-semibold text-slate-600">
               New user?{" "}
-              <span className="font-black text-blue-600">Register Now</span>
+              <a href="#download-apk" className="font-black text-blue-600">Register Now</a>
             </p>
           </div>
         </div>
@@ -333,13 +334,13 @@ export default function SmartBillingLitePricingPage() {
 
             <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
               <Link
-                href="#get-started"
+                href="#download-apk"
                 className="rounded-2xl bg-white px-7 py-4 text-center font-black text-blue-700 shadow-xl"
               >
                 Start 30-Day Free Trial →
               </Link>
               <Link
-                href="/demo"
+                href="#download-apk"
                 className="rounded-2xl border border-white/30 bg-white/10 px-7 py-4 text-center font-black text-white"
               >
                 Request Demo
@@ -348,6 +349,7 @@ export default function SmartBillingLitePricingPage() {
           </div>
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }

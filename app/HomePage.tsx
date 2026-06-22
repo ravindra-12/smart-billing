@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DownloadApkPromo from "./DownloadApkPromo";
 
 const businessTypes = [
   "Kirana Store",
@@ -67,11 +68,11 @@ export default function SmartBillingLiteHome() {
             <Link href="/smart-billing-lite/features">Features</Link>
             <Link href="/smart-billing-lite/pricing">Pricing</Link>
             <Link href="/smart-billing-lite/pricing#get-started">How It Works</Link>
-            <Link href="/login">Login</Link>
+            <Link href="#download-apk">Login</Link>
           </nav>
 
           <Link
-            href="/smart-billing-lite/pricing"
+            href="#download-apk"
             className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
           >
             Start Free Trial
@@ -116,13 +117,13 @@ export default function SmartBillingLiteHome() {
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/smart-billing-lite/pricing"
+              href="#download-apk"
               className="rounded-2xl bg-blue-600 px-7 py-4 text-center font-black text-white shadow-xl shadow-blue-200 hover:bg-blue-700"
             >
               Start 30-Day Free Trial →
             </Link>
             <Link
-              href="/demo"
+              href="#download-apk"
               className="rounded-2xl border border-blue-200 bg-white px-7 py-4 text-center font-black text-blue-700 shadow-sm hover:bg-blue-50"
             >
               ▶ Watch Demo
@@ -289,6 +290,7 @@ export default function SmartBillingLiteHome() {
           ))}
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }

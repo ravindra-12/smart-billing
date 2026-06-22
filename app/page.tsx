@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import DownloadApkPromo from "./DownloadApkPromo";
 
 const businessTypes = [
   { name: "Kirana Store", icon: "🛒" },
@@ -158,24 +159,26 @@ function Header({ page, setPage }: { page: string; setPage: (page: string) => vo
               borderBottom: page === link.key ? "2px solid #2563eb" : "2px solid transparent",
             }}>{link.label}</button>
           ))}
-          <button onClick={() => {}} style={{
+          <a href="#download-apk" style={{
             background: "none", border: "none", cursor: "pointer",
             fontSize: 14, fontWeight: 600, color: "#334155",
-          }}>Login</button>
+            textDecoration: "none",
+          }}>Login</a>
         </nav>
 
-        <button onClick={() => setPage("pricing")} style={{
+        <a href="#download-apk" style={{
           background: "#2563eb", color: "#fff", border: "none",
           borderRadius: 12, padding: "10px 20px",
           fontSize: 14, fontWeight: 700, cursor: "pointer",
           boxShadow: "0 4px 14px rgba(37,99,235,0.3)",
-        }}>Start Free Trial</button>
+          textDecoration: "none",
+        }}>Start Free Trial</a>
       </div>
     </header>
   );
 }
 
-function HomePage({ setPage }: { setPage: (page: string) => void }) {
+function HomePage() {
   return (
     <main style={{ minHeight: "100vh", background: "#f6f9ff" }}>
       {/* Hero */}
@@ -205,15 +208,17 @@ function HomePage({ setPage }: { setPage: (page: string) => void }) {
           </div>
 
           <div style={{ display: "flex", gap: 14 }}>
-            <button onClick={() => setPage("pricing")} style={{
+            <a href="#download-apk" style={{
               background: "#2563eb", color: "#fff", border: "none", borderRadius: 14,
               padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer",
               boxShadow: "0 8px 24px rgba(37,99,235,0.3)",
-            }}>Start 30-Day Free Trial →</button>
-            <button style={{
+              textDecoration: "none",
+            }}>Start 30-Day Free Trial →</a>
+            <a href="#download-apk" style={{
               background: "#fff", color: "#1d4ed8", border: "1px solid #bfdbfe",
               borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer",
-            }}>▶ Watch Demo</button>
+              textDecoration: "none",
+            }}>▶ Watch Demo</a>
           </div>
         </div>
 
@@ -225,7 +230,7 @@ function HomePage({ setPage }: { setPage: (page: string) => void }) {
                 <div style={{ background: "#fff", borderRadius: 28, padding: 16 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                     <div>
-                      <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 700, marginBottom: 2 }}>Today's Sales</div>
+                      <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 700, marginBottom: 2 }}>Today&apos;s Sales</div>
                       <div style={{ fontSize: 26, fontWeight: 900, color: "#0f172a" }}>₹8,450</div>
                       <div style={{ fontSize: 10, color: "#16a34a", fontWeight: 700 }}>12 Orders</div>
                     </div>
@@ -317,11 +322,12 @@ function HomePage({ setPage }: { setPage: (page: string) => void }) {
           ))}
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }
 
-function PricingPage({ setPage }: { setPage: (page: string) => void }) {
+function PricingPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#f6f9ff" }}>
       {/* Hero */}
@@ -375,11 +381,12 @@ function PricingPage({ setPage }: { setPage: (page: string) => void }) {
                 ))}
               </ul>
 
-              <button style={{
+              <a href="#download-apk" style={{
                 width: "100%", border: "none", borderRadius: 16, padding: "16px", fontWeight: 900, fontSize: 15, cursor: "pointer", color: "#fff",
                 background: plan.color === "green" ? "#16a34a" : plan.color === "blue" ? "#2563eb" : "#ea580c",
                 boxShadow: plan.color === "green" ? "0 4px 14px rgba(22,163,74,0.3)" : plan.color === "blue" ? "0 4px 14px rgba(37,99,235,0.3)" : "0 4px 14px rgba(234,88,12,0.3)",
-              }}>{plan.button}</button>
+                display: "block", textAlign: "center", textDecoration: "none",
+              }}>{plan.button}</a>
             </div>
           ))}
         </div>
@@ -423,15 +430,15 @@ function PricingPage({ setPage }: { setPage: (page: string) => void }) {
             <div style={{ padding: "14px 16px", borderRight: "1px solid #e2e8f0", fontWeight: 700, color: "#64748b", fontSize: 14 }}>+91</div>
             <input type="text" placeholder="Enter 10 digit mobile number" style={{ flex: 1, border: "none", background: "transparent", padding: "14px 16px", outline: "none", fontSize: 14 }} />
           </div>
-          <button style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 14, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer" }}>Send OTP</button>
-          <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>New user? <span style={{ color: "#2563eb", fontWeight: 800, cursor: "pointer" }}>Register Now</span></p>
+          <a href="#download-apk" style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 14, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer", display: "block", textAlign: "center", textDecoration: "none" }}>Send OTP</a>
+          <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>New user? <a href="#download-apk" style={{ color: "#2563eb", fontWeight: 800, cursor: "pointer", textDecoration: "none" }}>Register Now</a></p>
         </div>
 
         <div style={{ background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9" }}>
           <h2 style={{ fontSize: 22, fontWeight: 900, color: "#0f172a", margin: "0 0 20px" }}>Why Business Owners Love Smart Billing Lite ❤️</h2>
           <div style={{ background: "linear-gradient(135deg, #eff6ff, #f5f3ff)", borderRadius: 20, padding: 20, marginBottom: 20 }}>
             <p style={{ fontSize: 15, fontWeight: 600, color: "#334155", lineHeight: 1.7, margin: "0 0 16px" }}>
-              "Smart Billing Lite ने हमारे shop का काम बहुत आसान कर दिया है. Billing, udhaar और daily reporting अब एक ही app में मिल जाता है."
+              &quot;Smart Billing Lite ने हमारे shop का काम बहुत आसान कर दिया है. Billing, udhaar और daily reporting अब एक ही app में मिल जाता है.&quot;
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#2563eb", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 16 }}>R</div>
@@ -458,17 +465,18 @@ function PricingPage({ setPage }: { setPage: (page: string) => void }) {
               <p style={{ fontSize: 16, color: "#bfdbfe", lineHeight: 1.7, margin: 0, maxWidth: 480 }}>Join thousands of small businesses using Smart Billing Lite for faster billing, secure payments, receipts, and daily business growth.</p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <button style={{ background: "#fff", color: "#1d4ed8", border: "none", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer", whiteSpace: "nowrap" }}>Start 30-Day Free Trial →</button>
-              <button style={{ background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer" }}>Request Demo</button>
+              <a href="#download-apk" style={{ background: "#fff", color: "#1d4ed8", border: "none", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer", whiteSpace: "nowrap", textAlign: "center", textDecoration: "none" }}>Start 30-Day Free Trial →</a>
+              <a href="#download-apk" style={{ background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer", textAlign: "center", textDecoration: "none" }}>Request Demo</a>
             </div>
           </div>
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }
 
-function FeaturesPage({ setPage }: { setPage: (page: string) => void }) {
+function FeaturesPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#f6f9ff" }}>
       {/* Hero */}
@@ -483,8 +491,8 @@ function FeaturesPage({ setPage }: { setPage: (page: string) => void }) {
               Manage billing, payments, customers, udhaar, receipts, reports, and hardware integrations from one simple mobile billing app.
             </p>
             <div style={{ display: "flex", gap: 14 }}>
-              <button onClick={() => setPage("pricing")} style={{ background: "#fff", color: "#1d4ed8", border: "none", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer" }}>Start 30-Day Free Trial</button>
-              <button style={{ background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer" }}>Request Demo</button>
+              <a href="#download-apk" style={{ background: "#fff", color: "#1d4ed8", border: "none", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer", textDecoration: "none" }}>Start 30-Day Free Trial</a>
+              <a href="#download-apk" style={{ background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 14, padding: "16px 28px", fontWeight: 900, fontSize: 15, cursor: "pointer", textDecoration: "none" }}>Request Demo</a>
             </div>
           </div>
 
@@ -587,9 +595,10 @@ function FeaturesPage({ setPage }: { setPage: (page: string) => void }) {
               </div>
             ))}
           </div>
-          <button onClick={() => setPage("pricing")} style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 16, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer" }}>View Pricing & Start Trial</button>
+          <a href="#download-apk" style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 16, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer", display: "block", textAlign: "center", textDecoration: "none" }}>View Pricing & Start Trial</a>
         </div>
       </section>
+      <DownloadApkPromo />
     </main>
   );
 }
@@ -600,9 +609,9 @@ export default function App() {
   return (
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
       <Header page={page} setPage={setPage} />
-      {page === "home" && <HomePage setPage={setPage} />}
-      {page === "pricing" && <PricingPage setPage={setPage} />}
-      {page === "features" && <FeaturesPage setPage={setPage} />}
+      {page === "home" && <HomePage />}
+      {page === "pricing" && <PricingPage />}
+      {page === "features" && <FeaturesPage />}
     </div>
   );
 }
