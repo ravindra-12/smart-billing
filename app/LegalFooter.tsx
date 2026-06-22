@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const legalLinks = [
   { href: "/about-us", label: "About Us" },
   { href: "/contact-us", label: "Contact Us" },
@@ -9,22 +11,83 @@ const legalLinks = [
 
 export default function LegalFooter() {
   return (
-    <footer className="border-t border-slate-200 bg-white px-5 py-8 text-slate-700">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <div className="text-base font-black text-slate-950">Smart Billing Lite</div>
-          <div className="mt-1 text-sm text-slate-500">
-            AI powered billing app for small businesses.
+    <footer className="border-t border-slate-200 bg-slate-950 px-5 py-12 text-slate-300">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <Link href="/" className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-xl text-white">
+                SB
+              </div>
+              <div>
+                <div className="text-xl font-black leading-none text-white">
+                  Smart Billing <span className="text-blue-400">Lite</span>
+                </div>
+                <div className="mt-1 text-xs font-semibold text-slate-400">
+                  AI Powered Billing App
+                </div>
+              </div>
+            </Link>
+
+            <p className="mt-5 max-w-md text-sm leading-6 text-slate-400">
+              Mobile billing, QR/UPI payments, receipt printing, udhaar tracking,
+              and business reports for Indian small businesses.
+            </p>
+
+            <a
+              href="/app-release.apk"
+              download
+              className="mt-6 inline-flex rounded-2xl bg-green-600 px-5 py-3 text-sm font-black text-white hover:bg-green-700"
+            >
+              Download APK
+            </a>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-wide text-white">
+              Company
+            </h3>
+            <nav className="mt-4 flex flex-col gap-3 text-sm font-semibold">
+              <Link href="/" className="hover:text-white">Home</Link>
+              <Link href="/about-us" className="hover:text-white">About Us</Link>
+              <Link href="/contact-us" className="hover:text-white">Contact Us</Link>
+            </nav>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-wide text-white">
+              Legal Policies
+            </h3>
+            <nav className="mt-4 flex flex-col gap-3 text-sm font-semibold">
+              {legalLinks.slice(2).map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-white">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-wide text-white">
+              Support
+            </h3>
+            <div className="mt-4 space-y-3 text-sm leading-6 text-slate-400">
+              <p>
+                Email:{" "}
+                <a href="mailto:support@smartbillinglite.com" className="font-bold text-slate-200 hover:text-white">
+                  support@smartbillinglite.com
+                </a>
+              </p>
+              <p>Support: Monday to Saturday, 10:00 AM to 6:00 PM IST</p>
+              <p>Payments are processed securely through supported payment gateway partners.</p>
+            </div>
           </div>
         </div>
 
-        <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold">
-          {legalLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-blue-600">
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs font-semibold text-slate-500 md:flex-row md:items-center md:justify-between">
+          <p>Copyright 2026 Smart Billing Lite. All rights reserved.</p>
+          <p>Digital software service for Android billing and business management.</p>
+        </div>
       </div>
     </footer>
   );
