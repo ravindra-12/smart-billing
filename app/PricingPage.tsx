@@ -20,7 +20,7 @@ const plans = [
   },
   {
     name: "Monthly Plan",
-    price: "₹50",
+    price: "₹500",
     duration: "/ Month",
     tag: "Most Popular",
     color: "blue",
@@ -36,8 +36,8 @@ const plans = [
   },
   {
     name: "Yearly Plan",
-    price: "₹500",
-    duration: "/ Year",
+    price: "₹400",
+    duration: "/ Month",
     tag: "Best Value",
     color: "orange",
     button: "Choose Yearly",
