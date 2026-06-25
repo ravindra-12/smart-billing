@@ -1,7 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const outPath = path.join(__dirname, "..", "app", "favicon.ico");
+const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
+const outPath = path.join(scriptDirectory, "..", "app", "favicon.ico");
 
 function setPixel(pixels, width, height, x, y, rgba) {
   if (x < 0 || y < 0 || x >= width || y >= height) return;

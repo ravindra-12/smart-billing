@@ -1,8 +1,15 @@
+import api from "@/lib/api";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
 
+interface HeroSectionData {
+  title?: string;
+  description?: string;
+}
+
 const businessTypes = [
-  "Kirana Store",
+  "Kirana Storeee",
   "Grocery Store",
   "Pharmacy",
   "Salon & Spa",
@@ -46,6 +53,28 @@ const devices = [
 ];
 
 export default function SmartBillingLiteHome() {
+
+  const [herosectionData, setHeroSectionData] = useState<HeroSectionData | null>(null); 
+
+  const GetHeroSectionData = async () => {
+    try {
+      const response = await api.get("https://cms.smartbillinglite.com/api/hero-section");
+      const data = response.data.data; 
+      setHeroSectionData(data);      
+      console.log("Data is", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      void GetHeroSectionData();
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#f6f9ff] text-slate-900">
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
@@ -59,7 +88,7 @@ export default function SmartBillingLiteHome() {
                 Smart Billing <span className="text-blue-600">Lite</span>
               </div>
               <div className="text-xs font-medium text-slate-500">
-                AI Powered Billing App
+                AI Powered Billing Appss
               </div>
             </div>
           </Link>
@@ -68,11 +97,11 @@ export default function SmartBillingLiteHome() {
             <Link href="/smart-billing-lite/features">Features</Link>
             <Link href="/smart-billing-lite/pricing">Pricing</Link>
             <Link href="/smart-billing-lite/pricing#get-started">How It Works</Link>
-            <Link href="#download-apk">Login</Link>
+            <Link href="/login">Login</Link>
           </nav>
 
           <Link
-            href="#download-apk"
+            href="/smart-billing-lite/pricing"
             className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
           >
             Start Free Trial
@@ -81,20 +110,24 @@ export default function SmartBillingLiteHome() {
       </header>
 
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-2 lg:py-20">
+        {/* Hero Section */}
         <div>
           <div className="mb-5 inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 ring-1 ring-blue-100">
             ✨ AI-Powered Billing App for Small Businesses
           </div>
 
           <h1 className="max-w-2xl text-5xl font-black leading-tight tracking-tight text-slate-950 md:text-6xl">
-            Smart Billing <br />
-            <span className="text-blue-600">Made Simple!</span>
+            {/* ✅ Strapi se data aaye to show karo, warna default text */}
+            {herosectionData?.title ?? "Smart Billing"} <br />
+            <span className="text-blue-600">
+              {/* {herosectionData?.subtitle ?? "Made Simple!"} */}
+             Made Simple!!!!
+            </span>
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-            AI-powered mobile billing app with QR payments, thermal printing,
-            POS device support, sound box integration, udhaar tracking, and
-            daily business reports.
+            {herosectionData?.description ??
+              "AI-powered mobile billing app with QR payments, thermal printing, POS device support, sound box integration, udhaar tracking, and daily business reports."}
           </p>
 
           <div className="mt-7 grid gap-3 text-sm font-semibold text-slate-700 sm:grid-cols-2">
@@ -126,10 +159,11 @@ export default function SmartBillingLiteHome() {
               href="#download-apk"
               className="rounded-2xl border border-blue-200 bg-white px-7 py-4 text-center font-black text-blue-700 shadow-sm hover:bg-blue-50"
             >
-              ▶ Watch Demo
+              ▶ Watch Demoss
             </Link>
           </div>
         </div>
+        {/* End Hero Section */}
 
         <div className="relative">
           <div className="absolute -left-6 top-10 hidden rounded-3xl bg-white p-4 shadow-xl ring-1 ring-slate-100 md:block">
@@ -138,13 +172,13 @@ export default function SmartBillingLiteHome() {
           </div>
 
           <div className="rounded-[2.5rem] bg-white p-5 shadow-2xl ring-1 ring-slate-100">
-            <div className="rounded-[2rem] bg-gradient-to-br from-blue-50 to-purple-50 p-5">
+            <div className="rounded-4xl-gradient-to-br from-blue-50 to-purple-50 p-5">
               <div className="mx-auto max-w-sm rounded-[2.5rem] bg-slate-950 p-3 shadow-2xl">
-                <div className="rounded-[2rem] bg-white p-5">
+                <div className="rounded-4xl bg-white p-5">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-xs font-bold text-slate-400">
-                        Today’s Sales
+                        Today&apos;s Sales
                       </div>
                       <div className="mt-1 text-3xl font-black">₹8,450.00</div>
                       <div className="text-xs font-semibold text-green-600">
@@ -244,7 +278,7 @@ export default function SmartBillingLiteHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-14">
-        <div className="rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-slate-100 md:p-10">
+        <div className="rounded-4xl bg-white p-6 shadow-xl ring-1 ring-slate-100 md:p-10">
           <div className="text-center">
             <h2 className="text-3xl font-black md:text-4xl">
               Why Choose Smart Billing Lite?
@@ -270,24 +304,6 @@ export default function SmartBillingLiteHome() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-16">
-        <div className="grid gap-5 rounded-[2rem] bg-gradient-to-r from-blue-700 to-purple-700 p-8 text-white md:grid-cols-4 md:p-10">
-          {[
-            ["26+", "Happy Users"],
-            ["560+", "Bills Generated"],
-            ["99.9%", "Uptime"],
-            ["24x7", "Support"],
-          ].map(([num, label]) => (
-            <div key={label} className="text-center">
-              <div className="text-4xl font-black">{num}</div>
-              <div className="mt-2 text-sm font-semibold text-blue-100">
-                {label}
-              </div>
-            </div>
-          ))}
         </div>
       </section>
       <DownloadApkPromo />

@@ -139,7 +139,7 @@ export default function SmartBillingLitePricingPage() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-[2rem] bg-white p-7 shadow-xl ring-1 ${
+              className={`relative rounded-4xl bg-white p-7 shadow-xl ring-1 ${
                 plan.color === "blue"
                   ? "ring-blue-200 scale-[1.02]"
                   : plan.color === "orange"
@@ -211,7 +211,7 @@ export default function SmartBillingLitePricingPage() {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-4 rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-100 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 rounded-4xl bg-white p-5 shadow-sm ring-1 ring-slate-100 md:grid-cols-4">
           {trustItems.map((item) => (
             <div key={item} className="flex items-center justify-center gap-2 text-sm font-bold text-slate-700">
               <span className="text-green-600">✓</span>
@@ -222,7 +222,7 @@ export default function SmartBillingLitePricingPage() {
       </section>
 
       <section id="get-started" className="mx-auto max-w-7xl px-5 py-12">
-        <div className="rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-slate-100 md:p-10">
+        <div className="rounded-4xl bg-white p-6 shadow-xl ring-1 ring-slate-100 md:p-10">
           <div className="text-center">
             <h2 className="text-4xl font-black">How to Get Started?</h2>
             <p className="mt-3 text-slate-600">
@@ -248,7 +248,7 @@ export default function SmartBillingLitePricingPage() {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-6 px-5 py-12 lg:grid-cols-2">
-        <div className="rounded-[2rem] bg-white p-7 shadow-xl ring-1 ring-slate-100">
+        <div className="rounded-4xl bg-white p-7 shadow-xl ring-1 ring-slate-100">
           <h2 className="text-3xl font-black">Login to Your Account</h2>
           <p className="mt-2 text-slate-600">
             Register or login using mobile number and OTP.
@@ -280,12 +280,12 @@ export default function SmartBillingLitePricingPage() {
           </div>
         </div>
 
-        <div className="rounded-[2rem] bg-white p-7 shadow-xl ring-1 ring-slate-100">
+        <div className="rounded-4xl bg-white p-7 shadow-xl ring-1 ring-slate-100">
           <h2 className="text-3xl font-black">
             Why Business Owners Love Smart Billing Lite ❤️
           </h2>
 
-          <div className="mt-7 rounded-3xl bg-gradient-to-br from-blue-50 to-purple-50 p-6">
+          <div className="mt-7 rounded-3xl bg-linear-to-br from-blue-50 to-purple-50 p-6">
             <p className="text-lg font-bold leading-8 text-slate-700">
               “Smart Billing Lite ने हमारे shop का काम बहुत आसान कर दिया है.
               Billing, udhaar और daily reporting अब एक ही app में मिल जाता है.”
@@ -320,7 +320,7 @@ export default function SmartBillingLitePricingPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-16">
-        <div className="rounded-[2rem] bg-gradient-to-r from-blue-700 to-purple-700 p-8 text-white shadow-2xl md:p-12">
+        <div className="rounded-4xl bg-linear-to-r from-blue-700 to-purple-700 p-8 text-white shadow-2xl md:p-12">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div>
               <h2 className="text-4xl font-black md:text-5xl">

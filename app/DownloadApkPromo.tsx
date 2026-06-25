@@ -3,7 +3,7 @@ const apkHref = "/app-release.apk";
 export default function DownloadApkPromo() {
   return (
     <section id="download-apk" className="mx-auto max-w-7xl px-5 py-14 scroll-mt-24">
-      <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-950 p-8 text-white shadow-2xl md:p-12">
+      <div className="overflow-hidden rounded-4xl bg-linear-to-br from-blue-700 via-indigo-700 to-slate-950 p-8 text-white shadow-2xl md:p-12">
         <div className="grid items-center gap-8 lg:grid-cols-[1.3fr_0.7fr]">
           <div>
             <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-black ring-1 ring-white/20">
