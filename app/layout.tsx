@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LegalFooter from "./LegalFooter";
+import ConditionalFooter from "./ConditionalFooter";
 import Navbar from "./Navbar";
 import "./globals.css";
 
@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
-        <LegalFooter />
+        <ConditionalFooter />
       </body>
     </html>
   );
