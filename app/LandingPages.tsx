@@ -582,6 +582,7 @@ export function HomePage() {
                     title="Smart Billing Lite Demo"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
                     style={{ width: "100%", height: "100%", border: "none", borderRadius: 12 }}
                   />
                 </div>
@@ -947,40 +948,40 @@ export function PricingPage() {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 20px 40px" }} className="rg-bottom">
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 20px 40px" }}>
         <div className="rg-bottom">
-        <div style={{ background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9" }}>
-          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#0f172a", margin: "0 0 8px" }}>{pricingBottom.loginHeading}</h2>
-          <p style={{ color: "#64748b", fontSize: 14, marginBottom: 24 }}>{pricingBottom.loginDescription}</p>
-          <label style={{ fontSize: 13, fontWeight: 800, color: "#334155" }}>{pricingBottom.phoneLabel}</label>
-          <div style={{ display: "flex", borderRadius: 14, border: "1px solid #e2e8f0", overflow: "hidden", marginTop: 8, marginBottom: 16, background: "#f8fafc" }}>
-            <div style={{ padding: "14px 16px", borderRight: "1px solid #e2e8f0", fontWeight: 700, color: "#64748b", fontSize: 14 }}>{pricingBottom.countryCode}</div>
-            <input type="text" placeholder={pricingBottom.phonePlaceholder} style={{ flex: 1, border: "none", background: "transparent", padding: "14px 16px", outline: "none", fontSize: 14 }} />
+          <div style={{ background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9" }}>
+            <h2 style={{ fontSize: 26, fontWeight: 900, color: "#0f172a", margin: "0 0 8px" }}>{pricingBottom.loginHeading}</h2>
+            <p style={{ color: "#64748b", fontSize: 14, marginBottom: 24 }}>{pricingBottom.loginDescription}</p>
+            <label style={{ fontSize: 13, fontWeight: 800, color: "#334155" }}>{pricingBottom.phoneLabel}</label>
+            <div style={{ display: "flex", borderRadius: 14, border: "1px solid #e2e8f0", overflow: "hidden", marginTop: 8, marginBottom: 16, background: "#f8fafc" }}>
+              <div style={{ padding: "14px 16px", borderRight: "1px solid #e2e8f0", fontWeight: 700, color: "#64748b", fontSize: 14 }}>{pricingBottom.countryCode}</div>
+              <input type="text" placeholder={pricingBottom.phonePlaceholder} style={{ flex: 1, border: "none", background: "transparent", padding: "14px 16px", outline: "none", fontSize: 14 }} />
+            </div>
+            <button style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 14, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer" }}>{pricingBottom.otpButtonText}</button>
+            <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>{pricingBottom.registerPrompt} <span style={{ color: "#2563eb", fontWeight: 800, cursor: "pointer" }}>{pricingBottom.registerText}</span></p>
           </div>
-          <button style={{ width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: 14, padding: 16, fontWeight: 900, fontSize: 15, cursor: "pointer" }}>{pricingBottom.otpButtonText}</button>
-          <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>{pricingBottom.registerPrompt} <span style={{ color: "#2563eb", fontWeight: 800, cursor: "pointer" }}>{pricingBottom.registerText}</span></p>
-        </div>
 
-        <div style={{ background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9" }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: "#0f172a", margin: "0 0 20px" }}>{pricingBottom.testimonialHeading}</h2>
-          <div style={{ background: "linear-gradient(135deg, #eff6ff, #f5f3ff)", borderRadius: 20, padding: 20, marginBottom: 20 }}>
-            <p style={{ fontSize: 15, fontWeight: 600, color: "#334155", lineHeight: 1.7, margin: "0 0 16px" }}>
-              {pricingBottom.testimonialQuote}
-            </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#2563eb", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 16 }}>{pricingBottom.testimonialInitial}</div>
-              <div>
-                <div style={{ fontWeight: 900, fontSize: 14, color: "#0f172a" }}>{pricingBottom.testimonialName}</div>
-                <div style={{ fontSize: 12, color: "#64748b" }}>{pricingBottom.testimonialMeta}</div>
+          <div style={{ background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9" }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: "#0f172a", margin: "0 0 20px" }}>{pricingBottom.testimonialHeading}</h2>
+            <div style={{ background: "linear-gradient(135deg, #eff6ff, #f5f3ff)", borderRadius: 20, padding: 20, marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "#334155", lineHeight: 1.7, margin: "0 0 16px" }}>
+                {pricingBottom.testimonialQuote}
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#2563eb", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 16 }}>{pricingBottom.testimonialInitial}</div>
+                <div>
+                  <div style={{ fontWeight: 900, fontSize: 14, color: "#0f172a" }}>{pricingBottom.testimonialName}</div>
+                  <div style={{ fontSize: 12, color: "#64748b" }}>{pricingBottom.testimonialMeta}</div>
+                </div>
               </div>
             </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              {pricingBottom.testimonialBenefits.map(item => (
+                <div key={item.text} style={{ background: "#f8fafc", borderRadius: 14, padding: "12px 14px", fontSize: 13, fontWeight: 700, color: "#334155" }}>✓ {item.text}</div>
+              ))}
+            </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            {pricingBottom.testimonialBenefits.map(item => (
-              <div key={item.text} style={{ background: "#f8fafc", borderRadius: 14, padding: "12px 14px", fontSize: 13, fontWeight: 700, color: "#334155" }}>✓ {item.text}</div>
-            ))}
-          </div>
-        </div>
         </div>
       </section>
 
@@ -1217,6 +1218,7 @@ export function FeaturesPage() {
                     title="Smart Billing Lite Feature Demo"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
                     style={{ width: "100%", height: "100%", border: "none", borderRadius: 12 }}
                   />
                 </div>
