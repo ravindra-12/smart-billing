@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
 import Link from "next/link";
+import { getHomeMeta } from "@/lib/strapi";
+import JsonLd from "../app/components/JsonLd";
+import Video from "./components/Video";
 
 // Smooth-scroll helper for hash links (works in SPA)
 const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -375,7 +378,11 @@ export function LegacyHeader({ page, setPage }: { page: string; setPage: (page: 
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-export function HomePage() {
+export function HomePage({
+ homeMeta
+}:{
+ homeMeta:any
+}) {
   const [herosectionData, setHeroSectionData] = useState<HeroSectionData | null>(null);
 
   // ── Dynamic state for two new sections ──
@@ -386,6 +393,17 @@ export function HomePage() {
   const [businessTypeLoading, setBusinessTypeLoading] = useState(true);
 
   const [statsSectionData, setStatsSectionData] = useState<StatsSectionData | null>(null);
+
+   // Home Meta
+  //  const fetchMeta = async() => {
+  //  const homeMeta = await getHomeMeta();
+  //   console.log(homeMeta);
+
+  //  }
+
+  //  useEffect(() => {
+  //   fetchMeta();
+  //  }, []);
 
   // ── API calls ──
   const getHeroSectionData = async () => {
@@ -445,150 +463,165 @@ export function HomePage() {
 
   return (
     <main style={{ minHeight: "100vh", background: "#f6f9ff" }}>
+       <JsonLd data={homeMeta}/>
+      {/* ── HERO SECTION ── */}
+      <section style={{
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+      }}>
+        {/* Background image */}
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 0,
+          backgroundImage: "url('/hero-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          backgroundRepeat: "no-repeat",
+        }} />
 
-      {/* ── Hero Section ── */}
-      <section style={{ maxWidth: 1280, margin: "0 auto" }} className="rp-hero">
-        <div className="rg-hero rp-hero-card" style={{
-          background: "linear-gradient(to right, #ffffff 0%, #eff6ff 100%)",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
-          overflow: "hidden", border: "1px solid #e2e8f0",
-        }}>
-          {/* Left Content */}
-          <div>
+        {/* Dark gradient overlay for text readability */}
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 1,
+          background: "linear-gradient(to right, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 45%, rgba(15,23,42,0.2) 100%)",
+        }} />
+
+        {/* Content */}
+        <div style={{
+          position: "relative", zIndex: 2,
+          maxWidth: 1280, margin: "0 auto", width: "100%",
+          padding: "120px 24px 80px",
+        }} className="rp-hero">
+          <div style={{ maxWidth: 580 }}>
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 8,
-              background: "#dbeafe", color: "#1d4ed8",
-              borderRadius: 999, padding: "10px 18px",
-              fontSize: 13, fontWeight: 800, marginBottom: 22,
+              background: "rgba(37,99,235,0.15)",
+              border: "1px solid rgba(37,99,235,0.3)",
+              borderRadius: 999, padding: "8px 18px",
+              fontSize: 12, fontWeight: 800, color: "#93c5fd",
+              marginBottom: 28, letterSpacing: 0.5,
+              textTransform: "uppercase",
             }}>
-              ✨ {herosectionData?.badgeText}
+              ✨ AI-Powered Billing App
             </div>
 
-            <h1 className="rt-hero" style={{ fontWeight: 900, lineHeight: 1.1, color: "#0f172a", marginBottom: 22 }}>
-              {herosectionData?.titleLine1}
-              <br />
-              <span style={{ color: "#2563eb" }}>{herosectionData?.titleLine2}</span>
+            <h1 className="rt-hero" style={{
+              fontWeight: 900, lineHeight: 1.06, color: "#fff",
+              margin: "0 0 22px", letterSpacing: "-0.02em",
+            }}>
+              Smart Billing{" "}
+              <span style={{
+                background: "linear-gradient(135deg, #60a5fa, #a78bfa, #c084fc)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}>
+                Made Simple!
+              </span>
             </h1>
 
-            <p style={{ fontSize: 16, color: "#475569", lineHeight: 1.8, marginBottom: 30, maxWidth: 540 }}>
-              {herosectionData?.description?.[0]?.children?.[0]?.text}
+            <p style={{
+              fontSize: 17, color: "#cbd5e1", lineHeight: 1.75,
+              margin: "0 0 36px", maxWidth: 480,
+            }}>
+              AI-powered mobile billing app with QR payments, thermal printing,
+              POS device support, sound box integration, udhaar tracking,
+              and daily business reports.
             </p>
 
-            <div className="rg-features-2" style={{ marginBottom: 35 }}>
-              {herosectionData?.features?.map((item) => (
-                <div key={item.id} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 700, color: "#334155" }}>
-                  <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", color: "#16a34a", fontWeight: 900, flexShrink: 0 }}>✓</div>
-                  {item.text}
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-              <Link href="#download-apk" onClick={scrollToDownload} style={{
-                background: "linear-gradient(to right, #2563eb, #1d4ed8)", color: "#fff",
-                border: "none", borderRadius: 16, padding: "14px 24px",
-                fontWeight: 800, fontSize: 14, cursor: "pointer",
-                boxShadow: "0 10px 25px rgba(37,99,235,0.25)",
-                textDecoration: "none",
-              }}>
-                {herosectionData?.primaryButtonText} →
-              </Link>
-              <Link href="#download-apk" onClick={scrollToDownload} style={{
-                background: "#fff", border: "1px solid #cbd5e1", borderRadius: 16,
-                padding: "14px 24px", fontWeight: 800, fontSize: 14,
-                cursor: "pointer", color: "#1e293b", textDecoration: "none", textAlign: "center"
-              }}>
-                ▶ {herosectionData?.secondaryButtonText}
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Side Image */}
-          <div className="r-hide-mobile" style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <div style={{
-              position: "absolute", width: 420, height: 420, borderRadius: "50%",
-              background: "linear-gradient(135deg, rgba(37,99,235,0.2), rgba(124,58,237,0.2))",
-              filter: "blur(50px)",
-            }} />
-            <div style={{
-              position: "relative", zIndex: 2, background: "#fff",
-              borderRadius: 32, padding: 18,
-              boxShadow: "0 25px 60px rgba(0,0,0,0.12)",
-              border: "1px solid #e2e8f0",
+            <Link href="#download-apk" onClick={scrollToDownload} style={{
+              display: "inline-block",
+              background: "linear-gradient(135deg, #2563eb, #7c3aed)",
+              color: "#fff", border: "none", borderRadius: 16,
+              padding: "18px 40px", fontWeight: 800, fontSize: 16,
+              cursor: "pointer", textDecoration: "none",
+              boxShadow: "0 12px 30px rgba(37,99,235,0.4)",
+              transition: "transform 0.2s, box-shadow 0.2s",
             }}>
-              {herosectionData?.heroImage?.url && (
-                <Image
-                  unoptimized
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${herosectionData.heroImage.url}`}
-                  alt="Hero Image"
-                  width={520} height={520} priority
-                  style={{ width: "100%", height: "auto", borderRadius: 24, objectFit: "contain" }}
-                />
-              )}
-            </div>
+              Start 30-Day Free Trial →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Video Section ── */}
-      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 20px 40px" }}>
-        <div style={{
-          background: "#fff", borderRadius: 24, padding: 24,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9",
-        }}>
-          <div className="rg-video">
-            <div style={{ minWidth: 0 }}>
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#eff6ff", borderRadius: 999, padding: "8px 14px",
-                fontSize: 12, fontWeight: 800, color: "#1d4ed8",
-                border: "1px solid #dbeafe", marginBottom: 16,
-                textTransform: "uppercase", letterSpacing: 0.5,
-              }}>
-                ▶ Watch demo
-              </div>
-              <h2 className="rt-section" style={{ fontWeight: 900, lineHeight: 1.15, color: "#0f172a", margin: "0 0 12px" }}>
-                See Smart Billing Lite in action
-              </h2>
-              <p style={{ fontSize: 15, color: "#64748b", lineHeight: 1.7, maxWidth: 440, margin: "0 0 24px" }}>
-                A quick walkthrough of billing, QR collection, receipt printing, udhaar tracking, and daily reports on mobile.
-              </p>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <Link href="#download-apk" onClick={scrollToDownload} style={{
-                  background: "linear-gradient(to right, #2563eb, #1d4ed8)", color: "#fff",
-                  borderRadius: 14, padding: "12px 22px", fontWeight: 800, fontSize: 14,
-                  textDecoration: "none", boxShadow: "0 6px 16px rgba(37,99,235,0.25)",
-                }}>
-                  Download App →
-                </Link>
-                <Link href="#download-apk" onClick={scrollToDownload} style={{
-                  background: "#fff", border: "1px solid #cbd5e1", borderRadius: 14,
-                  padding: "12px 22px", fontWeight: 800, fontSize: 14,
-                  color: "#1e293b", textDecoration: "none",
-                }}>
-                  Start Free Trial
-                </Link>
-              </div>
-            </div>
+      {/* ── Full-Width Video Demo ── */}
+      <Video />
 
-            <div style={{ minWidth: 0 }}>
-              <div style={{
-                background: "#0f172a", borderRadius: 16, padding: 8,
-                boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
-              }}>
-                <div style={{ aspectRatio: "16/9", borderRadius: 12, overflow: "hidden" }}>
+      {/* ── Video Cards Section ── */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 20px 40px" }}>
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "#eff6ff", borderRadius: 999, padding: "8px 16px",
+            fontSize: 12, fontWeight: 800, color: "#1d4ed8",
+            border: "1px solid #dbeafe", marginBottom: 14,
+            textTransform: "uppercase", letterSpacing: 0.5,
+          }}>
+            ▶ Video Tutorials
+          </div>
+          <h2 className="rt-section" style={{ fontWeight: 900, color: "#0f172a", margin: "0 0 10px" }}>
+            See How Smart Billing Works
+          </h2>
+          <p style={{ fontSize: 15, color: "#64748b", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
+            Watch quick demos of the key features that make billing faster, easier, and smarter for your business.
+          </p>
+        </div>
+
+        <div className="rg-feature-cards">
+          {[
+            {
+              title: "Complete App Overview",
+              description: "Full walkthrough of Smart Billing Lite — billing, payments, receipts, reports and more.",
+              videoId: "HIkf0Lt_9io",
+            },
+            {
+              title: "Billing & Invoicing",
+              description: "Create professional invoices, add items, apply discounts, and print thermal receipts instantly.",
+              videoId: "HIkf0Lt_9io",
+            },
+            {
+              title: "Payments & Reports",
+              description: "Collect UPI payments, track udhaar, and view daily profit reports on your mobile.",
+              videoId: "HIkf0Lt_9io",
+            },
+          ].map((card) => (
+            <div key={card.title} style={{
+              background: "#fff", borderRadius: 20, overflow: "hidden",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+              border: "1px solid #f1f5f9",
+              transition: "transform 0.2s, box-shadow 0.2s",
+            }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px)";
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 16px 40px rgba(0,0,0,0.10)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 20px rgba(0,0,0,0.06)";
+              }}
+            >
+              <div style={{ background: "#0f172a", padding: 6 }}>
+                <div style={{ aspectRatio: "16/9", borderRadius: 8, overflow: "hidden" }}>
                   <iframe
-                    src="https://www.youtube.com/embed/HIkf0Lt_9io"
-                    title="Smart Billing Lite Demo"
+                    src={`https://www.youtube.com/embed/${card.videoId}`}
+                    title={card.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     referrerPolicy="strict-origin-when-cross-origin"
-                    style={{ width: "100%", height: "100%", border: "none", borderRadius: 12 }}
+                    style={{ width: "100%", height: "100%", border: "none" }}
                   />
                 </div>
               </div>
+              <div style={{ padding: "18px 20px 20px" }}>
+                <h3 style={{ fontSize: 16, fontWeight: 900, color: "#0f172a", margin: "0 0 8px" }}>
+                  {card.title}
+                </h3>
+                <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+                  {card.description}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -1167,66 +1200,8 @@ export function FeaturesPage() {
       </section>
 
       {/* ── Video Section ── */}
-      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "24px 20px 10px" }}>
-        <div style={{
-          background: "#fff", borderRadius: 24, padding: 24,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.06)", border: "1px solid #f1f5f9",
-        }}>
-          <div className="rg-video">
-            <div style={{ minWidth: 0 }}>
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#eff6ff", borderRadius: 999, padding: "8px 14px",
-                fontSize: 12, fontWeight: 800, color: "#1d4ed8",
-                border: "1px solid #dbeafe", marginBottom: 16,
-                textTransform: "uppercase", letterSpacing: 0.5,
-              }}>
-                ▶ Feature demo
-              </div>
-              <h2 className="rt-section" style={{ fontWeight: 900, lineHeight: 1.15, color: "#0f172a", margin: "0 0 12px" }}>
-                Watch the features work together
-              </h2>
-              <p style={{ fontSize: 15, color: "#64748b", lineHeight: 1.7, maxWidth: 440, margin: "0 0 24px" }}>
-                See how billing, payments, credit reminders, reports, and hardware-ready workflows connect inside one clean app experience.
-              </p>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <Link href="#download-apk" onClick={scrollToDownload} style={{
-                  background: "linear-gradient(to right, #2563eb, #1d4ed8)", color: "#fff",
-                  borderRadius: 14, padding: "12px 22px", fontWeight: 800, fontSize: 14,
-                  textDecoration: "none", boxShadow: "0 6px 16px rgba(37,99,235,0.25)",
-                }}>
-                  Download App →
-                </Link>
-                <Link href="#download-apk" onClick={scrollToDownload} style={{
-                  background: "#fff", border: "1px solid #cbd5e1", borderRadius: 14,
-                  padding: "12px 22px", fontWeight: 800, fontSize: 14,
-                  color: "#1e293b", textDecoration: "none",
-                }}>
-                  Start Free Trial
-                </Link>
-              </div>
-            </div>
+      <Video />
 
-            <div style={{ minWidth: 0 }}>
-              <div style={{
-                background: "#0f172a", borderRadius: 16, padding: 8,
-                boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
-              }}>
-                <div style={{ aspectRatio: "16/9", borderRadius: 12, overflow: "hidden" }}>
-                  <iframe
-                    src="https://www.youtube.com/embed/HIkf0Lt_9io"
-                    title="Smart Billing Lite Feature Demo"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    style={{ width: "100%", height: "100%", border: "none", borderRadius: 12 }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {featuresGroups.map(group => (
         <section key={group.title} style={{ maxWidth: 1280, margin: "0 auto", padding: "24px 20px 0" }}>
@@ -1297,11 +1272,17 @@ export function FeaturesPage() {
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
-export default function App() {
+interface LandingPagesProps {
+  homeMeta: any;
+}
+
+export default function LandingPages({
+  homeMeta,
+}: LandingPagesProps) {
   return (
-    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
-      <HomePage />
+    <>
+      <HomePage homeMeta={homeMeta} />
       <DownloadApkPromo />
-    </div>
+    </>
   );
 }

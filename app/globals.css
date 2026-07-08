@@ -101,7 +101,7 @@ body {
   .rg-video { grid-template-columns: 1fr; gap: 24px; }
 
   /* Padding */
-  .rp-hero { padding: 40px 16px; }
+  .rp-hero { padding: 48px 16px 40px; }
   .rp-hero-card { padding: 24px; border-radius: 24px; }
 
   /* Typography scale down */
@@ -122,6 +122,7 @@ body {
 /* ────────────── Small mobile (max-width: 480px) ──────────────── */
 @media (max-width: 480px) {
   .rg-biz { grid-template-columns: repeat(2, 1fr); }
+  .rg-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .rt-hero { font-size: 28px !important; }
   .rt-pricing-hero { font-size: 28px !important; }
   .rt-features-hero { font-size: 26px !important; }
