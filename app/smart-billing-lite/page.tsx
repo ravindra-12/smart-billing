@@ -1,5 +1,7 @@
 import LandingPages from "../LandingPages";
+import { getHomeMeta } from "../../lib/strapi";
 
-export default function SmartBillingLiteRoute() {
-  return <LandingPages />;
+export default async function SmartBillingLiteRoute() {
+  const homeMeta = await getHomeMeta();
+  return <LandingPages homeMeta={homeMeta} />;
 }
