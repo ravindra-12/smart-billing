@@ -6,7 +6,7 @@ import LegalFooter from "./LegalFooter";
 export default function ConditionalFooter() {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/promoter")) {
     return null;
   }
 

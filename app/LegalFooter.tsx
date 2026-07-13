@@ -51,6 +51,7 @@ export default function LegalFooter() {
               <Link href="/" className="hover:text-white">Home</Link>
               <Link href="/about-us" className="hover:text-white">About Us</Link>
               <Link href="/contact-us" className="hover:text-white">Contact Us</Link>
+              <Link href="/promoter/login" className="hover:text-white">Become a Brand Promoter</Link>
             </nav>
           </div>
 
