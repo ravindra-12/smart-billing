@@ -3,7 +3,7 @@
 import React, { useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, Settings, LogOut, Search, Bell, BadgeIndianRupee, Database, ReceiptText, ChartNoAxesCombined } from 'lucide-react';
+import { LayoutDashboard, Users, Settings, LogOut, Search, Bell, BadgeIndianRupee, Database, ReceiptText, ChartNoAxesCombined, Gift } from 'lucide-react';
 
 const ADMIN_AUTH_KEY = 'smartbilling_admin_auth';
 const ADMIN_TOKEN_KEY = 'smartbilling_admin_token';
@@ -28,6 +28,7 @@ const getAdminAuthServerSnapshot = () => false;
 const navItems = [
   { href: '/admin', label: 'Dashboard', shortLabel: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/vendors', label: 'Vendors', shortLabel: 'Vendors', icon: Users },
+  { href: '/admin/referrals', label: 'Referrals', shortLabel: 'Referrals', icon: Gift },
   { href: '/admin/plans', label: 'Plans', shortLabel: 'Plans', icon: BadgeIndianRupee },
   { href: '/admin/storage-packs', label: 'Storage Packs', shortLabel: 'Storage', icon: Database },
   { href: '/admin/subscriptions', label: 'Subscriptions', shortLabel: 'Subs', icon: ReceiptText },
@@ -85,17 +86,17 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans md:h-screen md:overflow-hidden">
+    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans">
       {/* Sidebar - Desktop */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden h-screen w-64 flex-col border-r border-slate-200 bg-white md:flex">
-        <div className="flex shrink-0 items-center gap-3 border-b border-slate-200 p-6">
+      <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200">
+        <div className="p-6 border-b border-slate-200 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xl">
             S
           </div>
           <span className="font-bold text-slate-800 text-xl tracking-tight">SmartBilling</span>
         </div>
         
-        <nav className="min-h-0 flex-1 space-y-2 overflow-y-auto p-4">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-3">
             Menu
           </div>
@@ -121,7 +122,7 @@ export default function AdminLayout({
           })}
         </nav>
 
-        <div className="shrink-0 border-t border-slate-200 bg-white p-4">
+        <div className="p-4 border-t border-slate-200">
           <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors">
             <LogOut size={20} className="shrink-0" />
             <span className="font-medium">Logout</span>
@@ -130,9 +131,9 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex min-w-0 flex-1 flex-col overflow-hidden md:ml-64 md:h-screen">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6">
+        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
           <div className="md:hidden flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
               S
@@ -161,7 +162,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page Content */}
-        <div className="min-h-0 flex-1 overflow-y-auto p-6 pb-24 md:p-8">
+        <div className="flex-1 overflow-y-auto p-6 md:p-8">
           {children}
         </div>
       </main>
