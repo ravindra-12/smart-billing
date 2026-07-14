@@ -59,7 +59,7 @@ export default function PromoterProfilePage() {
     const token = getPromoterToken();
 
     if (!token) {
-      router.replace('/promoter/login');
+      router.replace('/referral/login');
       return;
     }
 
@@ -110,7 +110,7 @@ export default function PromoterProfilePage() {
     } catch (err) {
       if (err instanceof PromoterApiError && err.status === 401) {
         clearPromoterSession();
-        router.replace('/promoter/login');
+        router.replace('/referral/login');
         return;
       }
 

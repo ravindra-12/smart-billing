@@ -43,13 +43,13 @@ export default function BrandPromoterPromo() {
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/promoter/login"
+                href="/referral/login"
                 className="rounded-2xl bg-white px-7 py-4 text-center font-black text-indigo-700 shadow-xl transition hover:bg-blue-50"
               >
                 Become a Promoter →
               </Link>
               <Link
-                href="/promoter/login"
+                href="/referral/login"
                 className="rounded-2xl border border-white/30 bg-white/10 px-7 py-4 text-center font-black text-white transition hover:bg-white/20"
               >
                 Promoter Login
@@ -80,6 +80,25 @@ export default function BrandPromoterPromo() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-start gap-4 rounded-3xl border border-white/15 bg-white/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-xs font-black uppercase tracking-wide text-blue-200">
+              🏪 Already a Smart Billing Lite vendor?
+            </div>
+            <p className="mt-1 text-sm leading-6 text-blue-100">
+              Refer other businesses with your own code and earn{" "}
+              <span className="font-black text-white">₹150</span> every time they purchase
+              premium.
+            </p>
+          </div>
+          <Link
+            href="/referral/login?tab=vendor"
+            className="shrink-0 rounded-2xl bg-white/15 px-6 py-3 text-center font-black text-white ring-1 ring-white/25 transition hover:bg-white/25"
+          >
+            Vendor Refer &amp; Earn →
+          </Link>
         </div>
       </div>
     </section>

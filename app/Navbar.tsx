@@ -15,7 +15,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/promoter")) {
+  if (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/promoter") ||
+    pathname.startsWith("/vendor") ||
+    pathname.startsWith("/referral")
+  ) {
     return null;
   }
 

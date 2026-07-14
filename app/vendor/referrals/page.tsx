@@ -2,14 +2,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Wallet } from 'lucide-react';
+import { RefreshCw, Users } from 'lucide-react';
 import {
-  PromoterApiError,
-  PromoterEarning,
-  clearPromoterSession,
-  getEarnings,
-  getPromoterToken,
-} from '@/lib/promoterApi';
+  VendorApiError,
+  VendorReferral,
+  clearVendorSession,
+  getReferrals,
+  getVendorToken,
+} from '@/lib/vendorApi';
 
 const formatCurrency = (value: string | number) => {
   const numericValue = Number(value || 0);
@@ -33,7 +33,32 @@ const formatDate = (value: string | null) => {
   }).format(new Date(value));
 };
 
-const badgeClassName = (status: string) => {
+const statusBadgeClassName = (status: string) => {
+  switch (status) {
+    case 'premium_purchased':
+      return 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200';
+    case 'pending':
+      return 'bg-amber-50 text-amber-700 ring-1 ring-amber-200';
+    case 'expired':
+    case 'cancelled':
+      return 'bg-rose-50 text-rose-700 ring-1 ring-rose-200';
+    default:
+      return 'bg-slate-100 text-slate-700 ring-1 ring-slate-200';
+  }
+};
+
+const statusLabel = (status: string) => {
+  switch (status) {
+    case 'premium_purchased':
+      return 'Premium purchased';
+    case 'pending':
+      return 'Signed up';
+    default:
+      return status;
+  }
+};
+
+const rewardBadgeClassName = (status: string) => {
   switch (status) {
     case 'pending':
       return 'bg-amber-50 text-amber-700 ring-1 ring-amber-200';
@@ -44,18 +69,18 @@ const badgeClassName = (status: string) => {
     case 'cancelled':
       return 'bg-rose-50 text-rose-700 ring-1 ring-rose-200';
     default:
-      return 'bg-slate-100 text-slate-700 ring-1 ring-slate-200';
+      return 'bg-slate-100 text-slate-500 ring-1 ring-slate-200';
   }
 };
 
-export default function PromoterEarningsPage() {
+export default function VendorReferralsPage() {
   const router = useRouter();
-  const [earnings, setEarnings] = useState<PromoterEarning[]>([]);
+  const [referrals, setReferrals] = useState<VendorReferral[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   const loadData = useCallback(async () => {
-    const token = getPromoterToken();
+    const token = getVendorToken();
 
     if (!token) {
       return;
@@ -65,16 +90,16 @@ export default function PromoterEarningsPage() {
     setError('');
 
     try {
-      const data = await getEarnings(token);
-      setEarnings(Array.isArray(data) ? data : []);
+      const data = await getReferrals(token);
+      setReferrals(Array.isArray(data) ? data : []);
     } catch (err) {
-      if (err instanceof PromoterApiError && err.status === 401) {
-        clearPromoterSession();
-        router.replace('/referral/login');
+      if (err instanceof VendorApiError && err.status === 401) {
+        clearVendorSession();
+        router.replace('/referral/login?tab=vendor');
         return;
       }
 
-      setError(err instanceof Error ? err.message : 'Unable to load earnings.');
+      setError(err instanceof Error ? err.message : 'Unable to load referrals.');
     } finally {
       setIsLoading(false);
     }
@@ -88,9 +113,9 @@ export default function PromoterEarningsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Earnings</h1>
+          <h1 className="text-2xl font-black text-slate-900">My Referrals</h1>
           <p className="mt-1 text-sm text-slate-600">
-            Every reward from your referrals, with payout status.
+            Everyone who signed up with your referral code.
           </p>
         </div>
         <button
@@ -111,17 +136,17 @@ export default function PromoterEarningsPage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         {isLoading ? (
           <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-10 text-center text-sm text-slate-500">
-            Loading earnings...
+            Loading referrals...
           </div>
-        ) : earnings.length === 0 ? (
+        ) : referrals.length === 0 ? (
           <div className="flex flex-col items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-12 text-center">
             <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
-              <Wallet size={22} />
+              <Users size={22} />
             </div>
-            <p className="text-sm font-semibold text-slate-700">No earnings yet</p>
+            <p className="text-sm font-semibold text-slate-700">No referrals yet</p>
             <p className="max-w-sm text-sm text-slate-500">
-              Share your referral code with shop owners. You earn ₹100 each time a referred
-              vendor purchases premium.
+              Share your referral code with other business owners. You earn ₹150 each time a
+              referred vendor purchases premium.
             </p>
           </div>
         ) : (
@@ -130,35 +155,43 @@ export default function PromoterEarningsPage() {
               <thead>
                 <tr className="text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                   <th className="px-3 py-3">Referred vendor</th>
-                  <th className="px-3 py-3">Amount</th>
                   <th className="px-3 py-3">Status</th>
+                  <th className="px-3 py-3">Signed up</th>
                   <th className="px-3 py-3">Purchased</th>
-                  <th className="px-3 py-3">Paid</th>
-                  <th className="px-3 py-3">Payout method</th>
+                  <th className="px-3 py-3">Reward</th>
+                  <th className="px-3 py-3">Reward status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {earnings.map((earning) => (
-                  <tr key={earning.id} className="align-top">
+                {referrals.map((referral) => (
+                  <tr key={referral.id} className="align-top">
                     <td className="px-3 py-3">
-                      <div className="font-medium text-slate-900">
-                        {earning.referred_vendor_name}
-                      </div>
-                      <div className="text-xs text-slate-500">{earning.referred_vendor_phone}</div>
-                    </td>
-                    <td className="px-3 py-3 font-semibold text-slate-900">
-                      {formatCurrency(earning.amount)}
+                      <div className="font-medium text-slate-900">{referral.referred_name}</div>
+                      <div className="text-xs text-slate-500">{referral.referred_phone}</div>
                     </td>
                     <td className="px-3 py-3">
                       <span
-                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${badgeClassName(earning.status)}`}
+                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${statusBadgeClassName(referral.status)}`}
                       >
-                        {earning.status}
+                        {statusLabel(referral.status)}
                       </span>
                     </td>
-                    <td className="px-3 py-3 text-slate-600">{formatDate(earning.purchased_at)}</td>
-                    <td className="px-3 py-3 text-slate-600">{formatDate(earning.paid_at)}</td>
-                    <td className="px-3 py-3 text-slate-600">{earning.payout_method || '-'}</td>
+                    <td className="px-3 py-3 text-slate-600">{formatDate(referral.referred_at)}</td>
+                    <td className="px-3 py-3 text-slate-600">
+                      {formatDate(referral.premium_purchased_at)}
+                    </td>
+                    <td className="px-3 py-3 font-semibold text-slate-900">
+                      {referral.reward_status === 'none'
+                        ? '-'
+                        : formatCurrency(referral.reward_amount)}
+                    </td>
+                    <td className="px-3 py-3">
+                      <span
+                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${rewardBadgeClassName(referral.reward_status)}`}
+                      >
+                        {referral.reward_status}
+                      </span>
+                    </td>
                   </tr>
                 ))}
               </tbody>

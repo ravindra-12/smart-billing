@@ -91,6 +91,21 @@ export interface PromoterEarning {
   created_at: string;
 }
 
+export type PromoterReferralStatus = 'pending' | 'premium_purchased' | 'expired' | 'cancelled';
+
+export type PromoterRewardStatus = 'none' | 'pending' | 'approved' | 'paid' | 'cancelled';
+
+export interface PromoterReferral {
+  id: number;
+  referred_name: string;
+  referred_phone: string;
+  status: PromoterReferralStatus;
+  referred_at: string | null;
+  premium_purchased_at: string | null;
+  reward_status: PromoterRewardStatus;
+  reward_amount: string;
+}
+
 export interface UpdateProfilePayload {
   name?: string;
   city?: string;
@@ -170,6 +185,9 @@ export const getDashboard = (token: string) =>
 
 export const getEarnings = (token: string) =>
   request<PromoterEarning[]>('/promoter/earnings', { token });
+
+export const getReferrals = (token: string) =>
+  request<PromoterReferral[]>('/promoter/referrals', { token });
 
 export const updateProfile = (token: string, payload: UpdateProfilePayload) =>
   request<UpdateProfileResponse>('/promoter/profile', { method: 'PUT', body: payload, token });

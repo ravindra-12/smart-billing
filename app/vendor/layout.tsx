@@ -3,42 +3,40 @@
 import React, { useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Gift, LayoutDashboard, LogOut, UserRound, Users, Wallet } from 'lucide-react';
+import { Gift, LayoutDashboard, LogOut, Users, Wallet } from 'lucide-react';
 import {
-  PROMOTER_AUTH_EVENT,
-  PROMOTER_TOKEN_KEY,
-  clearPromoterSession,
-} from '@/lib/promoterApi';
+  VENDOR_AUTH_EVENT,
+  VENDOR_TOKEN_KEY,
+  clearVendorSession,
+} from '@/lib/vendorApi';
 
 const subscribeToAuthChanges = (callback: () => void) => {
   window.addEventListener('storage', callback);
-  window.addEventListener(PROMOTER_AUTH_EVENT, callback);
+  window.addEventListener(VENDOR_AUTH_EVENT, callback);
 
   return () => {
     window.removeEventListener('storage', callback);
-    window.removeEventListener(PROMOTER_AUTH_EVENT, callback);
+    window.removeEventListener(VENDOR_AUTH_EVENT, callback);
   };
 };
 
-const getAuthSnapshot = () => Boolean(window.localStorage.getItem(PROMOTER_TOKEN_KEY));
+const getAuthSnapshot = () => Boolean(window.localStorage.getItem(VENDOR_TOKEN_KEY));
 
 const getAuthServerSnapshot = () => false;
 
 const navItems = [
-  { href: '/promoter', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { href: '/promoter/referrals', label: 'My Referrals', icon: Users },
-  { href: '/promoter/earnings', label: 'Earnings', icon: Wallet },
-  { href: '/promoter/profile', label: 'Profile', icon: UserRound },
+  { href: '/vendor', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+  { href: '/vendor/referrals', label: 'My Referrals', icon: Users },
+  { href: '/vendor/earnings', label: 'Earnings', icon: Wallet },
 ];
 
-export default function PromoterLayout({
+export default function VendorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const isLoginPage = pathname === '/promoter/login';
   const isLoggedIn = useSyncExternalStore(
     subscribeToAuthChanges,
     getAuthSnapshot,
@@ -46,14 +44,10 @@ export default function PromoterLayout({
   );
 
   useEffect(() => {
-    if (!isLoginPage && !isLoggedIn) {
-      router.replace('/referral/login');
+    if (!isLoggedIn) {
+      router.replace('/referral/login?tab=vendor');
     }
-  }, [isLoggedIn, isLoginPage, router]);
-
-  if (isLoginPage) {
-    return <>{children}</>;
-  }
+  }, [isLoggedIn, router]);
 
   if (!isLoggedIn) {
     return (
@@ -64,21 +58,21 @@ export default function PromoterLayout({
   }
 
   const handleLogout = () => {
-    clearPromoterSession();
-    router.replace('/referral/login');
+    clearVendorSession();
+    router.replace('/referral/login?tab=vendor');
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-100 text-slate-900">
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
         <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between gap-4 px-5">
-          <Link href="/promoter" className="flex items-center gap-3">
+          <Link href="/vendor" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
               <Gift size={18} />
             </div>
             <div>
               <div className="text-sm font-black leading-none">Smart Billing Lite</div>
-              <div className="mt-1 text-xs font-semibold text-slate-500">Brand Promoter</div>
+              <div className="mt-1 text-xs font-semibold text-slate-500">Refer &amp; Earn</div>
             </div>
           </Link>
 

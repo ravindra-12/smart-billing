@@ -15,15 +15,16 @@ import {
   Wallet,
 } from 'lucide-react';
 import {
-  MyCodeResponse,
-  PromoterApiError,
-  PromoterDashboard,
-  clearPromoterSession,
-  getDashboard,
+  ShareLinkResponse,
+  VendorApiError,
+  VendorReferralDashboard,
+  clearVendorSession,
   getMyCode,
-  getPromoterToken,
-  getStoredPromoter,
-} from '@/lib/promoterApi';
+  getReferralDashboard,
+  getShareLink,
+  getStoredVendorSession,
+  getVendorToken,
+} from '@/lib/vendorApi';
 import { buildShareLink, localizeShareMessage } from '@/lib/shareLink';
 
 const formatCurrency = (value: string | number) => {
@@ -36,17 +37,17 @@ const formatCurrency = (value: string | number) => {
   }).format(numericValue);
 };
 
-export default function PromoterDashboardPage() {
+export default function VendorDashboardPage() {
   const router = useRouter();
-  const [dashboard, setDashboard] = useState<PromoterDashboard | null>(null);
-  const [myCode, setMyCode] = useState<MyCodeResponse | null>(null);
+  const [dashboard, setDashboard] = useState<VendorReferralDashboard | null>(null);
+  const [shareInfo, setShareInfo] = useState<ShareLinkResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState<'code' | 'link' | null>(null);
-  const [promoterName, setPromoterName] = useState('');
+  const [vendorName, setVendorName] = useState('');
 
   const loadData = useCallback(async () => {
-    const token = getPromoterToken();
+    const token = getVendorToken();
 
     if (!token) {
       return;
@@ -56,17 +57,21 @@ export default function PromoterDashboardPage() {
     setError('');
 
     try {
-      const [dashboardData, codeData] = await Promise.all([
-        getDashboard(token),
-        getMyCode(token),
+      // my-code auto-creates the referral code on first use, so it must
+      // complete before dashboard/share-link are fetched.
+      await getMyCode(token);
+
+      const [dashboardData, shareData] = await Promise.all([
+        getReferralDashboard(token),
+        getShareLink(token),
       ]);
 
       setDashboard(dashboardData);
-      setMyCode(codeData);
+      setShareInfo(shareData);
     } catch (err) {
-      if (err instanceof PromoterApiError && err.status === 401) {
-        clearPromoterSession();
-        router.replace('/referral/login');
+      if (err instanceof VendorApiError && err.status === 401) {
+        clearVendorSession();
+        router.replace('/referral/login?tab=vendor');
         return;
       }
 
@@ -77,7 +82,8 @@ export default function PromoterDashboardPage() {
   }, [router]);
 
   useEffect(() => {
-    setPromoterName(getStoredPromoter()?.name || '');
+    const session = getStoredVendorSession();
+    setVendorName(session?.user?.name || session?.vendor?.business_name || '');
     void loadData();
   }, [loadData]);
 
@@ -92,11 +98,11 @@ export default function PromoterDashboardPage() {
   };
 
   const handleShare = async () => {
-    if (!myCode) {
+    if (!shareInfo) {
       return;
     }
 
-    const message = localizeShareMessage(myCode.share_message, myCode.referral_code);
+    const message = localizeShareMessage(shareInfo.share_message, shareInfo.referral_code);
 
     if (navigator.share) {
       try {
@@ -151,10 +157,10 @@ export default function PromoterDashboardPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-black text-slate-900">
-            {promoterName ? `Hi, ${promoterName}` : 'Dashboard'}
+            {vendorName ? `Hi, ${vendorName}` : 'Refer & Earn'}
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            Share your referral code and track your earnings.
+            Share your referral code with other businesses and track your earnings.
           </p>
         </div>
         <button
@@ -179,18 +185,18 @@ export default function PromoterDashboardPage() {
               Your referral code
             </p>
             <p className="mt-2 text-4xl font-black tracking-widest">
-              {isLoading && !myCode ? '...' : myCode?.referral_code ?? '—'}
+              {isLoading && !shareInfo ? '...' : shareInfo?.referral_code ?? '—'}
             </p>
             <p className="mt-2 max-w-md text-sm text-blue-100">
-              Vendors enter this code in the Smart Billing Lite app when they sign up. You earn
-              ₹100 when they purchase premium.
+              Other businesses enter this code in the Smart Billing Lite app when they sign up.
+              You earn ₹150 when they purchase premium.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              disabled={!myCode}
-              onClick={() => myCode && void copyToClipboard(myCode.referral_code, 'code')}
+              disabled={!shareInfo}
+              onClick={() => shareInfo && void copyToClipboard(shareInfo.referral_code, 'code')}
               className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-bold ring-1 ring-white/20 transition hover:bg-white/25 disabled:opacity-50"
             >
               {copied === 'code' ? <Check size={16} /> : <Copy size={16} />}
@@ -198,9 +204,9 @@ export default function PromoterDashboardPage() {
             </button>
             <button
               type="button"
-              disabled={!myCode}
+              disabled={!shareInfo}
               onClick={() =>
-                myCode && void copyToClipboard(buildShareLink(myCode.referral_code), 'link')
+                shareInfo && void copyToClipboard(buildShareLink(shareInfo.referral_code), 'link')
               }
               className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-bold ring-1 ring-white/20 transition hover:bg-white/25 disabled:opacity-50"
             >
@@ -209,7 +215,7 @@ export default function PromoterDashboardPage() {
             </button>
             <button
               type="button"
-              disabled={!myCode}
+              disabled={!shareInfo}
               onClick={() => void handleShare()}
               className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-black text-blue-700 shadow-lg transition hover:bg-blue-50 disabled:opacity-50"
             >

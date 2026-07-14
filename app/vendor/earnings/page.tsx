@@ -4,12 +4,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Wallet } from 'lucide-react';
 import {
-  PromoterApiError,
-  PromoterEarning,
-  clearPromoterSession,
+  VendorApiError,
+  VendorEarning,
+  clearVendorSession,
   getEarnings,
-  getPromoterToken,
-} from '@/lib/promoterApi';
+  getVendorToken,
+} from '@/lib/vendorApi';
 
 const formatCurrency = (value: string | number) => {
   const numericValue = Number(value || 0);
@@ -48,14 +48,14 @@ const badgeClassName = (status: string) => {
   }
 };
 
-export default function PromoterEarningsPage() {
+export default function VendorEarningsPage() {
   const router = useRouter();
-  const [earnings, setEarnings] = useState<PromoterEarning[]>([]);
+  const [earnings, setEarnings] = useState<VendorEarning[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   const loadData = useCallback(async () => {
-    const token = getPromoterToken();
+    const token = getVendorToken();
 
     if (!token) {
       return;
@@ -68,9 +68,9 @@ export default function PromoterEarningsPage() {
       const data = await getEarnings(token);
       setEarnings(Array.isArray(data) ? data : []);
     } catch (err) {
-      if (err instanceof PromoterApiError && err.status === 401) {
-        clearPromoterSession();
-        router.replace('/referral/login');
+      if (err instanceof VendorApiError && err.status === 401) {
+        clearVendorSession();
+        router.replace('/referral/login?tab=vendor');
         return;
       }
 
@@ -120,8 +120,8 @@ export default function PromoterEarningsPage() {
             </div>
             <p className="text-sm font-semibold text-slate-700">No earnings yet</p>
             <p className="max-w-sm text-sm text-slate-500">
-              Share your referral code with shop owners. You earn ₹100 each time a referred
-              vendor purchases premium.
+              Share your referral code with other business owners. You earn ₹150 each time a
+              referred vendor purchases premium.
             </p>
           </div>
         ) : (
