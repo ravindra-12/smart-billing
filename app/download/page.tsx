@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ReferralCodeCard from './ReferralCodeCard';
+import PlayStoreIcon from '../components/PlayStoreIcon';
 
 export const metadata: Metadata = {
   title: 'Download Smart Billing Lite',
@@ -41,10 +42,10 @@ export default async function DownloadPage({
             credit card needed.
           </p>
           <a
-            href="/app-release.apk"
-            download
-            className="mt-5 inline-flex rounded-2xl bg-green-600 px-8 py-4 text-base font-black text-white shadow-lg shadow-green-200 transition hover:bg-green-700"
+            href="https://play.google.com/store/apps/details?id=com.murmu.smartbillinglite&hl=en_IN"
+            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-green-600 px-8 py-4 text-base font-black text-white shadow-lg shadow-green-200 transition hover:bg-green-700"
           >
+            <PlayStoreIcon />
             Download APK
           </a>
           <p className="mt-4 text-xs font-semibold text-slate-400">

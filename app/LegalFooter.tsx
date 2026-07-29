@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlayStoreIcon from "./components/PlayStoreIcon";
 
 const legalLinks = [
   { href: "/about-us", label: "About Us" },
@@ -35,10 +36,10 @@ export default function LegalFooter() {
             </p>
 
             <a
-              href="/app-release.apk"
-              download
-              className="mt-6 inline-flex rounded-2xl bg-green-600 px-5 py-3 text-sm font-black text-white hover:bg-green-700"
+              href="https://play.google.com/store/apps/details?id=com.murmu.smartbillinglite&hl=en_IN"
+              className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-green-600 px-5 py-3 text-sm font-black text-white hover:bg-green-700"
             >
+              <PlayStoreIcon className="h-5 w-5" />
               Download APK
             </a>
           </div>
@@ -51,6 +52,8 @@ export default function LegalFooter() {
               <Link href="/" className="hover:text-white">Home</Link>
               <Link href="/about-us" className="hover:text-white">About Us</Link>
               <Link href="/contact-us" className="hover:text-white">Contact Us</Link>
+              <Link href="/blog" className="hover:text-white">Blog</Link>
+              <Link href="/smart-billing-lite-affiliate-program" className="hover:text-white">Affiliate Program</Link>
               <Link href="/referral/login" className="hover:text-white">Become a Brand Promoter</Link>
             </nav>
           </div>
@@ -75,8 +78,8 @@ export default function LegalFooter() {
             <div className="mt-4 space-y-3 text-sm leading-6 text-slate-400">
               <p>
                 Email:{" "}
-                <a href="mailto:support@smartbillinglite.com" className="font-bold text-slate-200 hover:text-white">
-                  support@smartbillinglite.com
+                <a href="mailto:contactus@murmusoftwareinfotech.com" className="font-bold text-slate-200 hover:text-white">
+                  contactus@murmusoftwareinfotech.com
                 </a>
               </p>
               <p>Support: Monday to Saturday, 10:00 AM to 6:00 PM IST</p>
