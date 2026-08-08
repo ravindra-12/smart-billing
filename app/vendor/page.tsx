@@ -1,5 +1,6 @@
 'use client';
 
+import type { Metadata } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -14,6 +15,11 @@ import {
   Users,
   Wallet,
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Vendor Dashboard | Smart Billing Lite',
+  description: 'Vendor referral dashboard for Smart Billing Lite affiliates.',
+};
 import {
   ShareLinkResponse,
   VendorApiError,

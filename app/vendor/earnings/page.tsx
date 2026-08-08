@@ -1,8 +1,14 @@
 'use client';
 
+import type { Metadata } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Wallet } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Vendor Earnings | Smart Billing Lite',
+  description: 'View your Smart Billing Lite referral earnings and payout history.',
+};
 import {
   VendorApiError,
   VendorEarning,

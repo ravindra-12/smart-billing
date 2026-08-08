@@ -1,8 +1,14 @@
 'use client';
 
+import type { Metadata } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Wallet } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Promoter Earnings | Smart Billing Lite',
+  description: 'Track your Smart Billing Lite promoter earnings and payment history.',
+};
 import {
   PromoterApiError,
   PromoterEarning,

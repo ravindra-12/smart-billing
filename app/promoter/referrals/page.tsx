@@ -1,8 +1,14 @@
 'use client';
 
+import type { Metadata } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Users } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Promoter Referrals | Smart Billing Lite',
+  description: 'View your Smart Billing Lite promoter referrals and rewards status.',
+};
 import {
   PromoterApiError,
   PromoterReferral,

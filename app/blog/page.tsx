@@ -1,43 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, CalendarDays, Clock3 } from 'lucide-react';
+import { posts } from '../../lib/blog';
 
 export const metadata: Metadata = {
   title: 'Smart Billing Lite Blog',
   description:
     'Practical billing, payment, and business growth tips for Indian small businesses.',
 };
-
-// Static for now. This collection can be replaced with CMS/API data later.
-const posts = [
-  {
-    slug: 'why-small-businesses-need-digital-billing',
-    category: 'Business Growth',
-    title: 'Why Small Businesses Need Digital Billing',
-    excerpt:
-      'Learn how digital billing helps small businesses save time, reduce mistakes, and understand their daily sales better.',
-    date: 'July 20, 2026',
-    readTime: '5 min read',
-  },
-  {
-    slug: 'qr-upi-payments-for-local-businesses',
-    category: 'Payments',
-    title: 'A Simple Guide to QR and UPI Payments for Local Businesses',
-    excerpt:
-      'Make payment collection easier for your customers with a simple, reliable QR and UPI workflow.',
-    date: 'July 16, 2026',
-    readTime: '4 min read',
-  },
-  {
-    slug: 'how-to-track-udhaar-without-confusion',
-    category: 'Shop Management',
-    title: 'How to Track Udhaar Without Confusion',
-    excerpt:
-      'Practical ways to keep customer credit records organised and improve follow-ups without manual notebooks.',
-    date: 'July 12, 2026',
-    readTime: '6 min read',
-  },
-];
 
 export default function BlogPage() {
   return (
@@ -78,9 +48,9 @@ export default function BlogPage() {
                 </div>
                 <h3 className="mt-4 text-xl font-black leading-tight">{post.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{post.excerpt}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-blue-600">
+                <Link href={`/blog/${post.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-black text-blue-600 hover:text-blue-800">
                   Article preview <ArrowRight size={16} />
-                </span>
+                </Link>
               </div>
             </article>
           ))}

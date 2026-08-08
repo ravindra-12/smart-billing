@@ -1,8 +1,14 @@
 'use client';
 
+import type { Metadata } from 'next';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AlertTriangle, Banknote, Landmark, MapPin, UserRound } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Promoter Profile | Smart Billing Lite',
+  description: 'Update your Smart Billing Lite promoter profile and payout details.',
+};
 import {
   PROMOTER_PROFILE_KEY,
   Promoter,
