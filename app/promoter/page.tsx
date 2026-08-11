@@ -1,6 +1,5 @@
 'use client';
 
-import type { Metadata } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -16,10 +15,6 @@ import {
   Wallet,
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Promoter Dashboard | Smart Billing Lite',
-  description: 'Promoter dashboard for tracking referrals, earnings, and rewards.',
-};
 import {
   MyCodeResponse,
   PromoterApiError,
