@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
-import BrandPromoterPromo from "./BrandPromoterPromo";
 import Link from "next/link";
 import { getHomeMeta } from "@/lib/strapi";
 import JsonLd from "../app/components/JsonLd";
@@ -1284,7 +1283,6 @@ export default function LandingPages({
     <>
       <HomePage homeMeta={homeMeta} />
       <DownloadApkPromo />
-      <BrandPromoterPromo />
     </>
   );
 }
