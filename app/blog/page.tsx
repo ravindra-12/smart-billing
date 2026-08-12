@@ -2,15 +2,37 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, CalendarDays, Clock3 } from 'lucide-react';
 import { posts } from '../../lib/blog';
+import JsonLd from '../components/JsonLd';
+import { getPageMeta } from '@/lib/strapi';
 
-export const metadata: Metadata = {
-  title: 'Smart Billing Lite Blog',
-  description:
-    'Practical billing, payment, and business growth tips for Indian small businesses.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const blogMeta = await getPageMeta('blog-meta');
 
-export default function BlogPage() {
+  if (!blogMeta?.seo) {
+    return {
+      title: 'Smart Billing Lite Blog',
+      description: 'Practical billing, payment, and business growth tips for Indian small businesses.',
+    };
+  }
+
+  return {
+    title: blogMeta.seo.metaTitle,
+    description: blogMeta.seo.metaDescription,
+    openGraph: {
+      title: blogMeta.seo.metaTitle,
+      description: blogMeta.seo.metaDescription,
+      url: blogMeta.seo.canonicalUrl,
+      images: blogMeta.seo.shareImage?.url ? [blogMeta.seo.shareImage.url] : [],
+    },
+  };
+}
+
+export default async function BlogPage() {
+  const blogMeta = await getPageMeta('blog-meta');
+
   return (
+    <>
+      <JsonLd data={blogMeta} />
     <main className="flex-1 bg-slate-50 text-slate-900">
       <section className="bg-linear-to-br from-[#061c36] via-[#0b63f6] to-[#2563eb] px-5 py-16 text-white md:py-24">
         <div className="mx-auto max-w-7xl">
@@ -69,5 +91,6 @@ export default function BlogPage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

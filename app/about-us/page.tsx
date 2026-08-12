@@ -1,17 +1,40 @@
 import type { Metadata } from "next";
 import LegalPage from "../LegalPage";
+import JsonLd from "../components/JsonLd";
+import { getPageMeta } from "@/lib/strapi";
 
-export const metadata: Metadata = {
-  title: "About Us | Smart Billing Lite",
-  description: "Learn about Smart Billing Lite and the billing app services offered.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const aboutMeta = await getPageMeta("about-meta");
 
-export default function AboutUsPage() {
+  if (!aboutMeta?.seo) {
+    return {
+      title: "About Us | Smart Billing Lite",
+      description: "Learn about Smart Billing Lite and the billing app services offered.",
+    };
+  }
+
+  return {
+    title: aboutMeta.seo.metaTitle,
+    description: aboutMeta.seo.metaDescription,
+    openGraph: {
+      title: aboutMeta.seo.metaTitle,
+      description: aboutMeta.seo.metaDescription,
+      url: aboutMeta.seo.canonicalUrl,
+      images: aboutMeta.seo.shareImage?.url ? [aboutMeta.seo.shareImage.url] : [],
+    },
+  };
+}
+
+export default async function AboutUsPage() {
+  const aboutMeta = await getPageMeta("about-meta");
+
   return (
-    <LegalPage
-      title="About Us"
-      description="Smart Billing Lite helps small businesses manage billing, payments, receipts, udhaar, and daily business tracking from a simple Android app."
-      sections={[
+    <>
+      <JsonLd data={aboutMeta} />
+      <LegalPage
+        title="About Us"
+        description="Smart Billing Lite helps small businesses manage billing, payments, receipts, udhaar, and daily business tracking from a simple Android app."
+        sections={[
         {
           title: "Who We Serve",
           body: [
@@ -36,5 +59,6 @@ export default function AboutUsPage() {
         },
       ]}
     />
+    </>
   );
 }
