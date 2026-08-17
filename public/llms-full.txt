@@ -1,0 +1,88 @@
+# Smart Billing Lite — Full AI-readable Site Reference
+
+## Identity
+- Name: Smart Billing Lite
+- Product: Mobile-first billing and small-business management application with Android APK and accompanying marketing website.
+- Service Area: India (explicitly stated in the About page content).
+
+## Short description
+Smart Billing Lite is an AI-powered mobile billing app for small businesses that supports quick invoice creation, QR/UPI payments, thermal printing, udhaar (credit) tracking, and daily business reporting.
+
+## Core features (from site content)
+- Super-fast billing with item-based entries and calculator-like UI.
+- QR & UPI payment acceptance and clear payment flow guidance.
+- Thermal receipt printing via Bluetooth or USB printers.
+- Udhaar (credit) management with reminders and simple record-keeping.
+- Daily income tracking and basic AI insights for business decisions.
+- Integrations and hardware references: Bluetooth thermal printers, USB thermal printers, POS devices, QR payment sound box.
+
+## Products, Plans and Pricing
+- 30-Day Free Trial — full feature access (marketing page lists it as a starter option).
+- Monthly Plan — recurring monthly subscription.
+- Yearly Plan — annual subscription described as best value.
+
+Note: the repo contains `LandingPages.tsx`, `PricingPage.tsx`, and `FeaturesPage.tsx` which hold copy and structure for pricing and feature sections.
+
+## Technologies and architecture (from repo)
+- Frontend: Next.js (app router) and React components located under `app/`.
+- CMS: Strapi (site fetches metadata from endpoints such as `/api/home-meta`).
+- HTTP client: Axios instance at `lib/api.ts`.
+- JSON-LD generation: `app/components/JsonLd.tsx` uses `seo`, `geo`, and `aeo` metadata.
+
+## Important public pages (paths and purpose)
+- / — Marketing homepage (dynamic SEO via `getHomeMeta`) and landing sections.
+- /smart-billing-lite — Product landing mirroring the homepage content.
+- /smart-billing-lite/features and /features — Features overview and benefits.
+- /smart-billing-lite/pricing and /pricing — Pricing comparison and plan details.
+- /about-us — About page (`app/about-us/page.tsx`) describing the product and audience.
+- /contact-us — Contact and support page.
+- /download — APK download and related instructions.
+- /blog — Blog index (`app/blog/page.tsx`) with articles.
+  - /blog/why-small-businesses-need-digital-billing
+  - /blog/qr-upi-payments-for-local-businesses
+  - /blog/how-to-track-udhaar-without-confusion
+- /privacy-policy, /terms-and-conditions, /refund-cancellation-policy, /shipping-delivery-policy — Legal pages.
+- /smart-billing-lite-affiliate-program — Affiliate program landing page.
+
+## What to NOT index or request by agents
+- The `app/admin/*` routes are administrative and should not be crawled or indexed.
+- User dashboards under `app/promoter`, `app/vendor`, and `app/referral` contain user-specific data (not public marketing content).
+
+## Structured data and AEO/GEO sources
+- The site uses Strapi CMS metadata endpoints which include three main blocks:
+  - `seo` — metaTitle, metaDescription, canonicalUrl, shareImage
+  - `geo` — AI summary, keyTakeaways, FAQs, topics, references
+  - `aeo` — enableAEO flag, schemaType, headline, description, url, image, faqItems
+- Example endpoints present in the codebase:
+  - `/api/home-meta`
+  - `/api/blog-meta`
+  - `/api/feature-meta`
+  - `/api/about-meta`
+
+Agents should fetch these endpoints to obtain canonical metadata and JSON-LD building blocks.
+
+## Blog article summaries (from `lib/blog.ts`)
+- Why Small Businesses Need Digital Billing — explains time savings, error reduction, and converting sales into useful data.
+- A Simple Guide to QR and UPI Payments for Local Businesses — practical tips for placing QR codes, confirming payments, and recording digital payments.
+- How to Track Udhaar Without Confusion — advice on one-record-per-customer, recording partial payments, and polite follow-ups.
+
+## FAQs (source locations)
+- FAQ content is stored in `geo.faqs` for pages backed by Strapi (the `app/components/JsonLd.tsx` already maps these to an FAQPage schema when present).
+
+## How agents should use the site to answer questions
+1. Fetch metadata from the Strapi endpoints listed above to get authoritative SEO/GEO/AEO fields.
+2. Use `JsonLd` schema where available to extract structured Organization, SoftwareApplication, FAQ, and WebSite entries.
+3. For product-level details (features, pricing), use the `LandingPages` components and `PricingPage.tsx` content as the canonical text source.
+4. For blog guidance and how-to, read the article pages generated from `lib/blog.ts`.
+
+## Contact and business details
+- The repo does not include an explicit postal address or official phone number; the About page lists service area and product focus only.
+- Do not invent contact details; use the contact page on the live site for any user-facing contact information.
+
+## Change log and maintenance hints for LLMs
+- When new marketing content is added to Strapi, the endpoints mentioned earlier will return updated `seo`, `geo`, and `aeo` objects that should be consumed for AEO/GEO updates.
+- JSON-LD generation is centralized in `app/components/JsonLd.tsx` — updating that file updates site-wide structured output.
+
+---
+
+This `llms-full.txt` file is designed to be machine- and agent-readable and to contain only facts derived from the repository and its pages. If you want additional fields (for example, contact email pulled from an environment variable or live site), point me to the source and I will add them without inventing values.

@@ -1,0 +1,22 @@
+User-agent: *
+# Allow public crawlers full access to marketing content
+Allow: /
+
+# Disallow admin and private paths
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /_next/
+Disallow: /.next/
+Disallow: /node_modules/
+
+# Disallow user dashboards and private referral/vendor/promoter pages
+Disallow: /promoter
+Disallow: /promoter/
+Disallow: /vendor
+Disallow: /vendor/
+Disallow: /referral
+Disallow: /referral/
+
+# Sitemap
+Sitemap: https://smartbillinglite.in/sitemap.xml

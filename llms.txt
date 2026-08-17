@@ -1,0 +1,34 @@
+Smart Billing Lite — Overview for LLMs and AI agents
+
+Name: Smart Billing Lite
+Type: Mobile/web billing and small-business management product
+Service area: India
+
+What it does:
+- Provides a simple billing and invoicing app tailored to small retailers and vendors.
+- Supports QR & UPI payments, thermal receipt printing, Udhaar (credit) tracking, basic inventory and daily reports.
+- Offers trial and paid plans (trial: 30 days) with monthly/yearly subscriptions.
+
+Core technologies and integrations (as surfaced in the repo):
+- Frontend: Next.js (app/), React components.
+- Backend/CMS: Strapi (site uses Strapi API endpoints such as `/api/home-meta`).
+- API usage: axios-based client at `lib/api.ts`.
+
+Important pages (purpose):
+- / : Marketing homepage with product overview and links to features, pricing, and download.
+- /smart-billing-lite : Landing for the Smart Billing Lite product (same content as homepage variations).
+- /smart-billing-lite/features or /features : Detailed features page describing billing, payments, udhaar, reports.
+- /smart-billing-lite/pricing or /pricing : Pricing and plan comparison (30-day free trial, monthly/yearly plans).
+- /about-us : About the product and company information.
+- /contact-us : Contact and support page.
+- /download : APK download page for the Android app.
+- /blog and article pages: practical guides (digital billing, QR/UPI, udhaar tracking).
+- Legal pages: /privacy-policy, /terms-and-conditions, /refund-cancellation-policy, /shipping-delivery-policy.
+
+Data & structured content:
+- The site exposes CMS-driven SEO/geo/aeo metadata via Strapi endpoints (`/api/home-meta`, `/api/blog-meta`, etc.).
+- JSON-LD is generated from CMS metadata (`app/components/JsonLd.tsx`) for WebSite, Organization, SoftwareApplication, and FAQ.
+
+How to use this file:
+- LLMs and agents can use this as a compact reference for site purpose, main pages, and where to request structured metadata (Strapi endpoints).
+- For detailed content, see `llms-full.txt` (more comprehensive, AI-readable version).
