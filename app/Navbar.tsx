@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { MouseEvent } from "react";
+import type { DynamicPage } from "../lib/dynamicPages";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -11,7 +12,7 @@ const navLinks = [
   { href: "/pricing", label: "Pricing" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ dynamicPages = [] }: { dynamicPages?: DynamicPage[] }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -25,6 +26,11 @@ export default function Navbar() {
   }
 
   const closeMenu = () => setMenuOpen(false);
+  const dynamicNavLinks = dynamicPages.map((page) => ({
+    href: `/dynamic-pages/${page.slug}`,
+    label: page.title,
+  }));
+  const allNavLinks = [...navLinks, ...dynamicNavLinks];
 
   const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
     closeMenu();
@@ -63,7 +69,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => {
+          {allNavLinks.map((link) => {
             const isActive = pathname === link.href;
 
             return (
@@ -125,7 +131,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="border-t border-slate-100 bg-white px-5 pb-5 pt-3 md:hidden">
           <nav className="flex flex-col gap-1">
-            {navLinks.map((link) => {
+            {allNavLinks.map((link) => {
               const isActive = pathname === link.href;
 
               return (
