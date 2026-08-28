@@ -53,7 +53,8 @@ export async function getDynamicPages(): Promise<DynamicPage[]> {
 export async function getDynamicPage(slug: string): Promise<DynamicPage | null> {
   const query = new URLSearchParams({
     "filters[slug][$eq]": slug,
-    "populate[blocks][populate]": "",
+    // Populate media fields inside dynamic components (including hero.image).
+    "populate[blocks][populate]": "*",
     "populate[seo][populate]": "*",
     "populate[geo][populate]": "*",
     "populate[aeo][populate]": "*",
