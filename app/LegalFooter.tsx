@@ -89,7 +89,7 @@ export default function LegalFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs font-semibold text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>Copyright 2026 Smart Billing Lite. All rights reserved.</p>
+          <p>Copyright 2026 Smart Billing Lite. All rights reserved..</p>
           <Link href="https://murmusoftwareinfotech.com/" className="flex items-center gap-3">
           <p>Design and Developed by Murmu Software Infotech</p>
           </Link>
