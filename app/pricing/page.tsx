@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function PricingRoute() {
   return (
-    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+    <>
       <PricingPage />
       <DownloadApkPromo />
-    </div>
+    </>
   );
 }

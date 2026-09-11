@@ -8,6 +8,10 @@ import {
   Smartphone,
   Zap,
 } from "lucide-react";
+import Container from "./components/ui/Container";
+import SectionHeading from "./components/ui/SectionHeading";
+import IconTile from "./components/ui/IconTile";
+import Button from "./components/ui/Button";
 
 const playStoreUrl =
   "https://play.google.com/store/apps/details?id=com.murmu.smartbillinglite&hl=en_IN";
@@ -19,8 +23,8 @@ function BenefitList({ items }: { items: string[] }) {
   return (
     <ul className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
       {items.map((item) => (
-        <li key={item} className="flex items-center gap-2 text-sm font-bold text-slate-600">
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+        <li key={item} className="flex items-center gap-2 text-sm font-semibold text-ink-soft">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-dark">
             <Check size={12} strokeWidth={3} />
           </span>
           {item}
@@ -32,89 +36,87 @@ function BenefitList({ items }: { items: string[] }) {
 
 export default function DownloadApkPromo() {
   return (
-    <section id="download-apk" className="scroll-mt-24 bg-slate-50 px-5 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-600">Choose your workspace</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
-            Smart billing, wherever business happens.
-          </h2>
-          <p className="mt-4 text-base leading-7 text-slate-600 md:text-lg">
-            Start on your phone with Smart Billing Lite, or take your business further on the web with SmartBill Pro.
-          </p>
-        </div>
+    <section id="download-apk" className="scroll-mt-24 bg-paper-dim px-5 py-16 md:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow="Choose your workspace"
+          title="Smart billing, wherever business happens."
+          description="Start on your phone with Smart Billing Lite, or take your business further on the web with SmartBill Pro."
+          className="mx-auto"
+        />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <article className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/60 md:p-10">
-            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-50" />
+          <article className="relative overflow-hidden rounded-4xl border border-line bg-white p-7 md:p-10">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent-soft" />
             <div className="relative">
               <div className="flex items-center justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-200">
-                  <Smartphone size={28} />
-                </div>
-                <span className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-blue-700">
+                <IconTile icon={Smartphone} tone="accent" size="lg" />
+                <span className="rounded-full border border-accent/25 bg-accent-soft px-3 py-1.5 text-xs font-black uppercase tracking-wide text-accent-dark">
                   Android app
                 </span>
               </div>
-              <h3 className="mt-7 text-2xl font-black text-slate-950 md:text-3xl">Smart Billing Lite</h3>
-              <p className="mt-3 max-w-md leading-7 text-slate-600">
+              <h3 className="font-display mt-7 text-2xl font-semibold text-ink md:text-3xl">
+                Smart Billing Lite
+              </h3>
+              <p className="mt-3 max-w-md leading-7 text-ink-soft">
                 Your everyday billing companion for faster checkout, digital payments, receipts, and simple business tracking.
               </p>
               <BenefitList items={mobileBenefits} />
-              <a
+              <Button
                 href={playStoreUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-6 py-4 font-black text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700 sm:w-auto"
+                size="lg"
+                className="mt-8 w-full sm:w-auto"
               >
                 <Play size={17} fill="currentColor" />
                 Download on Google Play
                 <ArrowUpRight size={17} />
-              </a>
-              <p className="mt-3 text-xs font-semibold text-slate-400">Free 30-day trial · No credit card needed</p>
+              </Button>
+              <p className="mt-3 text-xs font-semibold text-ink-faint">Free 30-day trial · No credit card needed</p>
             </div>
           </article>
 
-          <article className="relative overflow-hidden rounded-[2rem] bg-slate-950 p-7 text-white shadow-xl shadow-slate-300/50 md:p-10">
-            <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-indigo-500/20 blur-2xl" />
+          <article className="relative overflow-hidden rounded-4xl bg-surface-dark p-7 text-paper md:p-10">
+            <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-2xl" />
             <div className="relative">
               <div className="flex items-center justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-indigo-200 ring-1 ring-white/15">
-                  <Monitor size={28} />
-                </div>
-                <span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-indigo-200 ring-1 ring-white/10">
+                <IconTile icon={Monitor} tone="inverse" size="lg" />
+                <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-paper/80">
                   Laptop & desktop
                 </span>
               </div>
-              <h3 className="mt-7 text-2xl font-black md:text-3xl">SmartBill Pro</h3>
-              <p className="mt-3 max-w-md leading-7 text-slate-300">
+              <h3 className="font-display mt-7 text-2xl font-semibold md:text-3xl">SmartBill Pro</h3>
+              <p className="mt-3 max-w-md leading-7 text-paper/70">
                 A complete web workspace for teams that want more control over billing, inventory, and business performance.
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
                 {desktopBenefits.map((item, index) => {
                   const Icon = [Package, BarChart3, Zap][index];
                   return (
-                    <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-200">
-                      <Icon size={18} className="text-indigo-300" />
+                    <div key={item} className="flex items-center gap-3 text-sm font-bold text-paper/80">
+                      <Icon size={18} className="text-accent" />
                       {item}
                     </div>
                   );
                 })}
               </div>
-              <a
+              <Button
                 href="https://www.smartbillpro.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 font-black text-slate-950 transition hover:bg-indigo-50 sm:w-auto"
+                variant="inverse"
+                size="lg"
+                className="mt-8 w-full sm:w-auto"
               >
                 Open SmartBill Pro
                 <ArrowUpRight size={17} />
-              </a>
-              <p className="mt-3 text-xs font-semibold text-slate-400">Open the web app from any laptop or desktop browser</p>
+              </Button>
+              <p className="mt-3 text-xs font-semibold text-paper/50">Open the web app from any laptop or desktop browser</p>
             </div>
           </article>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

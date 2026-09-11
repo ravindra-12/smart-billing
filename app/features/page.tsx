@@ -32,10 +32,8 @@ export default async function FeaturesRoute() {
   return (
     <>
       <JsonLd data={featureMeta} />
-      <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
-        <FeaturesPage />
-        <DownloadApkPromo />
-      </div>
+      <FeaturesPage />
+      <DownloadApkPromo />
     </>
   );
 }
