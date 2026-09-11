@@ -1,4 +1,8 @@
-import { Receipt, ShieldCheck, Smartphone } from "lucide-react";
+import {
+  Receipt,
+  // ShieldCheck,
+  Smartphone
+} from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
 import Badge from "@/app/components/ui/Badge";
@@ -51,10 +55,10 @@ export default function ApkDownloadSection() {
             Download APK
           </Button>
 
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-ink-faint">
+          {/* <p className="flex items-center gap-1.5 text-xs font-semibold text-ink-faint">
             <ShieldCheck size={14} className="text-accent" />
             Safe install — allow &quot;unknown sources&quot; in your phone settings if prompted.
-          </p>
+          </p> */}
         </div>
       </Container>
     </section>
