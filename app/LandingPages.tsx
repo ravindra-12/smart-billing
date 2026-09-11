@@ -6,6 +6,7 @@ import HeroSection from "./components/home/HeroSection";
 import VideoDemosSection from "./components/home/VideoDemosSection";
 import BusinessTypeSection from "./components/home/BusinessTypeSection";
 import WhyChooseSection from "./components/home/WhyChooseSection";
+import ApkDownloadSection from "./components/home/ApkDownloadSection";
 import StatsSection from "./components/home/StatsSection";
 import PricingHeroSection from "./components/pricing/PricingHeroSection";
 import PricingPlansSection from "./components/pricing/PricingPlansSection";
@@ -105,9 +106,11 @@ export function HomePage({ homeMeta }: { homeMeta: Record<string, unknown> | nul
     <main className="bg-paper">
       <JsonLd data={homeMeta} />
       <HeroSection />
+      <DownloadApkPromo />
       <VideoDemosSection />
       <BusinessTypeSection />
       <WhyChooseSection />
+      <ApkDownloadSection />
       <StatsSection />
     </main>
   );
@@ -153,7 +156,7 @@ export default function LandingPages({
   return (
     <>
       <HomePage homeMeta={homeMeta} />
-      <DownloadApkPromo />
+      
     </>
   );
 }
