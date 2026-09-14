@@ -46,11 +46,16 @@ export default function DownloadApkPromo() {
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <article className="relative overflow-hidden rounded-4xl border border-line bg-white p-7 md:p-10">
-            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent-soft" />
+          <article className="group relative overflow-hidden rounded-4xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/30 hover:shadow-2xl hover:shadow-accent/10 md:p-10">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent-soft transition-transform duration-500 ease-out group-hover:scale-125" />
             <div className="relative">
               <div className="flex items-center justify-between">
-                <IconTile icon={Smartphone} tone="accent" size="lg" />
+                <IconTile
+                  icon={Smartphone}
+                  tone="accent"
+                  size="lg"
+                  className="transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+                />
                 <span className="rounded-full border border-accent/25 bg-accent-soft px-3 py-1.5 text-xs font-black uppercase tracking-wide text-accent-dark">
                   Android app
                 </span>
@@ -77,11 +82,16 @@ export default function DownloadApkPromo() {
             </div>
           </article>
 
-          <article className="relative overflow-hidden rounded-4xl bg-surface-dark p-7 text-paper md:p-10">
-            <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-2xl" />
+          <article className="group relative overflow-hidden rounded-4xl bg-surface-dark p-7 text-paper transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/30 md:p-10">
+            <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-2xl transition-all duration-500 ease-out group-hover:scale-125 group-hover:bg-accent/30" />
             <div className="relative">
               <div className="flex items-center justify-between">
-                <IconTile icon={Monitor} tone="inverse" size="lg" />
+                <IconTile
+                  icon={Monitor}
+                  tone="inverse"
+                  size="lg"
+                  className="transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+                />
                 <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-paper/80">
                   Laptop & desktop
                 </span>
