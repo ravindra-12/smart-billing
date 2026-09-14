@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import ConditionalFooter from "./ConditionalFooter";
 import Navbar from "./Navbar";
+import { LocaleProvider } from "./context/LocaleContext";
 import { getDynamicPages } from "../lib/dynamicPages";
 import "./globals.css";
 
@@ -31,9 +32,11 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`h-full antialiased ${fraunces.variable} ${inter.variable}`}>
       <body className="min-h-full flex flex-col">
-        <Navbar dynamicPages={dynamicPages} />
-        {children}
-        <ConditionalFooter />
+        <LocaleProvider>
+          <Navbar dynamicPages={dynamicPages} />
+          {children}
+          <ConditionalFooter />
+        </LocaleProvider>
       </body>
     </html>
   );

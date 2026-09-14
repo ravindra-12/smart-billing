@@ -17,6 +17,7 @@ import IconTile from "@/app/components/ui/IconTile";
 import Skeleton from "@/app/components/ui/Skeleton";
 import Reveal from "@/app/components/ui/Reveal";
 import { useStrapiSection } from "@/app/hooks/useStrapiSection";
+import { useLocale } from "@/app/context/LocaleContext";
 import type { BusinessTypeData } from "./types";
 
 const BUSINESS_ICON_MAP: Record<string, LucideIcon> = {
@@ -30,8 +31,9 @@ const BUSINESS_ICON_MAP: Record<string, LucideIcon> = {
 };
 
 export default function BusinessTypeSection() {
+  const { locale } = useLocale();
   const { data, loading } = useStrapiSection<BusinessTypeData>(
-    "/api/business-type?populate[features][populate]=*"
+    `/api/business-type?populate[features][populate]=*&locale=${locale}`
   );
 
   return (

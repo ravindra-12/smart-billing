@@ -8,6 +8,7 @@ import { Menu, X, Receipt } from "lucide-react";
 import type { DynamicPage } from "../lib/dynamicPages";
 import Button from "./components/ui/Button";
 import Container from "./components/ui/Container";
+import LanguageSelector from "./components/LanguageSelector";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -97,14 +98,13 @@ export default function Navbar({ dynamicPages = [] }: { dynamicPages?: DynamicPa
           </Link>
         </nav>
 
-        {/* Desktop CTA */}
-        <Button
-          href="/#download-apk"
-          onClick={scrollToDownload}
-          className="hidden md:inline-flex"
-        >
-          Start Free Trial
-        </Button>
+        {/* Desktop language selector + CTA */}
+        <div className="hidden items-center gap-2 md:flex">
+          <LanguageSelector />
+          <Button href="/#download-apk" onClick={scrollToDownload}>
+            Start Free Trial
+          </Button>
+        </div>
 
         {/* Mobile hamburger button */}
         <button
@@ -145,6 +145,10 @@ export default function Navbar({ dynamicPages = [] }: { dynamicPages?: DynamicPa
               Login
             </Link>
           </nav>
+
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <LanguageSelector />
+          </div>
 
           <Button href="/#download-apk" onClick={scrollToDownload} className="mt-3 w-full">
             Start Free Trial
