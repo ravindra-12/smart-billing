@@ -112,7 +112,7 @@ export default function DownloadApkPromo() {
                 })}
               </div>
               <Button
-                href="https://www.smartbillpro.com/"
+                href="https://web.retailbillingpro.com/"
                 target="_blank"
                 rel="noreferrer"
                 variant="inverse"
