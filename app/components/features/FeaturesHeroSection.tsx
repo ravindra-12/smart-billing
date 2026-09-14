@@ -5,6 +5,7 @@ import Container from "@/app/components/ui/Container";
 import Badge from "@/app/components/ui/Badge";
 import Button from "@/app/components/ui/Button";
 import { useStrapiSection } from "@/app/hooks/useStrapiSection";
+import { useMountedIn } from "@/app/hooks/useMountedIn";
 import type { FeatureHeroData } from "./types";
 
 const stats: [string, string][] = [
@@ -16,6 +17,7 @@ const stats: [string, string][] = [
 
 export default function FeaturesHeroSection() {
   const { data } = useStrapiSection<FeatureHeroData>("/api/features-hero");
+  const mounted = useMountedIn();
 
   const content = {
     badgeText: data?.badgeText ?? "Powerful features for everyday business",
@@ -30,7 +32,11 @@ export default function FeaturesHeroSection() {
   return (
     <section className="bg-surface-dark py-16 md:py-24">
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div
+          className={`grid items-center gap-12 transition-all duration-700 ease-out lg:grid-cols-2 ${
+            mounted ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          }`}
+        >
           <div>
             <Badge tone="inverse">{content.badgeText}</Badge>
             <h1 className="font-display mt-6 text-4xl font-semibold leading-[1.1] text-paper md:text-5xl">
@@ -47,7 +53,7 @@ export default function FeaturesHeroSection() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-4">
+          <div className="rounded-4xl border border-white/10 bg-white/5 p-4">
             <div className="mx-auto max-w-xs rounded-3xl bg-white p-4 text-ink">
               <div className="mb-4 flex items-center justify-between">
                 <div>

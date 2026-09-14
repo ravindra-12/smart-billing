@@ -3,6 +3,7 @@
 import { Check, Gift, TrendingUp, Trophy } from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
+import Reveal from "@/app/components/ui/Reveal";
 import { useStrapiSection } from "@/app/hooks/useStrapiSection";
 import type { PricingPlan, PricingPlansSectionData, TextItem } from "./types";
 
@@ -52,16 +53,16 @@ export default function PricingPlansSection() {
     <section className="pb-16">
       <Container>
         <div className="grid gap-6 lg:grid-cols-3 lg:items-end">
-          {pricingPlans.map((plan) => {
+          {pricingPlans.map((plan, index) => {
             const featured = plan.color === "blue";
             const Icon = PLAN_ICON[plan.color ?? "blue"] ?? Gift;
 
             return (
+              <Reveal key={plan.name} delay={index * 120} className="h-full">
               <div
-                key={plan.name}
-                className={`relative rounded-4xl border p-8 ${
+                className={`relative h-full rounded-4xl border p-8 transition-transform duration-300 hover:-translate-y-1.5 ${
                   featured
-                    ? "border-ink bg-surface-dark text-paper lg:-translate-y-4"
+                    ? "border-ink bg-surface-dark text-paper lg:-translate-y-4 lg:hover:-translate-y-5.5"
                     : "border-line bg-white"
                 }`}
               >
@@ -115,6 +116,7 @@ export default function PricingPlansSection() {
                   {plan.button}
                 </Button>
               </div>
+              </Reveal>
             );
           })}
         </div>

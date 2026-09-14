@@ -5,3 +5,7 @@ export { default as SectionHeading } from "./SectionHeading";
 export { default as IconTile } from "./IconTile";
 export { default as Card } from "./Card";
 export { default as Skeleton } from "./Skeleton";
+export { default as Reveal } from "./Reveal";
+export { default as Counter } from "./Counter";
+export { default as TiltCard } from "./TiltCard";
+export { default as SpotlightSurface } from "./SpotlightSurface";
