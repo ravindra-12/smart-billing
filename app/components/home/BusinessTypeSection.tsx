@@ -14,11 +14,9 @@ import {
 import Container from "@/app/components/ui/Container";
 import SectionHeading from "@/app/components/ui/SectionHeading";
 import IconTile from "@/app/components/ui/IconTile";
-import Skeleton from "@/app/components/ui/Skeleton";
 import Reveal from "@/app/components/ui/Reveal";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
-import { useLocale } from "@/app/context/LocaleContext";
-import type { BusinessTypeData } from "./types";
+import { assetUrl } from "@/app/components/dynamic/helpers";
+import type { BusinessTypesBlock } from "./types";
 
 const BUSINESS_ICON_MAP: Record<string, LucideIcon> = {
   "Kirana Store": ShoppingCart,
@@ -30,53 +28,46 @@ const BUSINESS_ICON_MAP: Record<string, LucideIcon> = {
   "Small Vendors": Store,
 };
 
-export default function BusinessTypeSection() {
-  const { locale } = useLocale();
-  const { data, loading } = useStrapiSection<BusinessTypeData>(
-    `/api/business-type?populate[features][populate]=*&locale=${locale}`
-  );
+export default function BusinessTypeSection({ businessTypes }: { businessTypes?: BusinessTypesBlock }) {
+  const items = businessTypes?.items ?? [];
 
   return (
     <section className="py-20">
       <Container>
         <SectionHeading
-          eyebrow="Built for you"
-          title={data?.heading ?? "Perfect for every small business"}
+          eyebrow={businessTypes?.badgeText ?? "Built for you"}
+          title={businessTypes?.title ?? "Perfect for every small business"}
           description={
-            data?.subheading ??
+            businessTypes?.description ??
             "Built for daily billing, payment collection, receipt printing, and business tracking."
           }
         />
 
         <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-          {loading
-            ? Array.from({ length: 7 }).map((_, i) => <Skeleton key={i} className="h-28" />)
-            : (data?.features ?? []).map((item, index) => {
-                const iconUrl = item.icon?.url
-                  ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${item.icon.url}`
-                  : null;
-                const Icon = BUSINESS_ICON_MAP[item.title] ?? Store;
+          {items.map((item, index) => {
+            const iconUrl = assetUrl(item.icon);
+            const Icon = BUSINESS_ICON_MAP[item.title] ?? Store;
 
-                return (
-                  <Reveal key={item.id} delay={(index % 7) * 60}>
-                    <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-white p-5 text-center transition-transform duration-200 hover:-translate-y-1">
-                      {iconUrl ? (
-                        <Image
-                          unoptimized
-                          src={iconUrl}
-                          alt={item.title}
-                          width={36}
-                          height={36}
-                          className="h-9 w-9 object-contain"
-                        />
-                      ) : (
-                        <IconTile icon={Icon} tone="ink" size="sm" />
-                      )}
-                      <div className="text-xs font-semibold text-ink">{item.title}</div>
-                    </div>
-                  </Reveal>
-                );
-              })}
+            return (
+              <Reveal key={item.id} delay={(index % 7) * 60}>
+                <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-white p-5 text-center transition-transform duration-200 hover:-translate-y-1">
+                  {iconUrl ? (
+                    <Image
+                      unoptimized
+                      src={iconUrl}
+                      alt={item.title}
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 object-contain"
+                    />
+                  ) : (
+                    <IconTile icon={Icon} tone="ink" size="sm" />
+                  )}
+                  <div className="text-xs font-semibold text-ink">{item.title}</div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>

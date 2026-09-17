@@ -6,9 +6,8 @@ import type { MouseEvent } from "react";
 import Button from "@/app/components/ui/Button";
 import Badge from "@/app/components/ui/Badge";
 import Container from "@/app/components/ui/Container";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
 import { useMountedIn } from "@/app/hooks/useMountedIn";
-import type { HeroSectionData } from "./types";
+import type { HeroBlock } from "./types";
 
 const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
   event.preventDefault();
@@ -19,8 +18,7 @@ const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
   }
 };
 
-export default function HeroSection() {
-  const { data: hero } = useStrapiSection<HeroSectionData>("/api/hero-section?populate=*");
+export default function HeroSection({ hero }: { hero?: HeroBlock }) {
   const bgRef = useRef<HTMLDivElement>(null);
   const mounted = useMountedIn();
 
@@ -60,7 +58,7 @@ export default function HeroSection() {
         >
           <Badge tone="inverse">
             <Sparkles size={13} />
-            AI-Powered Billing App
+            {hero?.badgeText ?? "AI-Powered Billing App"}
           </Badge>
 
           <h1 className="font-display mt-7 text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
@@ -70,18 +68,28 @@ export default function HeroSection() {
           </h1>
 
           <p className="mt-6 max-w-md text-lg leading-8 text-paper/70">
-            AI-powered mobile billing app with QR payments, thermal printing, POS
-            device support, sound box integration, udhaar tracking, and daily
-            business reports.
+            {hero?.description ??
+              "AI-powered mobile billing app with QR payments, thermal printing, POS device support, sound box integration, udhaar tracking, and daily business reports."}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button href="#download-apk" onClick={scrollToDownload} variant="inverse" size="lg">
-              Start 30-Day Free Trial
+            <Button
+              href={hero?.primaryButtonLink ?? "#download-apk"}
+              onClick={scrollToDownload}
+              variant="inverse"
+              size="lg"
+            >
+              {hero?.primaryButtonText ?? "Start 30-Day Free Trial"}
               <ArrowUpRight size={18} />
             </Button>
-            <Button href="#download-apk" onClick={scrollToDownload} variant="ghost" size="lg" className="text-paper/80 hover:text-paper">
-              Watch demo
+            <Button
+              href={hero?.secondaryButtonLink ?? "#download-apk"}
+              onClick={scrollToDownload}
+              variant="ghost"
+              size="lg"
+              className="text-paper/80 hover:text-paper"
+            >
+              {hero?.secondaryButtonText ?? "Watch demo"}
             </Button>
           </div>
         </div>

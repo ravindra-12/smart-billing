@@ -2,6 +2,8 @@
 import type { MouseEvent } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
 import JsonLd from "../app/components/JsonLd";
+import { useHomeData } from "./hooks/useHomeData";
+import { useLocale } from "./context/LocaleContext";
 import HeroSection from "./components/home/HeroSection";
 import VideoDemosSection from "./components/home/VideoDemosSection";
 import BusinessTypeSection from "./components/home/BusinessTypeSection";
@@ -102,16 +104,19 @@ export function LegacyHeader({ page, setPage }: { page: string; setPage: (page: 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
 export function HomePage({ homeMeta }: { homeMeta: Record<string, unknown> | null }) {
+  const { locale } = useLocale();
+  const { data } = useHomeData(locale);
+
   return (
     <main className="bg-paper">
       <JsonLd data={homeMeta} />
-      <HeroSection />
+      <HeroSection hero={data?.hero} />
       <DownloadApkPromo />
-      <VideoDemosSection />
-      <BusinessTypeSection />
-      <WhyChooseSection />
-      <ApkDownloadSection />
-      <StatsSection />
+      <VideoDemosSection videos={data?.videos} />
+      <BusinessTypeSection businessTypes={data?.businessTypes} />
+      <WhyChooseSection whyChoose={data?.whyChoose} />
+      <ApkDownloadSection appDownload={data?.appDownload} />
+      <StatsSection stats={data?.stats} />
     </main>
   );
 }

@@ -4,8 +4,7 @@ import Container from "@/app/components/ui/Container";
 import Counter from "@/app/components/ui/Counter";
 import Reveal from "@/app/components/ui/Reveal";
 import SpotlightSurface from "@/app/components/ui/SpotlightSurface";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
-import type { StatsSectionData } from "./types";
+import type { StatsBlock } from "./types";
 
 const fallbackStats = [
   { value: "10,000+", label: "Happy Users" },
@@ -14,9 +13,8 @@ const fallbackStats = [
   { value: "24x7", label: "Support" },
 ];
 
-export default function StatsSection() {
-  const { data } = useStrapiSection<StatsSectionData>("/api/stats-section?populate=*");
-  const items = data?.stats?.length ? data.stats : fallbackStats;
+export default function StatsSection({ stats }: { stats?: StatsBlock }) {
+  const items = stats?.items?.length ? stats.items : fallbackStats;
 
   return (
     <section className="pb-20">
