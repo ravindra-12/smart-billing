@@ -78,8 +78,12 @@ export default function PromoterDashboardPage() {
   }, [router]);
 
   useEffect(() => {
-    setPromoterName(getStoredPromoter()?.name || '');
-    void loadData();
+    // Defer both setState calls a tick so they land after this render commits,
+    // rather than synchronously inside the effect body.
+    void Promise.resolve().then(() => {
+      setPromoterName(getStoredPromoter()?.name || '');
+      void loadData();
+    });
   }, [loadData]);
 
   const copyToClipboard = async (text: string, which: 'code' | 'link') => {

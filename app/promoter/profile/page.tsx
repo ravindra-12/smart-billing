@@ -35,17 +35,21 @@ export default function PromoterProfilePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const stored = getStoredPromoter();
+    // Defer a tick so these setState calls land after this render commits,
+    // rather than synchronously inside the effect body.
+    void Promise.resolve().then(() => {
+      const stored = getStoredPromoter();
 
-    if (stored) {
-      setPromoter(stored);
-      setName(stored.name || '');
-      setCity(stored.city || '');
-      setUpiId(stored.upi_id || '');
-      setBankName(stored.bank_name || '');
-      setBankAccountNumber(stored.bank_account_number || '');
-      setBankIfsc(stored.bank_ifsc || '');
-    }
+      if (stored) {
+        setPromoter(stored);
+        setName(stored.name || '');
+        setCity(stored.city || '');
+        setUpiId(stored.upi_id || '');
+        setBankName(stored.bank_name || '');
+        setBankAccountNumber(stored.bank_account_number || '');
+        setBankIfsc(stored.bank_ifsc || '');
+      }
+    });
   }, []);
 
   const hasPayoutDetails = Boolean(

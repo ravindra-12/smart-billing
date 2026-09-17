@@ -1,9 +1,8 @@
 'use client';
 
 import React, { FormEvent, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Download, Gift, KeyRound, Phone } from 'lucide-react';
+import { Gift, KeyRound, Phone } from 'lucide-react';
 import { saveVendorSession, sendOtp, verifyOtp } from '@/lib/vendorApi';
 import {
   inputClassName,

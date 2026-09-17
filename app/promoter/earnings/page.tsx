@@ -82,7 +82,9 @@ export default function PromoterEarningsPage() {
   }, [router]);
 
   useEffect(() => {
-    void loadData();
+    // Defer the initial call a tick so loadData's setState calls land after this
+    // render commits, rather than synchronously inside the effect's call chain.
+    void Promise.resolve().then(loadData);
   }, [loadData]);
 
   return (

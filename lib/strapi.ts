@@ -2,7 +2,17 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_
 
 const META_POPULATE = "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*";
 
-function extractImageUrl(img: any) {
+interface StrapiImageField {
+  url?: string;
+  data?: {
+    attributes?: {
+      url?: string;
+      formats?: { thumbnail?: { url?: string } };
+    };
+  };
+}
+
+function extractImageUrl(img: string | StrapiImageField | null | undefined) {
   if (!img) return null;
   if (typeof img === "string") return img;
   if (img.url) return img.url;

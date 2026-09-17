@@ -1,5 +1,21 @@
+interface JsonLdSeo {
+  metaTitle?: string;
+  metaDescription?: string;
+  canonicalUrl?: string;
+}
+
+interface JsonLdFaq {
+  question: string;
+  answer?: { children?: { text?: string }[] }[];
+}
+
+interface JsonLdGeo {
+  aiSummary?: { children?: { text?: string }[] }[];
+  faqs?: JsonLdFaq[];
+}
+
 interface JsonLdProps {
-  data: any;
+  data: { seo?: JsonLdSeo; geo?: JsonLdGeo } | null;
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
@@ -48,7 +64,7 @@ export default function JsonLd({ data }: JsonLdProps) {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": geo?.faqs?.map((faq:any)=>({
+      "mainEntity": geo?.faqs?.map((faq: JsonLdFaq)=>({
 
         "@type":"Question",
 
