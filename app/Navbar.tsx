@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { MouseEvent } from "react";
 import { Menu, X, Receipt } from "lucide-react";
-import type { DynamicPage } from "../lib/dynamicPages";
 import Button from "./components/ui/Button";
 import Container from "./components/ui/Container";
 import LanguageSelector from "./components/LanguageSelector";
@@ -14,9 +13,10 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Features" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/tutorial", label: "Tutorials" },
 ];
 
-export default function Navbar({ dynamicPages = [] }: { dynamicPages?: DynamicPage[] }) {
+export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,11 +30,8 @@ export default function Navbar({ dynamicPages = [] }: { dynamicPages?: DynamicPa
   }
 
   const closeMenu = () => setMenuOpen(false);
-  const dynamicNavLinks = dynamicPages.map((page) => ({
-    href: `/dynamic-pages/${page.slug}`,
-    label: page.title,
-  }));
-  const allNavLinks = [...navLinks, ...dynamicNavLinks];
+
+  const allNavLinks = [...navLinks];
 
   const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
     closeMenu();

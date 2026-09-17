@@ -3,7 +3,6 @@ import { Fraunces, Inter } from "next/font/google";
 import ConditionalFooter from "./ConditionalFooter";
 import Navbar from "./Navbar";
 import { LocaleProvider } from "./context/LocaleContext";
-import { getDynamicPages } from "../lib/dynamicPages";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -27,13 +26,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const dynamicPages = await getDynamicPages();
-
   return (
     <html lang="en" className={`h-full antialiased ${fraunces.variable} ${inter.variable}`}>
       <body className="min-h-full flex flex-col">
         <LocaleProvider>
-          <Navbar dynamicPages={dynamicPages} />
+          <Navbar />
           {children}
           <ConditionalFooter />
         </LocaleProvider>

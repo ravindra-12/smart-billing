@@ -33,7 +33,12 @@ async function fetchPageMeta(page: string) {
     });
 
     if (!res.ok) {
-      console.error(`Failed to fetch ${page}:`, res.status, res.statusText);
+      // A 403 means this content type isn't public in Strapi yet (e.g. only "home"
+      // has public find access today) — expected and already handled via the null
+      // fallback below, so it shouldn't surface as a console error on every page.
+      if (res.status !== 403) {
+        console.error(`Failed to fetch ${page}:`, res.status, res.statusText);
+      }
       return null;
     }
 
