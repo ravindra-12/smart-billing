@@ -4,8 +4,11 @@ import { FeaturesPage } from "../LandingPages";
 import JsonLd from "../components/JsonLd";
 import { getPageMeta } from "@/lib/strapi";
 
+const FEATURE_PAGE_POPULATE =
+  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[featureGroups][populate][items][populate]=*&populate[hardware][populate][items][populate]=*&populate[highlights][populate][aiItems][populate]=*&populate[highlights][populate][businessItems]=*&populate[workspace][populate][cards][populate][features]=*";
+
 export async function generateMetadata(): Promise<Metadata> {
-  const featureMeta = await getPageMeta("feature-meta");
+  const featureMeta = await getPageMeta("feature-page", FEATURE_PAGE_POPULATE);
 
   if (!featureMeta?.seo) {
     return {
@@ -27,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FeaturesRoute() {
-  const featureMeta = await getPageMeta("feature-meta");
+  const featureMeta = await getPageMeta("feature-page", FEATURE_PAGE_POPULATE);
 
   return (
     <>

@@ -2,6 +2,11 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_
 
 const META_POPULATE = "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*";
 
+// Full populate string for the feature page (includes hero, feature groups,
+// hardware, highlights, workspace and nested items).
+const FEATURE_PAGE_POPULATE =
+  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[featureGroups][populate][items][populate]=*&populate[hardware][populate][items][populate]=*&populate[highlights][populate][aiItems][populate]=*&populate[highlights][populate][businessItems]=*&populate[workspace][populate][cards][populate][features]=*";
+
 interface StrapiImageField {
   url?: string;
   data?: {
@@ -29,14 +34,16 @@ function ensureFullUrl(url: string | null) {
   return url.startsWith("/") ? `${base}${url}` : `${base}/${url}`;
 }
 
-async function fetchPageMeta(page: string) {
+async function fetchPageMeta(page: string, populate?: string) {
   if (!STRAPI_URL) {
     console.error("Missing STRAPI API base URL.");
     return null;
   }
 
   try {
-    const res = await fetch(`${STRAPI_URL}/api/${page}?${META_POPULATE}`, {
+    const populateQuery = populate ?? META_POPULATE;
+
+    const res = await fetch(`${STRAPI_URL}/api/${page}?${populateQuery}`, {
       next: {
         revalidate: 60,
       },
@@ -95,8 +102,8 @@ async function fetchPageMeta(page: string) {
   }
 }
 
-export async function getPageMeta(page: string) {
-  return await fetchPageMeta(page);
+export async function getPageMeta(page: string, populate?: string) {
+  return await fetchPageMeta(page, populate);
 }
 
 export async function getHomeMeta() {
