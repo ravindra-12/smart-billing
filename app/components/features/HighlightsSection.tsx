@@ -4,35 +4,16 @@ import { Bot, Check } from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
 import Reveal from "@/app/components/ui/Reveal";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
-import type { FeatureHighlightsSectionData, TextCard } from "./types";
+import type { FeatureHighlightsSectionData } from "./types";
 
-const aiItems: TextCard[] = [
-  "Daily sales insights",
-  "Best-selling products",
-  "Top customer analysis",
-  "Income growth tracking",
-  "Smart business suggestions",
-].map((title) => ({ title }));
-
-const businessItems = [
-  "Easy setup in minutes",
-  "No training required",
-  "Works for low-tech users",
-  "Supports daily shop operations",
-  "Affordable for small vendors",
-  "Secure and reliable records",
-].map((text) => ({ text }));
-
-export default function HighlightsSection() {
-  const { data } = useStrapiSection<FeatureHighlightsSectionData>("/api/feature-highlights-section?populate=*");
-
+export default function HighlightsSection({ data }: { data?: FeatureHighlightsSectionData }) {
   const content = {
-    aiHeading: data?.aiHeading ?? "AI-powered insights",
-    aiItems: data?.aiItems?.length ? data.aiItems : aiItems,
-    businessHeading: data?.businessHeading ?? "Built for Indian small businesses",
-    businessItems: data?.businessItems?.length ? data.businessItems : businessItems,
-    buttonText: data?.buttonText ?? "View pricing & start trial",
+    aiHeading: data?.aiHeading,
+    aiItems: data?.aiItems ?? [],
+    businessHeading: data?.businessHeading,
+    businessItems: data?.businessItems ?? [],
+    buttonText: data?.buttonText,
+    buttonLink: data?.buttonLink,
   };
 
   return (
@@ -73,8 +54,8 @@ export default function HighlightsSection() {
                   </div>
                 ))}
               </div>
-              <Button href="#download-apk" className="mt-6 w-full">
-                {content.buttonText}
+              <Button href={content.buttonLink || "#download-apk"} className="mt-6 w-full">
+              {content.buttonText}
               </Button>
             </div>
           </Reveal>

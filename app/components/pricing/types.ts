@@ -4,6 +4,23 @@ export interface PricingHeroData {
   description?: string;
 }
 
+export interface PricingWorkspaceData {
+  badgeText?: string;
+  title?: string;
+  description?: string;
+  cards: {
+    id?: number;
+    eyebrow?: string;
+    title: string;
+    description?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    note?: string;
+    theme?: "light" | "dark";
+    features?: TextItem[];
+  }[];
+}
+
 export interface TextItem {
   id?: number;
   text: string;
@@ -34,6 +51,7 @@ export interface StepCard {
 }
 
 export interface PricingStepsSectionData {
+  badgeText?: string;
   heading?: string;
   subheading?: string;
   steps: StepCard[];
@@ -58,4 +76,17 @@ export interface PricingBottomSectionData {
   ctaDescription?: string;
   ctaPrimaryButtonText?: string;
   ctaSecondaryButtonText?: string;
+  ctaPrimaryButtonLink?: string;
+  ctaSecondaryButtonLink?: string;
+}
+
+export interface PricingPageData {
+  hero?: PricingHeroData;
+  plans?: PricingPlansSectionData;
+  steps?: PricingStepsSectionData;
+  bottom?: PricingBottomSectionData;
+  workspace?: PricingWorkspaceData;
+  seo?: { metaTitle?: string; metaDescription?: string; keywords?: string; canonicalUrl?: string; shareImage?: string | null } | null;
+  geo?: { aiSummary?: unknown; faqs?: { question: string; answer?: unknown }[] } | null;
+  aeo?: { enableAEO?: boolean; schemaType?: string; headline?: string; description?: string; url?: string; image?: string | null; faqItems?: { question: string; answer?: string }[] } | null;
 }

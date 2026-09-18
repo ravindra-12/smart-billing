@@ -4,23 +4,12 @@ import { Printer, Receipt, FileText, CreditCard, Volume2, type LucideIcon } from
 import Container from "@/app/components/ui/Container";
 import Reveal from "@/app/components/ui/Reveal";
 import SpotlightSurface from "@/app/components/ui/SpotlightSurface";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
-import type { HardwareSectionData, TextCard } from "./types";
+import type { HardwareSectionData } from "./types";
 
 const HARDWARE_ICONS: LucideIcon[] = [Printer, Receipt, FileText, CreditCard, Volume2];
 
-const hardware: TextCard[] = [
-  { title: "Bluetooth Thermal Printer", description: "Print receipts wirelessly from your mobile device." },
-  { title: "USB Thermal Printer", description: "Connect compatible USB printers for fast counter billing." },
-  { title: "58mm / 80mm Printer", description: "Supports common portable receipt printer sizes." },
-  { title: "Pine Labs POS Device", description: "Useful for card payment and professional billing counters." },
-  { title: "Payment QR Sound Box", description: "Hear payment confirmation instantly after QR payment." },
-];
-
-export default function HardwareSection() {
-  const { data } = useStrapiSection<HardwareSectionData>("/api/hardware-section?populate[items]=*");
-
-  const items = data?.items?.length ? data.items : hardware;
+export default function HardwareSection({ data }: { data?: HardwareSectionData }) {
+  const items = data?.items ?? [];
 
   return (
     <section className="py-8">
@@ -28,11 +17,10 @@ export default function HardwareSection() {
         <Reveal>
           <SpotlightSurface className="rounded-[2.5rem] bg-surface-dark p-8 text-paper md:p-12">
             <h2 className="font-display text-2xl font-semibold md:text-3xl">
-              {data?.heading ?? "Hardware & device integration"}
+              {data?.heading}
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-6 text-paper/60">
-              {data?.subheading ??
-                "Connect your billing app with thermal printers, POS devices, and payment confirmation sound boxes."}
+              {data?.subheading}
             </p>
 
             <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">

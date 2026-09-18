@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import DownloadApkPromo from "../DownloadApkPromo";
 import { FeaturesPage } from "../LandingPages";
 import JsonLd from "../components/JsonLd";
 import { getPageMeta } from "@/lib/strapi";
@@ -20,6 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: featureMeta.seo.metaTitle,
     description: featureMeta.seo.metaDescription,
+    keywords: featureMeta.seo.keywords,
+    alternates: featureMeta.seo.canonicalUrl
+      ? { canonical: featureMeta.seo.canonicalUrl }
+      : undefined,
     openGraph: {
       title: featureMeta.seo.metaTitle,
       description: featureMeta.seo.metaDescription,
@@ -35,8 +38,7 @@ export default async function FeaturesRoute() {
   return (
     <>
       <JsonLd data={featureMeta} />
-      <FeaturesPage />
-      <DownloadApkPromo />
+      <FeaturesPage featurePage={featureMeta} />
     </>
   );
 }

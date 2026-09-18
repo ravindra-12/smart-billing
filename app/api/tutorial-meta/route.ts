@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getPageMeta } from "@/lib/strapi";
 
 const TUTORIAL_PAGE_POPULATE =
-  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[videos][populate][videos][populate]=*&populate[workspace][populate][cards][populate][features]=*";
+  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[videos][populate][videos][populate]=*";
 
 export async function GET() {
   const pageMeta = await getPageMeta("tutorial", TUTORIAL_PAGE_POPULATE);

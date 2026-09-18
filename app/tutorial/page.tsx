@@ -5,7 +5,7 @@ import JsonLd from "../components/JsonLd";
 import { getPageMeta } from "@/lib/strapi";
 
 const TUTORIAL_PAGE_POPULATE =
-  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[videos][populate][videos][populate]=*&populate[workspace][populate][cards][populate][features]=*";
+  "populate[seo][populate]=*&populate[geo][populate]=*&populate[aeo][populate]=*&populate[hero][populate]=*&populate[videos][populate][videos][populate]=*";
 
 export async function generateMetadata(): Promise<Metadata> {
   const tutorialMeta = await getPageMeta("tutorial", TUTORIAL_PAGE_POPULATE);
@@ -21,6 +21,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: tutorialMeta.seo.metaTitle,
     description: tutorialMeta.seo.metaDescription,
+    keywords: tutorialMeta.seo.keywords,
+    alternates: tutorialMeta.seo.canonicalUrl
+      ? { canonical: tutorialMeta.seo.canonicalUrl }
+      : undefined,
     openGraph: {
       title: tutorialMeta.seo.metaTitle,
       description: tutorialMeta.seo.metaDescription,
@@ -36,8 +40,8 @@ export default async function TutorialPage() {
   return (
     <main className="flex-1 bg-paper">
       <JsonLd data={tutorialMeta} />
-      <FeaturesHeroSection />
-      <VideoDemosSection />
+      <FeaturesHeroSection data={tutorialMeta?.hero} />
+      <VideoDemosSection videos={tutorialMeta?.videos} />
     </main>
   );
 }

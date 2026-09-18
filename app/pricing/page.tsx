@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import DownloadApkPromo from "../DownloadApkPromo";
 import { PricingPage } from "../LandingPages";
 import JsonLd from "../components/JsonLd";
 import { getPageMeta } from "@/lib/strapi";
@@ -20,6 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: pricingMeta.seo.metaTitle,
     description: pricingMeta.seo.metaDescription,
+    keywords: pricingMeta.seo.keywords,
+    alternates: pricingMeta.seo.canonicalUrl
+      ? { canonical: pricingMeta.seo.canonicalUrl }
+      : undefined,
     openGraph: {
       title: pricingMeta.seo.metaTitle,
       description: pricingMeta.seo.metaDescription,
@@ -35,8 +38,7 @@ export default async function PricingRoute() {
   return (
     <>
       <JsonLd data={pricingMeta} />
-      <PricingPage />
-      <DownloadApkPromo />
+      <PricingPage pricingPage={pricingMeta} />
     </>
   );
 }

@@ -19,6 +19,9 @@ import FeaturesHeroSection from "./components/features/FeaturesHeroSection";
 import FeaturesListSection from "./components/features/FeaturesListSection";
 import HardwareSection from "./components/features/HardwareSection";
 import HighlightsSection from "./components/features/HighlightsSection";
+import WorkspaceSection from "./components/features/WorkspaceSection";
+import type { FeaturePageData } from "./components/features/types";
+import type { PricingPageData } from "./components/pricing/types";
 
 // Smooth-scroll helper for hash links (works in SPA)
 const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -123,27 +126,29 @@ export function HomePage({ homeMeta }: { homeMeta: Record<string, unknown> | nul
 
 // ─── Pricing Page ─────────────────────────────────────────────────────────────
 
-export function PricingPage() {
+export function PricingPage({ pricingPage }: { pricingPage: PricingPageData | null }) {
   return (
     <main className="bg-paper">
-      <PricingHeroSection />
-      <PricingPlansSection />
-      <PricingStepsSection />
-      <PricingBottomSection />
-      <PricingCtaSection />
+      <PricingHeroSection data={pricingPage?.hero} />
+      <PricingPlansSection data={pricingPage?.plans} />
+      <PricingStepsSection data={pricingPage?.steps} />
+      <PricingBottomSection data={pricingPage?.bottom} />
+      <PricingCtaSection data={pricingPage?.bottom} />
+      <WorkspaceSection data={pricingPage?.workspace} />
     </main>
   );
 }
 
 // ─── Features Page ────────────────────────────────────────────────────────────
 
-export function FeaturesPage() {
+export function FeaturesPage({ featurePage }: { featurePage: FeaturePageData | null }) {
   return (
     <main className="bg-paper">
-      <FeaturesHeroSection />
-      <FeaturesListSection />
-      <HardwareSection />
-      <HighlightsSection />
+      <FeaturesHeroSection data={featurePage?.hero} />
+      <FeaturesListSection groups={featurePage?.featureGroups} />
+      <HardwareSection data={featurePage?.hardware} />
+      <HighlightsSection data={featurePage?.highlights} />
+      <WorkspaceSection data={featurePage?.workspace} />
     </main>
   );
 }

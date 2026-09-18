@@ -43,7 +43,12 @@ async function fetchPageMeta(page: string, populate?: string) {
   try {
     const populateQuery = populate ?? META_POPULATE;
 
-    const res = await fetch(`${STRAPI_URL}/api/${page}?${populateQuery}`, {
+    const requestUrl = `${STRAPI_URL}/api/${page}?${populateQuery}`;
+    // Temporary debug log to verify which Strapi URL is being requested in dev
+    // Remove this once confirmed.
+    console.debug("Strapi request:", requestUrl);
+
+    const res = await fetch(requestUrl, {
       next: {
         revalidate: 60,
       },

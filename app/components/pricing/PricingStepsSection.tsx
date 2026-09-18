@@ -4,22 +4,12 @@ import { Smartphone, Store, Receipt, TrendingUp, type LucideIcon } from "lucide-
 import Container from "@/app/components/ui/Container";
 import SectionHeading from "@/app/components/ui/SectionHeading";
 import Reveal from "@/app/components/ui/Reveal";
-import { useStrapiSection } from "@/app/hooks/useStrapiSection";
-import type { PricingStepsSectionData, StepCard } from "./types";
+import type { PricingStepsSectionData } from "./types";
 
 const STEP_ICONS: LucideIcon[] = [Smartphone, Store, Receipt, TrendingUp];
 
-const fallbackSteps: StepCard[] = [
-  { title: "Register", description: "Enter your mobile number and verify with OTP." },
-  { title: "Setup Shop", description: "Add shop name, business type, QR/UPI details." },
-  { title: "Start Billing", description: "Create bills, collect payments, print receipts." },
-  { title: "Track & Grow", description: "Track income, udhaar, profit, and business growth." },
-];
-
-export default function PricingStepsSection() {
-  const { data } = useStrapiSection<PricingStepsSectionData>("/api/pricing-steps-section?populate[steps]=*");
-
-  const steps = data?.steps?.length ? data.steps : fallbackSteps;
+export default function PricingStepsSection({ data }: { data?: PricingStepsSectionData }) {
+  const steps = data?.steps ?? [];
 
   return (
     <section className="py-16">
@@ -27,9 +17,9 @@ export default function PricingStepsSection() {
         <Reveal>
           <div className="rounded-[2.5rem] border border-line bg-white p-8 md:p-14">
             <SectionHeading
-              eyebrow="Get started"
-              title={data?.heading ?? "How to get started?"}
-              description={data?.subheading ?? "Start billing in just a few simple steps."}
+              eyebrow={data?.badgeText}
+              title={data?.heading}
+              description={data?.subheading}
             />
 
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
