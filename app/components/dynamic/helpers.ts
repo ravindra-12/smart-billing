@@ -8,12 +8,14 @@ export function text(value: any): string {
 }
 
 export function youtubeUrl(url: string) {
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&/]+)/);
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([^?&/]+)/
+  );
   return match ? `https://www.youtube.com/embed/${match[1]}` : url;
 }
 
 export function isEmbeddableVideo(url: string) {
-  return /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))[^?&/]+/.test(url);
+  return /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))[^?&/]+/.test(url);
 }
 
 export function assetUrl(value: any) {
