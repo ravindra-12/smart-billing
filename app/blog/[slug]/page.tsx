@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { ArrowLeft, ArrowRight, BookOpen, CalendarDays, Clock3 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getPost, posts } from '../../../lib/blog';
+import { getPost, getPosts, renderBlogContent } from '../../../lib/blog';
 import Container from '../../components/ui/Container';
 import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
 
   if (!post) {
     return { title: 'Article not found | Smart Billing Lite' };
@@ -34,7 +35,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
@@ -47,6 +48,13 @@ export default async function BlogPostPage({
           <Button href="/blog" variant="ghost" className="px-0 text-paper/70 hover:text-paper">
             <ArrowLeft size={16} /> Back to all articles
           </Button>
+
+          {post.coverImage ? (
+            <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10">
+              <img src={post.coverImage} alt={post.title} className="h-[280px] w-full object-cover md:h-[420px]" />
+            </div>
+          ) : null}
+
           <Badge tone="inverse" className="mt-10">
             <BookOpen size={14} /> {post.category}
           </Badge>
@@ -60,6 +68,11 @@ export default async function BlogPostPage({
             <span className="inline-flex items-center gap-2">
               <Clock3 size={16} /> {post.readTime}
             </span>
+            {post.authorName ? (
+              <span className="inline-flex items-center gap-2 text-paper/70">
+                By {post.authorName}
+              </span>
+            ) : null}
           </div>
         </Container>
       </section>
@@ -68,20 +81,21 @@ export default async function BlogPostPage({
         <p className="text-xl font-medium leading-9 text-ink-soft md:text-2xl md:leading-10">
           {post.intro}
         </p>
-        <div className="mt-12 space-y-10">
-          {post.sections.map((section) => (
-            <section key={section.heading}>
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">
-                {section.heading}
-              </h2>
-              <div className="mt-4 space-y-4 text-base leading-8 text-ink-soft">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
+
+        {post.tags?.length ? (
+          <div className="mt-8 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span key={tag} className="rounded-full bg-paper-dim px-3 py-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
+                {tag}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        <div
+          className="prose prose-lg mt-12 max-w-none text-base leading-8 text-ink-soft [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-xl [&_h4]:text-lg [&_h1]:font-semibold [&_h2]:font-semibold [&_h3]:font-semibold [&_a]:text-accent [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+          dangerouslySetInnerHTML={{ __html: renderBlogContent(post.content) }}
+        />
 
         <div className="mt-14 rounded-[2.5rem] border border-line bg-white p-8 md:p-10">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">

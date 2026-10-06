@@ -6,13 +6,19 @@ export type BlogPost = {
   date: string;
   readTime: string;
   intro: string;
-  sections: Array<{
+  content?: string;
+  coverImage?: string | null;
+  authorName?: string;
+  tags?: string[];
+  sections?: Array<{
     heading: string;
     paragraphs: string[];
   }>;
 };
 
-export const posts: BlogPost[] = [
+const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || "";
+
+const fallbackPosts: BlogPost[] = [
   {
     slug: 'why-small-businesses-need-digital-billing',
     category: 'Business Growth',
@@ -110,6 +116,133 @@ export const posts: BlogPost[] = [
   },
 ];
 
-export function getPost(slug: string) {
-  return posts.find((post) => post.slug === slug);
+function ensureFullUrl(url: string | null) {
+  if (!url) return null;
+  if (/^https?:\/\//i.test(url)) return url;
+  const base = STRAPI_URL.replace(/\/$/, "");
+  if (!base) return url;
+  return url.startsWith("/") ? `${base}${url}` : `${base}/${url}`;
+}
+
+function normalizeImageUrl(image: any): string | null {
+  if (!image) return null;
+  const url = image.url || image?.data?.attributes?.url || image?.formats?.large?.url || image?.formats?.medium?.url;
+  return ensureFullUrl(url || null);
+}
+
+function formatDate(dateValue?: string) {
+  if (!dateValue) return "Recent";
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return dateValue;
+  return new Intl.DateTimeFormat("en-IN", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+function estimateReadTime(content?: string) {
+  const plainText = content ? content.replace(/<[^>]*>/g, " ").replace(/[#*_`\[\]()]/g, " ") : "";
+  const words = plainText.trim() ? plainText.trim().split(/\s+/).length : 0;
+  const minutes = Math.max(3, Math.ceil(words / 180));
+  return `${minutes} min read`;
+}
+
+function normalizePost(item: any): BlogPost {
+  const rawContent = item.content || "";
+  const excerpt = item.excerpt || rawContent.replace(/<[^>]*>/g, " ").slice(0, 180);
+  const slug = item.slug || item.documentId || "";
+
+  return {
+    slug,
+    category: item.category?.name || "General",
+    title: item.title || "Untitled article",
+    excerpt: excerpt.trim(),
+    date: formatDate(item.publishedAt),
+    readTime: item.readTime ? `${item.readTime} min read` : estimateReadTime(rawContent),
+    intro: item.excerpt || item.title,
+    content: rawContent,
+    coverImage: normalizeImageUrl(item.coverImage),
+    authorName: item.author?.name || "Smart Billing Lite",
+    tags: Array.isArray(item.tags) ? item.tags.map((tag: any) => tag.name).filter(Boolean) : [],
+    sections: [],
+  };
+}
+
+export const posts: BlogPost[] = fallbackPosts;
+
+export async function getPosts(): Promise<BlogPost[]> {
+  if (!STRAPI_URL) return fallbackPosts;
+
+  try {
+    const requestUrl = `${STRAPI_URL}/api/blog-posts?populate[coverImage][populate]=*&populate[author][populate]=*&populate[category][populate]=*&populate[tags][populate]=*&sort[0]=publishedAt:desc`;
+    const res = await fetch(requestUrl, {
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) return fallbackPosts;
+
+    const json = await res.json();
+    const allPosts = Array.isArray(json?.data) ? json.data : [];
+
+    if (!allPosts.length) return fallbackPosts;
+
+    return allPosts.map(normalizePost);
+  } catch (error) {
+    console.error("Failed to fetch blog posts:", error);
+    return fallbackPosts;
+  }
+}
+
+export async function getPost(slug: string) {
+  if (!STRAPI_URL) {
+    return fallbackPosts.find((post) => post.slug === slug) ?? null;
+  }
+
+  try {
+    const requestUrl = `${STRAPI_URL}/api/blog-posts?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[coverImage][populate]=*&populate[author][populate]=*&populate[category][populate]=*&populate[tags][populate]=*`;
+    const res = await fetch(requestUrl, {
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      return fallbackPosts.find((post) => post.slug === slug) ?? null;
+    }
+
+    const json = await res.json();
+    const item = Array.isArray(json?.data) ? json.data[0] : null;
+
+    return item ? normalizePost(item) : fallbackPosts.find((post) => post.slug === slug) ?? null;
+  } catch (error) {
+    console.error("Failed to fetch blog post:", error);
+    return fallbackPosts.find((post) => post.slug === slug) ?? null;
+  }
+}
+
+export function renderBlogContent(content?: string) {
+  if (!content) return "<p>Content coming soon.</p>";
+
+  const escaped = content
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  const blocks = escaped.split(/\n\s*\n/).map((block) => {
+    const trimmed = block.trim();
+    if (!trimmed) return "";
+
+    if (/^#{1,6}\s/.test(trimmed)) {
+      const headingText = trimmed.replace(/^#{1,6}\s/, "");
+      const level = Math.min(6, Math.max(1, trimmed.match(/^#+/)?.[0].length || 1));
+      return `<h${level}>${headingText}</h${level}>`;
+    }
+
+    return `<p>${trimmed
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(/\[(.+?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+      .replace(/\n/g, "<br />")}</p>`;
+  });
+
+  return blocks.join("");
 }

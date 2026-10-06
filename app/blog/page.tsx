@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ArrowRight, BookOpen, CalendarDays, Clock3 } from 'lucide-react';
-import { posts } from '../../lib/blog';
+import { getPosts } from '../../lib/blog';
 import JsonLd from '../components/JsonLd';
 import { getPageMeta } from '@/lib/strapi';
 import Container from '../components/ui/Container';
@@ -33,6 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BlogPage() {
   const blogMeta = await getPageMeta('blog-meta');
+  const posts = await getPosts();
 
   return (
     <>
@@ -62,17 +63,23 @@ export default async function BlogPage() {
                 title="Business tips that work in the real world"
               />
               <p className="max-w-md text-sm leading-6 text-ink-faint">
-                New articles and practical guides will be added here as the Smart Billing Lite community grows.
+                New articles and practical guides are powered directly from the CMS.
               </p>
             </div>
 
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <Card key={post.slug} hover className="flex flex-col overflow-hidden p-0">
-                  <div className="flex h-40 items-end bg-paper-dim p-6">
-                    <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-accent-dark">
-                      {post.category}
-                    </span>
+                  <div className="relative h-40 overflow-hidden bg-paper-dim">
+                    {post.coverImage ? (
+                      <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full items-end p-6">
+                        <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-accent-dark">
+                          {post.category}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <div className="flex items-center gap-4 text-xs font-bold text-ink-faint">
