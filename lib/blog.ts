@@ -10,6 +10,8 @@ export type BlogPost = {
   coverImage?: string | null;
   authorName?: string;
   tags?: string[];
+  updatedAt?: string;
+  publishedAt?: string;
   sections?: Array<{
     heading: string;
     paragraphs: string[];
@@ -165,6 +167,8 @@ function normalizePost(item: any): BlogPost {
     coverImage: normalizeImageUrl(item.coverImage),
     authorName: item.author?.name || "Smart Billing Lite",
     tags: Array.isArray(item.tags) ? item.tags.map((tag: any) => tag.name).filter(Boolean) : [],
+    updatedAt: item.updatedAt || item.publishedAt || item.createdAt || undefined,
+    publishedAt: item.publishedAt || item.updatedAt || item.createdAt || undefined,
     sections: [],
   };
 }
