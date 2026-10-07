@@ -20,8 +20,10 @@ import FeaturesListSection from "./components/features/FeaturesListSection";
 import HardwareSection from "./components/features/HardwareSection";
 import HighlightsSection from "./components/features/HighlightsSection";
 import WorkspaceSection from "./components/features/WorkspaceSection";
+import BlogPreviewSection from "./components/home/BlogPreviewSection";
 import type { FeaturePageData } from "./components/features/types";
 import type { PricingPageData } from "./components/pricing/types";
+import type { BlogPost } from "@/lib/blog";
 
 // Smooth-scroll helper for hash links (works in SPA)
 const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -106,7 +108,7 @@ export function LegacyHeader({ page, setPage }: { page: string; setPage: (page: 
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-export function HomePage({ homeMeta }: { homeMeta: Record<string, unknown> | null }) {
+export function HomePage({ homeMeta, blogPosts }: { homeMeta: Record<string, unknown> | null; blogPosts?: BlogPost[] }) {
   const { locale } = useLocale();
   const { data } = useHomeData(locale);
 
@@ -116,6 +118,7 @@ export function HomePage({ homeMeta }: { homeMeta: Record<string, unknown> | nul
       <HeroSection hero={data?.hero} />
       <DownloadApkPromo />
       <VideoDemosSection videos={data?.videos} />
+      <BlogPreviewSection posts={blogPosts} />
       <BusinessTypeSection businessTypes={data?.businessTypes} />
       <WhyChooseSection whyChoose={data?.whyChoose} />
       <ApkDownloadSection appDownload={data?.appDownload} />
@@ -158,15 +161,16 @@ export function FeaturesPage({ featurePage }: { featurePage: FeaturePageData | n
 
 interface LandingPagesProps {
   homeMeta: Record<string, unknown> | null;
+  blogPosts?: BlogPost[];
 }
 
 export default function LandingPages({
   homeMeta,
+  blogPosts,
 }: LandingPagesProps) {
   return (
     <>
-      <HomePage homeMeta={homeMeta} />
-      
+      <HomePage homeMeta={homeMeta} blogPosts={blogPosts} />
     </>
   );
 }

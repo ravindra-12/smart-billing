@@ -219,6 +219,39 @@ export async function getPost(slug: string) {
   }
 }
 
+export function slugifyHeading(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/<[^>]+>/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function extractTableOfContents(content?: string) {
+  if (!content) return [];
+
+  const headings: Array<{ level: number; title: string; slug: string }> = [];
+  const seen = new Map<string, number>();
+
+  content.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
+    const cleanTitle = title.trim();
+    const baseSlug = slugifyHeading(cleanTitle);
+    const count = seen.get(baseSlug) ?? 0;
+    seen.set(baseSlug, count + 1);
+    headings.push({
+      level: hashes.length,
+      title: cleanTitle,
+      slug: count ? `${baseSlug}-${count + 1}` : baseSlug,
+    });
+    return "";
+  });
+
+  return headings;
+}
+
 export function renderBlogContent(content?: string) {
   if (!content) return "<p>Content coming soon.</p>";
 
@@ -227,14 +260,18 @@ export function renderBlogContent(content?: string) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-  const blocks = escaped.split(/\n\s*\n/).map((block) => {
+  const withHeadings = escaped.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
+    const level = Math.min(6, Math.max(1, hashes.length));
+    const slug = slugifyHeading(title.trim());
+    return `<h${level} id="${slug}">${title.trim()}</h${level}>`;
+  });
+
+  const blocks = withHeadings.split(/\n\s*\n/).map((block) => {
     const trimmed = block.trim();
     if (!trimmed) return "";
 
-    if (/^#{1,6}\s/.test(trimmed)) {
-      const headingText = trimmed.replace(/^#{1,6}\s/, "");
-      const level = Math.min(6, Math.max(1, trimmed.match(/^#+/)?.[0].length || 1));
-      return `<h${level}>${headingText}</h${level}>`;
+    if (/^<h[1-6]/.test(trimmed)) {
+      return trimmed;
     }
 
     return `<p>${trimmed

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LandingPages from "./LandingPages";
 import { getHomeMeta } from "../lib/strapi";
+import { getPosts } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomeRoute() {
   const homeMeta = await getHomeMeta();
+  const blogPosts = await getPosts();
 
-  return <LandingPages homeMeta={homeMeta} />;
+  return <LandingPages homeMeta={homeMeta} blogPosts={blogPosts} />;
 }
