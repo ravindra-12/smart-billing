@@ -255,7 +255,8 @@ export function extractTableOfContents(content?: string) {
 export function renderBlogContent(content?: string) {
   if (!content) return "<p>Content coming soon.</p>";
 
-  const escaped = content
+  const normalized = content.replace(/\r\n/g, "\n");
+  const escaped = normalized
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
@@ -263,7 +264,7 @@ export function renderBlogContent(content?: string) {
   const withHeadings = escaped.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
     const level = Math.min(6, Math.max(1, hashes.length));
     const slug = slugifyHeading(title.trim());
-    return `<h${level} id="${slug}">${title.trim()}</h${level}>`;
+    return `<h${level} id="${slug}" class="scroll-mt-24">${title.trim()}</h${level}>`;
   });
 
   const blocks = withHeadings.split(/\n\s*\n/).map((block) => {

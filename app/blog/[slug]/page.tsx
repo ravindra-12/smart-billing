@@ -52,8 +52,8 @@ export default async function BlogPostPage({
           </Button>
 
           {post.coverImage ? (
-            <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10">
-              <img src={post.coverImage} alt={post.title} className="h-[280px] w-full object-cover md:h-[420px]" />
+            <div className="mt-10 overflow-hidden rounded-4xl border border-white/10">
+              <img src={post.coverImage} alt={post.title} className="h-70 w-full object-cover md:h-105" />
             </div>
           ) : null}
 
@@ -79,9 +79,9 @@ export default async function BlogPostPage({
         </Container>
       </section>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-[260px_1fr] md:py-16">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-[240px_minmax(0,1fr)] md:items-start md:py-16">
         {toc.length ? (
-          <aside className="md:sticky md:top-24 h-fit">
+          <aside className="h-fit md:sticky md:top-24">
             <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">Table of contents</p>
               <nav className="mt-4 space-y-2">
@@ -89,7 +89,7 @@ export default async function BlogPostPage({
                   <a
                     key={`${item.slug}-${item.level}`}
                     href={`#${item.slug}`}
-                    className="block text-sm text-ink-soft transition hover:text-accent"
+                    className="block text-sm leading-6 text-ink-soft transition hover:text-accent"
                     style={{ marginLeft: `${(item.level - 1) * 12}px` }}
                   >
                     {item.title}
@@ -100,7 +100,7 @@ export default async function BlogPostPage({
           </aside>
         ) : null}
 
-        <article className="min-w-0">
+        <article className="min-w-0 w-full">
           <p className="text-xl font-medium leading-9 text-ink-soft md:text-2xl md:leading-10">
             {post.intro}
           </p>
@@ -116,7 +116,7 @@ export default async function BlogPostPage({
           ) : null}
 
           <div
-            className="prose prose-lg mt-12 max-w-none text-base leading-8 text-ink-soft [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-xl [&_h4]:text-lg [&_h1]:font-semibold [&_h2]:font-semibold [&_h3]:font-semibold [&_a]:text-accent [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+            className="mt-12 max-w-3xl text-base leading-8 text-ink-soft [&_h1]:scroll-mt-24 [&_h2]:scroll-mt-24 [&_h3]:scroll-mt-24 [&_h1]:mt-10 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:leading-tight [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:leading-tight [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:leading-tight [&_p]:mb-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-2 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4"
             dangerouslySetInnerHTML={{ __html: renderBlogContent(post.content) }}
           />
 
