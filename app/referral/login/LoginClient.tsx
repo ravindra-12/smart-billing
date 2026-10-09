@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Gift, Store } from 'lucide-react';
+import BrandLogo from '@/app/components/BrandLogo';
 import { PROMOTER_TOKEN_KEY } from '@/lib/promoterApi';
 import { VENDOR_TOKEN_KEY } from '@/lib/vendorApi';
 import PromoterLoginForm from './PromoterLoginForm';
@@ -54,15 +55,14 @@ export default function LoginClient({ initialTab }: { initialTab: LoginTab }) {
     <main className="min-h-screen bg-slate-100 text-slate-900">
       <div className="grid min-h-screen lg:grid-cols-[1fr_560px]">
         <section className="hidden bg-linear-to-br from-blue-700 via-indigo-700 to-violet-700 px-12 py-10 text-white lg:flex lg:flex-col lg:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20">
-              <Gift size={24} />
-            </div>
-            <div>
-              <div className="text-xl font-black">Smart Billing Lite</div>
-              <div className="text-sm font-medium text-blue-100">Referral Program</div>
-            </div>
-          </div>
+          <BrandLogo
+            size={46}
+            showSubtitle
+            subtitle="Referral Program"
+            textClassName="text-xl font-black text-white"
+            subtitleClassName="text-sm font-medium text-blue-100"
+            className="text-white"
+          />
 
           <div className="max-w-xl">
             <p className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-bold ring-1 ring-white/15">
@@ -83,14 +83,14 @@ export default function LoginClient({ initialTab }: { initialTab: LoginTab }) {
 
         <section className="flex items-center justify-center px-5 py-10">
           <div className="w-full max-w-md">
-            <div className="mb-8 flex items-center gap-3 lg:hidden">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white">
-                <Gift size={24} />
-              </div>
-              <div>
-                <div className="text-xl font-black">Smart Billing Lite</div>
-                <div className="text-sm font-medium text-slate-500">Referral Program</div>
-              </div>
+            <div className="mb-8 lg:hidden">
+              <BrandLogo
+                size={46}
+                subtitle="Referral Program"
+                textClassName="text-xl font-black text-slate-900"
+                subtitleClassName="text-sm font-medium text-slate-500"
+                imageClassName="rounded-lg"
+              />
             </div>
 
             <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-xl shadow-slate-200/70">

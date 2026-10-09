@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { MouseEvent } from "react";
-import { Menu, X, Receipt } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Button from "./components/ui/Button";
 import Container from "./components/ui/Container";
 import LanguageSelector from "./components/LanguageSelector";
+import BrandLogo from "./components/BrandLogo";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -54,18 +55,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur">
       <Container className="flex items-center justify-between py-3.5">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink text-paper">
-            <Receipt size={20} strokeWidth={2.25} />
-          </div>
-          <div>
-            <div className="font-display text-lg font-semibold leading-none text-ink">
-              Smart Billing <span className="text-accent">Lite</span>
-            </div>
-            <div className="mt-1 text-[11px] font-medium text-ink-faint">
-              AI Powered Billing App
-            </div>
-          </div>
+        <Link href="/" onClick={closeMenu}>
+          <BrandLogo size={42} showSubtitle />
         </Link>
 
         {/* Desktop nav */}

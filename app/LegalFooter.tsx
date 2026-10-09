@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Receipt } from "lucide-react";
 import PlayStoreIcon from "./components/PlayStoreIcon";
 import Container from "./components/ui/Container";
+import BrandLogo from "./components/BrandLogo";
 
 const legalLinks = [
   { href: "/about-us", label: "About Us" },
@@ -18,18 +18,14 @@ export default function LegalFooter() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-paper">
-                <Receipt size={22} strokeWidth={2.25} />
-              </div>
-              <div>
-                <div className="font-display text-xl font-semibold leading-none text-paper">
-                  Smart Billing <span className="text-accent">Lite</span>
-                </div>
-                <div className="mt-1 text-xs font-semibold text-paper/50">
-                  AI Powered Billing App
-                </div>
-              </div>
+            <Link href="/">
+              <BrandLogo
+                size={52}
+                className="text-paper"
+                textClassName="text-paper"
+                subtitleClassName="text-paper/50"
+                subtitle="AI Powered Billing App"
+              />
             </Link>
 
             <p className="mt-5 max-w-md text-sm leading-6 text-paper/60">

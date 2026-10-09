@@ -3,7 +3,8 @@
 import React, { useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Gift, LayoutDashboard, LogOut, UserRound, Users, Wallet } from 'lucide-react';
+import { LayoutDashboard, LogOut, UserRound, Users, Wallet } from 'lucide-react';
+import BrandLogo from '@/app/components/BrandLogo';
 import {
   PROMOTER_AUTH_EVENT,
   PROMOTER_TOKEN_KEY,
@@ -72,14 +73,15 @@ export default function PromoterLayout({
     <div className="flex min-h-screen flex-col bg-slate-100 text-slate-900">
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
         <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between gap-4 px-5">
-          <Link href="/promoter" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
-              <Gift size={18} />
-            </div>
-            <div>
-              <div className="text-sm font-black leading-none">Smart Billing Lite</div>
-              <div className="mt-1 text-xs font-semibold text-slate-500">Brand Promoter</div>
-            </div>
+          <Link href="/promoter">
+            <BrandLogo
+              size={36}
+              showSubtitle
+              subtitle="Brand Promoter"
+              textClassName="text-sm font-black leading-none text-slate-900"
+              subtitleClassName="text-xs font-semibold text-slate-500"
+              imageClassName="rounded-lg"
+            />
           </Link>
 
           <nav className="flex items-center gap-1">
