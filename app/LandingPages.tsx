@@ -117,7 +117,7 @@ export function HomePage({ homeMeta, blogPosts }: { homeMeta: Record<string, unk
       <JsonLd data={homeMeta} />
       <HeroSection hero={data?.hero} />
       <DownloadApkPromo />
-      <VideoDemosSection videos={data?.videos} />
+      <VideoDemosSection videos={data?.videos} limit={1} />
       <BlogPreviewSection posts={blogPosts} />
       <BusinessTypeSection businessTypes={data?.businessTypes} />
       <WhyChooseSection whyChoose={data?.whyChoose} />

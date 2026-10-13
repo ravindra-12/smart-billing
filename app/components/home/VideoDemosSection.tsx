@@ -25,8 +25,16 @@ const fallbackDemos = [
   },
 ];
 
-export default function VideoDemosSection({ videos }: { videos?: VideosBlock }) {
-  const demos = videos?.videos?.length ? videos.videos : fallbackDemos;
+export default function VideoDemosSection({
+  videos,
+  limit,
+}: {
+  videos?: VideosBlock;
+  limit?: number;
+}) {
+  const demos = videos?.videos?.length
+    ? videos.videos.slice(0, typeof limit === "number" ? limit : videos.videos.length)
+    : fallbackDemos.slice(0, typeof limit === "number" ? limit : fallbackDemos.length);
 
   return (
     <section className="py-20">
@@ -40,7 +48,7 @@ export default function VideoDemosSection({ videos }: { videos?: VideosBlock }) 
           }
         />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className={`mt-12 grid gap-6 ${limit === 1 ? "md:grid-cols-1" : "md:grid-cols-3"}`}>
           {demos.map((demo, index) => {
             const embeddable = "videoUrl" in demo && demo.videoUrl && isEmbeddableVideo(demo.videoUrl);
             const src = embeddable
