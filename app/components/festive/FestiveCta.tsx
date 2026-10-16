@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { ArrowUpRight, CheckCircle2, Loader2, Mail, Send } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Loader2, Mail, Phone, Send,  } from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import TrackedLink from "./TrackedLink";
 import { INTEREST_EVENT, PLAY_STORE_URL, SUPPORT_EMAIL, btn, interests, track, type Interest } from "./campaign";
@@ -97,7 +97,27 @@ export default function FestiveCta() {
               <Mail size={15} />
               {SUPPORT_EMAIL}
             </a>
+           
           </div>
+          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/15 pt-6 text-sm text-white/70">
+            <span>Call:</span>
+             {[
+  "+91-9110176498",
+  "+91-8709183148",
+  "+91-8235264677",
+].map((phone) => (
+  <a
+    key={phone}
+    href={`tel:${phone.replace(/[\s-]/g, "")}`}
+    className="inline-flex items-center gap-1.5 font-bold text-white hover:text-festive-gold"
+  >
+    <Phone size={15} />
+    {phone}
+  </a>
+))}
+           
+          </div>
+          
         </div>
 
         <div id="claim-form" className="scroll-mt-24 rounded-4xl bg-white p-6 text-festive-navy shadow-2xl md:p-8">
