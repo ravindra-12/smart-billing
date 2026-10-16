@@ -3,7 +3,7 @@
 import React, { useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, Settings, LogOut, Search, Bell, BadgeIndianRupee, Database, ReceiptText, ChartNoAxesCombined, Gift } from 'lucide-react';
+import { LayoutDashboard, Users, Settings, LogOut, Search, Bell, BadgeIndianRupee, Database, ReceiptText, ChartNoAxesCombined, Gift, MessageSquareText } from 'lucide-react';
 
 const ADMIN_AUTH_KEY = 'smartbilling_admin_auth';
 const ADMIN_TOKEN_KEY = 'smartbilling_admin_token';
@@ -32,6 +32,7 @@ const navItems = [
   { href: '/admin/plans', label: 'Plans', shortLabel: 'Plans', icon: BadgeIndianRupee },
   { href: '/admin/storage-packs', label: 'Storage Packs', shortLabel: 'Storage', icon: Database },
   { href: '/admin/subscriptions', label: 'Subscriptions', shortLabel: 'Subs', icon: ReceiptText },
+  { href: '/admin/enquiries', label: 'Enquiries', shortLabel: 'Enquiry', icon: MessageSquareText },
   { href: '/admin/analytics', label: 'Analytics', shortLabel: 'Analytics', icon: ChartNoAxesCombined },
   { href: '#', label: 'Settings', shortLabel: 'Settings', icon: Settings },
 ];
