@@ -18,6 +18,14 @@
   --color-ink-inverse: #faf7f0;
   --color-surface-dark: #1c1710;
 
+  /* ── Dussehra campaign palette (scoped to /dussehra-offer) ── */
+  --color-festive-navy: #102b60;
+  --color-festive-blue: #2563eb;
+  --color-festive-gold: #f4b942;
+  --color-festive-gold-dark: #e0a52e;
+  --color-festive-bg: #f7f9fd;
+  --color-festive-success: #13a58c;
+
   --background: var(--color-paper);
   --foreground: var(--color-ink);
 
@@ -39,6 +47,12 @@
   --color-accent-dark: var(--color-accent-dark);
   --color-accent-soft: var(--color-accent-soft);
   --color-surface-dark: var(--color-surface-dark);
+  --color-festive-navy: var(--color-festive-navy);
+  --color-festive-blue: var(--color-festive-blue);
+  --color-festive-gold: var(--color-festive-gold);
+  --color-festive-gold-dark: var(--color-festive-gold-dark);
+  --color-festive-bg: var(--color-festive-bg);
+  --color-festive-success: var(--color-festive-success);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-sans: var(--font-body);
@@ -57,6 +71,23 @@ h3,
 h4,
 .font-display {
   font-family: var(--font-display), Georgia, serif;
+}
+
+/* Campaign pages use the body sans for headings (fintech look, per the Dussehra brief). */
+.festive h1,
+.festive h2,
+.festive h3,
+.festive h4 {
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .festive *,
+  .festive *::before,
+  .festive *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
 }
 
 /* ── Shimmer animation (skeleton loaders) ── */

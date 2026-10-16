@@ -26,7 +26,7 @@ export default function FeaturesHeroSection({ data = {} }: { data?: FeatureHeroD
             <h1 className="font-display mt-6 text-4xl font-semibold leading-[1.1] text-paper md:text-5xl">{data.title}</h1>
             <p className="mt-6 max-w-md leading-7 text-paper/70">{data.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={data.primaryButtonLink || "#download-apk"} variant="inverse" size="lg">{data.primaryButtonText || "Start 30-Day Free Trial"}</Button>
+              <Button href={data.primaryButtonLink || "#download-apk"} variant="inverse" size="lg">{data.primaryButtonText || "Start 5-Day Free Trial"}</Button>
               <Button href={data.secondaryButtonLink || "#download-apk"} variant="ghost" size="lg" className="border border-white/20 text-paper hover:bg-white/10">{data.secondaryButtonText || "Request Demo"}</Button>
             </div>
           </div>
