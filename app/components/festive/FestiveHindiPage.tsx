@@ -59,8 +59,9 @@ export default function FestiveHindiPage() {
 
   return <main lang="hi" className="festive flex-1 bg-festive-bg">
     <section className="relative overflow-hidden bg-linear-to-br from-festive-blue/10 via-festive-bg to-festive-bg">
-      <Container className="relative grid items-center gap-12 pb-16 pt-10 md:py-20 lg:grid-cols-[1.05fr_1fr]"><div>
+      <Container className="relative grid items-center gap-12 pb-16 pt-10 md:py-20 lg:grid-cols-[1.05fr_1fr]"><div><div className="flex flex-wrap items-center justify-between gap-3">
         <p className="inline-flex items-center gap-2 rounded-full border border-festive-gold/60 bg-festive-gold/15 px-3.5 py-1.5 text-xs font-bold tracking-[0.14em] text-festive-navy"><Sparkles size={13} className="text-festive-gold-dark" />{copy.hero.eyebrow}</p>
+        <div><a href="/dussehra-offer" className="inline-flex items-center justify-center rounded-full border border-festive-navy/20 bg-white px-4 py-1.5 text-sm font-bold text-festive-navy transition-colors hover:border-festive-blue hover:text-festive-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-festive-blue">See in English</a></div></div>
         <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-festive-navy sm:text-5xl lg:text-6xl">{copy.hero.title}<br /><span className="text-festive-blue">{copy.hero.titleAccent}</span></h1>
         <p className="mt-5 max-w-xl text-lg leading-8 text-festive-navy/70">{copy.hero.description}</p>
         <ul className="mt-6 flex flex-wrap gap-2">{copy.hero.highlights.map((item) => <li key={item} className="inline-flex items-center gap-1.5 rounded-full border border-festive-navy/10 bg-white px-3 py-1.5 text-sm font-semibold text-festive-navy"><Check size={14} strokeWidth={3} className="text-festive-success" />{item}</li>)}</ul>
