@@ -15,7 +15,7 @@ const terms = [
   "The mobile thermal printer comes with the ₹6,500 bundle only, not with the monthly plan or the free trial.",
   "AI Pro features such as voice billing are a separately chargeable add-on.",
   "Our team confirms GST, delivery, printer model and warranty with you before any payment.",
-  "Valid for the Dussehra festival campaign period only.",
+  "Valid for the Festival Bumper Offer campaign period only.",
 ];
 
 const proFeatures = ["Advanced web POS", "Inventory management", "Thermal printer included"];
@@ -25,12 +25,12 @@ export default function FestiveOffer() {
     <section id="offer" className="scroll-mt-24 bg-festive-bg py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-festive-blue">Dussehra Bumper Offer</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-festive-blue">Festival Bumper Offer</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-festive-navy md:text-4xl">
-            This Dussehra, go digital for ₹6,500
+            Go digital for ₹6,500 with Festival Bumper Offer
           </h2>
           <p className="mt-4 text-base leading-7 text-festive-navy/70">
-            Special festive pricing for businesses ready to start billing smarter: 13 months of Smart Billing Lite
+            Special festival pricing for businesses ready to start billing smarter: 13 months of Smart Billing Lite
             with a mobile thermal printer included.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function FestiveOffer() {
           {/* Primary: Smart Billing Lite bundle */}
           <article className="relative rounded-4xl border-2 border-festive-gold bg-white p-6 shadow-2xl shadow-festive-navy/10 md:p-10">
             <span className="absolute -top-3.5 left-6 rounded-full bg-festive-gold px-3.5 py-1 text-xs font-extrabold uppercase tracking-wide text-festive-navy md:left-10">
-              Limited Dussehra Offer
+              Limited Festival Offer
             </span>
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -53,7 +53,7 @@ export default function FestiveOffer() {
                 </p>
                 <p className="text-6xl font-extrabold leading-none tracking-tight text-festive-navy md:text-7xl">₹6,500</p>
                 <p className="mt-3 text-sm font-semibold text-festive-navy/70">
-                  Complete festive bundle · works out to ₹500/month, printer included
+                  Complete festival bundle · works out to ₹500/month, printer included
                 </p>
 
                 <TrackedLink
@@ -66,7 +66,7 @@ export default function FestiveOffer() {
                 </TrackedLink>
 
                 <p className="mt-4 text-sm text-festive-navy/60">
-                  Monthly: ₹800 · Festive yearly app rate: ₹400/month
+                  Monthly: ₹800 · Festival yearly app rate: ₹400/month
                 </p>
               </div>
 
@@ -103,7 +103,7 @@ export default function FestiveOffer() {
 
           {/* Secondary: Smart Billing Pro */}
           <article className="rounded-3xl border border-festive-navy/10 bg-white p-6 md:p-7">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-festive-navy/50">Also on festive offer</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-festive-navy/50">Also on festival offer</p>
             <h3 className="mt-2 text-xl font-extrabold text-festive-navy">Smart Billing Pro</h3>
             <p className="mt-1 text-sm text-festive-navy/65">For growing retail businesses</p>
             <p className="mt-5">
