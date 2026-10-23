@@ -54,7 +54,7 @@ export default function LegalFooter() {
               <Link href="/dynamic-pages" className="hover:text-paper">Dynamic Pages</Link>
               <Link href="/smart-billing-lite-affiliate-program" className="hover:text-paper">Affiliate Program</Link>
               <Link href="/referral/login" className="hover:text-paper">Become a Brand Promoter</Link>
-              <Link href="/dussehra-offer" className="hover:text-paper">Festival Offer</Link>
+              <Link href="/festive-offer" className="hover:text-paper">Festival Offer</Link>
             </nav>
           </div>
 

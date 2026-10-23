@@ -16,7 +16,7 @@ const STATIC_ROUTES = [
   "/about-us",
   "/contact-us",
   "/download",
-  "/dussehra-offer",
+  "/festive-offer",
   "/blog",
   "/dynamic-pages",
   "/privacy-policy",

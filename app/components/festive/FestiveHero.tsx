@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { ArrowUpRight, Check, Phone, Sparkles } from "lucide-react";
+import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import TrackedLink from "./TrackedLink";
-import { WHATSAPP_URL, BOOK_NOW_NUMBER, btn } from "./campaign";
+import { WHATSAPP_URL, btn } from "./campaign";
+import RazorpayPaymentButton from "./RazorpayPaymentButton";
 
 const highlights = ["5-Day Free Trial", "Hindi + English", "AI Billing Support", "QR / UPI Payments", "Thermal Printer Ready"];
 
@@ -55,10 +56,7 @@ export default function FestiveHero() {
               WhatsApp Us
               <ArrowUpRight size={18} />
             </TrackedLink>
-            <a href={`tel:${BOOK_NOW_NUMBER.replace(/[\s-]/g, "")}`} className={`${btn.base} ${btn.gold}`}>
-              <Phone size={18} />
-              Book Now
-            </a>
+            <RazorpayPaymentButton />
           </div>
 
           <p className="mt-5 text-sm font-medium text-festive-navy/60">

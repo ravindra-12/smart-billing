@@ -78,10 +78,6 @@ export default function FestiveVideo() {
         </ul>
 
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <button type="button" onClick={play} className={`${btn.base} ${btn.blue}`}>
-            <Play size={17} fill="currentColor" />
-            Watch Demo Video
-          </button>
           <TrackedLink href="#claim" event="demo_requested" interest="demo" className={`${btn.base} ${btn.outline}`}>
             Request Live Demo
           </TrackedLink>

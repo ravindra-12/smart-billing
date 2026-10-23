@@ -2,6 +2,7 @@ import { ArrowUpRight, BadgeCheck, CalendarCheck, Check, ChevronDown, Printer, S
 import Container from "@/app/components/ui/Container";
 import TrackedLink from "./TrackedLink";
 import { PRO_URL, btn } from "./campaign";
+import RazorpayPaymentButton from "./RazorpayPaymentButton";
 
 const included = [
   { icon: CalendarCheck, title: "13-month app access", text: "12-month plan + 30-day bonus" },
@@ -56,17 +57,10 @@ export default function FestiveOffer() {
                   Complete festival bundle · works out to ₹500/month, printer included
                 </p>
 
-                <TrackedLink
-                  href="#claim"
-                  event="offer_clicked"
-                  interest="lite"
-                  className={`${btn.base} ${btn.gold} mt-7 w-full sm:w-auto`}
-                >
-                  Grab Festival Offer
-                </TrackedLink>
+                <RazorpayPaymentButton className="mt-7" />
 
                 <p className="mt-4 text-sm text-festive-navy/60">
-                  Monthly: ₹800 · Festival yearly app rate: ₹400/month
+                  Monthly: ₹800 per Month/per user · Festival yearly app rate: ₹400/month per user
                 </p>
               </div>
 

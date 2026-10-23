@@ -1,6 +1,6 @@
 export const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.murmu.smartbillinglite&hl=en_IN";
-export const PRO_URL = "https://retailbillingpro.com/";
+export const PRO_URL = "#claim";
 export const SUPPORT_EMAIL = "contactus@murmusoftwareinfotech.com";
 export const DEMO_VIDEO_ID = "HIkf0Lt_9io";
 export const WHATSAPP_NUMBER = "919110176498";

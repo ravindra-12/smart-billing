@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "r
 import { ArrowUpRight, CheckCircle2, Loader2, Mail, Phone, Send,  } from "lucide-react";
 import Container from "@/app/components/ui/Container";
 import TrackedLink from "./TrackedLink";
-import { INTEREST_EVENT, WHATSAPP_URL, BOOK_NOW_NUMBER, SUPPORT_EMAIL, btn, interests, track, type Interest } from "./campaign";
+import { INTEREST_EVENT, WHATSAPP_URL, SUPPORT_EMAIL, btn, interests, track, type Interest } from "./campaign";
+import RazorpayPaymentButton from "./RazorpayPaymentButton";
 
 const ENQUIRY_URL = "https://api.smartbillinglite.com/api/enquiries";
 
@@ -87,10 +88,7 @@ export default function FestiveCta() {
               WhatsApp Us
               <ArrowUpRight size={18} />
             </TrackedLink>
-            <a href={`tel:${BOOK_NOW_NUMBER.replace(/[\s-]/g, "")}`} className={`${btn.base} ${btn.gold}`}>
-              <Phone size={18} />
-              Book Now
-            </a>
+            <RazorpayPaymentButton />
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/15 pt-6 text-sm text-white/70">

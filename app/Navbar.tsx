@@ -25,7 +25,8 @@ export default function Navbar() {
     pathname.startsWith("/admin") ||
     pathname.startsWith("/promoter") ||
     pathname.startsWith("/vendor") ||
-    pathname.startsWith("/referral")
+    pathname.startsWith("/referral") ||
+    pathname.startsWith("/festive-offer")
   ) {
     return null;
   }
