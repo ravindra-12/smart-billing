@@ -9,7 +9,7 @@ export const BOOK_NOW_NUMBER = "+91-8235264677";
 
 export const interests = {
   lite: "Smart Billing Lite Festival Bundle (₹6,500)",
-  pro: "Smart Billing Pro Festival Offer (₹10,000/year)",
+  pro: "Smart Billing Pro Festival Offer (₹14,000/year)",
   demo: "Live demo",
 } as const;
 

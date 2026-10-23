@@ -2,7 +2,7 @@ export type FestiveLocale = "en" | "hi";
 
 export const festiveCopy = {
   hi: {
-    interests: { lite: "Smart Billing Lite फेस्टिवल बंडल (₹6,500)", pro: "Smart Billing Pro फेस्टिवल ऑफर (₹10,000/ईयर)", demo: "लाइव डेमो" },
+    interests: { lite: "Smart Billing Lite फेस्टिवल बंडल (₹6,500)", pro: "Smart Billing Pro फेस्टिवल ऑफर (₹14,000/ईयर)", demo: "लाइव डेमो" },
     hero: {
       eyebrow: "फेस्टिवल बंपर ऑफर",
       title: "फास्ट बिलिंग करें। स्मार्ट सेलिंग करें।",

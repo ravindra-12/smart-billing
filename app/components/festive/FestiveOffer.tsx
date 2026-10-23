@@ -101,7 +101,7 @@ export default function FestiveOffer() {
             <h3 className="mt-2 text-xl font-extrabold text-festive-navy">Smart Billing Pro</h3>
             <p className="mt-1 text-sm text-festive-navy/65">For growing retail businesses</p>
             <p className="mt-5">
-              <span className="text-3xl font-extrabold text-festive-navy">₹10,000</span>
+              <span className="text-3xl font-extrabold text-festive-navy">₹14,000</span>
               <span className="text-sm font-semibold text-festive-navy/60"> / year</span>
             </p>
             <ul className="mt-5 grid gap-2 text-sm font-semibold text-festive-navy/80">
