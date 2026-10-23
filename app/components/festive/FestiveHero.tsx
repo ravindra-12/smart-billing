@@ -19,7 +19,7 @@ export default function FestiveHero() {
           </p>
           <div>
             <a
-              href="/dussehra-offer-hindi"
+              href="/festive-offer-hindi"
               className="inline-flex items-center justify-center rounded-full border border-festive-navy/20 bg-white px-4 py-1.5 text-sm font-bold text-festive-navy transition-colors hover:border-festive-blue hover:text-festive-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-festive-blue"
             >
               हिन्दी मे देखें
