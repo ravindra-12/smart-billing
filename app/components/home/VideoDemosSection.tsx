@@ -6,7 +6,7 @@ import Reveal from "@/app/components/ui/Reveal";
 import { isEmbeddableVideo, youtubeUrl } from "@/app/components/dynamic/helpers";
 import type { VideosBlock } from "./types";
 
-const FALLBACK_VIDEO_ID = "HIkf0Lt_9io";
+const FALLBACK_VIDEO_ID = "ECFa1phEab0";
 
 const fallbackDemos = [
   {

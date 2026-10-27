@@ -7,6 +7,7 @@ import Button from "@/app/components/ui/Button";
 import Badge from "@/app/components/ui/Badge";
 import Container from "@/app/components/ui/Container";
 import { useMountedIn } from "@/app/hooks/useMountedIn";
+import { assetUrl } from "@/app/components/dynamic/helpers";
 import type { HeroBlock } from "./types";
 
 const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -21,6 +22,7 @@ const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
 export default function HeroSection({ hero }: { hero?: HeroBlock }) {
   const bgRef = useRef<HTMLDivElement>(null);
   const mounted = useMountedIn();
+  const heroImage = assetUrl(hero?.heroImage) ?? "/hero-bg.png";
 
   const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
     const node = bgRef.current;
@@ -46,7 +48,7 @@ export default function HeroSection({ hero }: { hero?: HeroBlock }) {
       <div
         ref={bgRef}
         className="absolute inset-0 scale-105 bg-cover bg-position-[center_right] transition-transform duration-300 ease-out"
-        style={{ backgroundImage: "url('/hero-bg.png')" }}
+        style={{ backgroundImage: `url("${heroImage}")` }}
       />
       <div className="absolute inset-0 bg-linear-to-r from-surface-dark via-surface-dark/85 to-surface-dark/20" />
 
