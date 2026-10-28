@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import FestivePromoCta from "@/app/components/FestivePromoCta";
 import FeaturesHeroSection from "@/app/components/features/FeaturesHeroSection";
 import VideoDemosSection from "@/app/components/home/VideoDemosSection";
 import JsonLd from "../components/JsonLd";
@@ -41,6 +42,7 @@ export default async function TutorialPage() {
     <main className="flex-1 bg-paper">
       <JsonLd data={tutorialMeta} />
       <FeaturesHeroSection data={tutorialMeta?.hero} />
+      <FestivePromoCta variant="tutorial" />
       <VideoDemosSection videos={tutorialMeta?.videos} />
     </main>
   );

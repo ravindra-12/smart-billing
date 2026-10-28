@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import FestivePromoCta from '@/app/components/FestivePromoCta';
 import LoginClient from './LoginClient';
 
 export const metadata: Metadata = {
@@ -16,10 +15,5 @@ export default async function ReferralLoginPage({
   const params = await searchParams;
   const initialTab = params.tab === 'vendor' ? 'vendor' : 'promoter';
 
-  return (
-    <>
-      <LoginClient initialTab={initialTab} />
-      <FestivePromoCta variant="login" />
-    </>
-  );
+  return <LoginClient initialTab={initialTab} />;
 }

@@ -2,7 +2,7 @@ import { ArrowRight, Gift } from "lucide-react";
 import Button from "@/app/components/ui/Button";
 import Container from "@/app/components/ui/Container";
 
-type PromoVariant = "home" | "features" | "pricing" | "login";
+type PromoVariant = "home" | "features" | "pricing" | "tutorial";
 
 const promoCopy: Record<PromoVariant, { label: string; title: string; description: string; button: string }> = {
   home: {
@@ -23,7 +23,7 @@ const promoCopy: Record<PromoVariant, { label: string; title: string; descriptio
     description: "Get 13 months of Smart Billing Lite, a mobile thermal printer, AI insights, quick billing and Hindi + English support in one affordable bundle.",
     button: "Grab This Deal",
   },
-  login: {
+  tutorial: {
     label: "Festive season bumper offer",
     title: "Stop Manual Billing. Start Growing Smarter!",
     description: "Simplify bills, QR payments, customer records and udhaar with AI-powered Smart Billing Lite. Get 13 months + a thermal printer for ₹6,500!",

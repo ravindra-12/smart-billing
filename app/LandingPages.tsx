@@ -117,9 +117,9 @@ export function HomePage({ homeMeta, blogPosts }: { homeMeta: Record<string, unk
     <main className="bg-paper">
       <JsonLd data={homeMeta} />
       <HeroSection hero={data?.hero} />
-      <FestivePromoCta variant="home" />
       <DownloadApkPromo />
       <VideoDemosSection videos={data?.videos} limit={1} />
+      <FestivePromoCta variant="home" />
       <BlogPreviewSection posts={blogPosts} />
       <BusinessTypeSection businessTypes={data?.businessTypes} />
       <WhyChooseSection whyChoose={data?.whyChoose} />
@@ -135,9 +135,9 @@ export function PricingPage({ pricingPage }: { pricingPage: PricingPageData | nu
   return (
     <main className="bg-paper">
       <PricingHeroSection data={pricingPage?.hero} />
-      <FestivePromoCta variant="pricing" />
       <PricingPlansSection data={pricingPage?.plans} />
       <PricingStepsSection data={pricingPage?.steps} />
+      <FestivePromoCta variant="pricing" />
       <PricingBottomSection data={pricingPage?.bottom} />
       <PricingCtaSection data={pricingPage?.bottom} />
       <WorkspaceSection data={pricingPage?.workspace} />
@@ -151,8 +151,8 @@ export function FeaturesPage({ featurePage }: { featurePage: FeaturePageData | n
   return (
     <main className="bg-paper">
       <FeaturesHeroSection data={featurePage?.hero} />
-      <FestivePromoCta variant="features" />
       <FeaturesListSection groups={featurePage?.featureGroups} />
+      <FestivePromoCta variant="features" />
       <HardwareSection data={featurePage?.hardware} />
       <HighlightsSection data={featurePage?.highlights} />
       <WorkspaceSection data={featurePage?.workspace} />
