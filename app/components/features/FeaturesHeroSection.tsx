@@ -26,8 +26,8 @@ export default function FeaturesHeroSection({ data = {} }: { data?: FeatureHeroD
             <h1 className="font-display mt-6 text-4xl font-semibold leading-[1.1] text-paper md:text-5xl">{data.title}</h1>
             <p className="mt-6 max-w-md leading-7 text-paper/70">{data.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={data.primaryButtonLink || "#download-apk"} variant="inverse" size="lg">{data.primaryButtonText || "Start 5-Day Free Trial"}</Button>
-              <Button href={data.secondaryButtonLink || "#download-apk"} variant="ghost" size="lg" className="border border-white/20 text-paper hover:bg-white/10">{data.secondaryButtonText || "Request Demo"}</Button>
+              <Button href="/festive-offer" variant="inverse" size="lg">{data.primaryButtonText || "Start 5-Day Free Trial"}</Button>
+              <Button href="/festive-offer" variant="ghost" size="lg" className="border border-white/20 text-paper hover:bg-white/10">{data.secondaryButtonText || "Request Demo"}</Button>
             </div>
           </div>
           <div className="rounded-4xl border border-white/10 bg-white/5 p-4">
@@ -35,7 +35,7 @@ export default function FeaturesHeroSection({ data = {} }: { data?: FeatureHeroD
               <div className="mb-4 flex items-center justify-between"><div><div className="text-[10px] font-bold uppercase tracking-wide text-ink-faint">Dashboard</div><div className="font-display text-2xl font-semibold text-ink">{data.dashboardValue ?? "₹12,450"}</div></div><span className="flex items-center gap-1 rounded-full bg-accent-soft px-2.5 py-1 text-[10px] font-bold text-accent-dark"><TrendingUp size={11} />{data.dashboardGrowth ?? "+18%"}</span></div>
               <div className="mb-3 grid grid-cols-2 gap-2">{stats.map(([label, value]) => <div key={label} className="rounded-xl bg-paper-dim p-2.5"><div className="text-[9px] font-bold text-ink-faint">{label}</div><div className="text-base font-black text-ink">{value}</div></div>)}</div>
               <div className="mb-3 rounded-xl bg-paper-dim p-2.5"><div className="mb-1.5 text-[10px] font-black text-ink">{data.chartLabel ?? "Sales This Week"}</div><div className="flex h-12 items-end gap-1">{chartValues.map((height, index) => <div key={index} className="flex-1 rounded-t bg-accent" style={{ height: `${height}%` }} />)}</div></div>
-              <Button href={data.primaryButtonLink || "#download-apk"} size="md" className="w-full text-xs">Create New Bill</Button>
+              <Button href="/festive-offer" size="md" className="w-full text-xs">Create New Bill</Button>
             </div>
           </div>
         </div>

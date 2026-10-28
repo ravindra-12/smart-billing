@@ -54,7 +54,7 @@ export default function HighlightsSection({ data }: { data?: FeatureHighlightsSe
                   </div>
                 ))}
               </div>
-              <Button href={content.buttonLink || "#download-apk"} className="mt-6 w-full">
+              <Button href="/festive-offer" className="mt-6 w-full">
               {content.buttonText}
               </Button>
             </div>

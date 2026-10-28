@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* Desktop language selector + CTA */}
         <div className="hidden items-center gap-2 md:flex">
           <LanguageSelector />
-          <Button href="/#download-apk" onClick={scrollToDownload}>
+          <Button href="/festive-offer">
             Start Free Trial
           </Button>
         </div>
@@ -139,7 +139,7 @@ export default function Navbar() {
             <LanguageSelector />
           </div>
 
-          <Button href="/#download-apk" onClick={scrollToDownload} className="mt-3 w-full">
+          <Button href="/festive-offer" className="mt-3 w-full">
             Start Free Trial
           </Button>
         </div>

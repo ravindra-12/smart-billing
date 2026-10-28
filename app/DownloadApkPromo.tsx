@@ -13,9 +13,6 @@ import SectionHeading from "./components/ui/SectionHeading";
 import IconTile from "./components/ui/IconTile";
 import Button from "./components/ui/Button";
 
-const playStoreUrl =
-  "https://play.google.com/store/apps/details?id=com.murmu.smartbillinglite&hl=en_IN";
-
 const mobileBenefits = ["Fast billing on the go", "UPI and QR payments", "Receipts and daily reports"];
 const desktopBenefits = ["Powerful desktop workspace", "Clear business insights", "Built for growing teams"];
 
@@ -68,9 +65,7 @@ export default function DownloadApkPromo() {
               </p>
               <BenefitList items={mobileBenefits} />
               <Button
-                href={playStoreUrl}
-                target="_blank"
-                rel="noreferrer"
+                href="/festive-offer"
                 size="lg"
                 className="mt-8 w-full sm:w-auto"
               >
@@ -112,9 +107,7 @@ export default function DownloadApkPromo() {
                 })}
               </div>
               <Button
-                href="https://retailbillingpro.com/"
-                target="_blank"
-                rel="noreferrer"
+                href="/festive-offer"
                 variant="inverse"
                 size="lg"
                 className="mt-8 w-full sm:w-auto"

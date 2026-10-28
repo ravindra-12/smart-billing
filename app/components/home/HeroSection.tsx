@@ -10,15 +10,6 @@ import { useMountedIn } from "@/app/hooks/useMountedIn";
 import { assetUrl } from "@/app/components/dynamic/helpers";
 import type { HeroBlock } from "./types";
 
-const scrollToDownload = (event: MouseEvent<HTMLAnchorElement>) => {
-  event.preventDefault();
-  const el = document.getElementById("download-apk");
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth" });
-    history.replaceState(null, "", "#download-apk");
-  }
-};
-
 export default function HeroSection({ hero }: { hero?: HeroBlock }) {
   const bgRef = useRef<HTMLDivElement>(null);
   const mounted = useMountedIn();
@@ -76,8 +67,7 @@ export default function HeroSection({ hero }: { hero?: HeroBlock }) {
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Button
-              href={hero?.primaryButtonLink ?? "#download-apk"}
-              onClick={scrollToDownload}
+              href="/festive-offer"
               variant="inverse"
               size="lg"
             >
@@ -85,8 +75,7 @@ export default function HeroSection({ hero }: { hero?: HeroBlock }) {
               <ArrowUpRight size={18} />
             </Button>
             <Button
-              href={hero?.secondaryButtonLink ?? "#download-apk"}
-              onClick={scrollToDownload}
+              href="/festive-offer"
               variant="ghost"
               size="lg"
               className="text-paper/80 hover:text-paper"

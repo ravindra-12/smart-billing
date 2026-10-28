@@ -232,7 +232,7 @@ export default async function BlogPostPage({
             <h2 className="font-display mt-2 text-2xl font-semibold text-ink">
               Manage your business from one simple app.
             </h2>
-            <Button href="/download" className="mt-6">
+            <Button href="/festive-offer" className="mt-6">
               Get Smart Billing Lite <ArrowRight size={17} />
             </Button>
           </div>

@@ -17,7 +17,7 @@ export default function DynamicCtaBannerBlock({ block }: { block: any }) {
               <p className="mt-3 max-w-2xl leading-7 text-paper/70">{text(block.description)}</p>
             </div>
             {block.buttonUrl && (
-              <Button href={block.buttonUrl} variant="inverse" size="lg" className="shrink-0">
+              <Button href="/festive-offer" variant="inverse" size="lg" className="shrink-0">
                 {block.buttonLabel}
               </Button>
             )}

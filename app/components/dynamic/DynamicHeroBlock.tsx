@@ -27,7 +27,7 @@ export default function DynamicHeroBlock({ block }: { block: any }) {
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-8 text-paper/70">{text(block.description)}</p>
             {block.primaryButton?.url && (
-              <Button href={block.primaryButton.url} variant="inverse" size="lg" className="mt-8">
+              <Button href="/festive-offer" variant="inverse" size="lg" className="mt-8">
                 {block.primaryButton.label}
               </Button>
             )}

@@ -114,7 +114,7 @@ export default async function BlogPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-paper/50">Ready to simplify billing?</p>
               <h2 className="font-display mt-2 text-2xl font-semibold">Manage your business from one simple app.</h2>
             </div>
-            <Button href="/download" variant="inverse" size="lg" className="shrink-0">
+            <Button href="/festive-offer" variant="inverse" size="lg" className="shrink-0">
               Get Smart Billing Lite <ArrowRight size={17} />
             </Button>
           </Container>
