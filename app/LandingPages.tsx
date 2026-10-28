@@ -1,6 +1,7 @@
 "use client";
 import type { MouseEvent } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
+import FestivePromoCta from "./components/FestivePromoCta";
 import JsonLd from "../app/components/JsonLd";
 import { useHomeData } from "./hooks/useHomeData";
 import { useLocale } from "./context/LocaleContext";
@@ -116,6 +117,7 @@ export function HomePage({ homeMeta, blogPosts }: { homeMeta: Record<string, unk
     <main className="bg-paper">
       <JsonLd data={homeMeta} />
       <HeroSection hero={data?.hero} />
+      <FestivePromoCta variant="home" />
       <DownloadApkPromo />
       <VideoDemosSection videos={data?.videos} limit={1} />
       <BlogPreviewSection posts={blogPosts} />
@@ -133,6 +135,7 @@ export function PricingPage({ pricingPage }: { pricingPage: PricingPageData | nu
   return (
     <main className="bg-paper">
       <PricingHeroSection data={pricingPage?.hero} />
+      <FestivePromoCta variant="pricing" />
       <PricingPlansSection data={pricingPage?.plans} />
       <PricingStepsSection data={pricingPage?.steps} />
       <PricingBottomSection data={pricingPage?.bottom} />
@@ -148,6 +151,7 @@ export function FeaturesPage({ featurePage }: { featurePage: FeaturePageData | n
   return (
     <main className="bg-paper">
       <FeaturesHeroSection data={featurePage?.hero} />
+      <FestivePromoCta variant="features" />
       <FeaturesListSection groups={featurePage?.featureGroups} />
       <HardwareSection data={featurePage?.hardware} />
       <HighlightsSection data={featurePage?.highlights} />

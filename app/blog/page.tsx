@@ -111,11 +111,16 @@ export default async function BlogPage() {
         <section className="px-5 pb-16 md:pb-20">
           <Container className="flex flex-col items-start justify-between gap-6 rounded-[2.5rem] bg-surface-dark p-8 text-paper md:flex-row md:items-center md:p-12">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-paper/50">Ready to simplify billing?</p>
-              <h2 className="font-display mt-2 text-2xl font-semibold">Manage your business from one simple app.</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-paper/50">
+                🎁 Exclusive festive season offer
+              </p>
+              <h2 className="font-display mt-2 text-2xl font-semibold">Turn Everyday Billing into Smarter Business Growth!</h2>
+              <p className="mt-3 max-w-2xl leading-7 text-paper/70">
+                Discover AI-powered Smart Billing Lite with quick billing, QR payments, customer management, and AI insights. Get 13 months + a mobile thermal printer for just ₹6,500!
+              </p>
             </div>
             <Button href="/festive-offer" variant="inverse" size="lg" className="shrink-0">
-              Get Smart Billing Lite <ArrowRight size={17} />
+              Explore Festive Offer <ArrowRight size={17} />
             </Button>
           </Container>
         </section>

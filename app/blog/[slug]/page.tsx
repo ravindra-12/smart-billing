@@ -100,7 +100,7 @@ export default async function BlogPostPage({
   const rendered = renderBlogContent(post.content ?? '');
   const built = buildToc(rendered);
 
-  let contentHtml = built.html;
+  const contentHtml = built.html;
   let toc: TocItem[] = built.toc;
 
   // Fallback to the library extractor if no headings were found in the HTML
@@ -227,13 +227,16 @@ export default async function BlogPostPage({
           {/* CTA */}
           <div className="mt-14 rounded-[2.5rem] border border-line bg-white p-8 md:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-              Ready to simplify billing?
+              🎁 Exclusive festive season offer
             </p>
             <h2 className="font-display mt-2 text-2xl font-semibold text-ink">
-              Manage your business from one simple app.
+              Turn Everyday Billing into Smarter Business Growth!
             </h2>
+            <p className="mt-3 max-w-2xl leading-7 text-ink-soft">
+              Discover AI-powered Smart Billing Lite with quick billing, QR payments, customer management, and AI insights. Get 13 months + a mobile thermal printer for just ₹6,500!
+            </p>
             <Button href="/festive-offer" className="mt-6">
-              Get Smart Billing Lite <ArrowRight size={17} />
+              Explore Festive Offer <ArrowRight size={17} />
             </Button>
           </div>
         </article>
