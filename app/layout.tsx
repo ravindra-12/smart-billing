@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   title: "Smart Billing Lite",
   description: "AI powered billing app for small businesses.",
   icons: {
-    icon: "/Smart_Billing_Lite_Logo.png",
-    shortcut: "/Smart_Billing_Lite_Logo.png",
-    apple: "/Smart_Billing_Lite_Logo.png",
+    icon: "/Smart_Billing_Lite_Logo.png?v=smart-billing",
+    shortcut: "/Smart_Billing_Lite_Logo.png?v=smart-billing",
+    apple: "/Smart_Billing_Lite_Logo.png?v=smart-billing",
   },
 };
 

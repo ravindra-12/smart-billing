@@ -37,17 +37,17 @@ export default function FestivePromoCta({ variant }: { variant: PromoVariant }) 
   return (
     <section className="bg-paper-dim px-5 py-16 md:py-20">
       <Container>
-        <div className="rounded-[2.5rem] bg-surface-dark p-8 text-paper md:p-12">
+        <div className="flex flex-col gap-8 rounded-[2.5rem] bg-surface-dark p-8 text-paper md:flex-row md:items-center md:justify-between md:p-12">
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
               <Gift size={16} /> {label}
             </p>
             <h2 className="font-display mt-4 text-3xl font-semibold leading-tight md:text-4xl">{title}</h2>
             <p className="mt-4 max-w-2xl leading-7 text-paper/70">{description}</p>
-            <Button href="/festive-offer" variant="inverse" size="lg" className="mt-8">
-              {button} <ArrowRight size={17} />
-            </Button>
           </div>
+          <Button href="/festive-offer" variant="inverse" size="lg" className="shrink-0">
+            {button} <ArrowRight size={17} />
+          </Button>
         </div>
       </Container>
     </section>
