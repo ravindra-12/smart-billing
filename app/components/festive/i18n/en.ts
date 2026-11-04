@@ -1,0 +1,130 @@
+// English copy for the festival campaign page. This file defines the dictionary shape (FestiveDict) that every
+// other language must match exactly. Prices, brand names (Smart Billing Lite/Pro), UPI/QR/AI/GST/POS stay as-is.
+
+export const en = {
+  meta: {
+    title: "Festival Offer | Smart Billing Lite",
+    description: "Festival yearly pricing for Smart Billing Lite: ₹400/month per user, compared with the ₹800 monthly plan.",
+  },
+  languageLabel: "Language",
+  hero: {
+    eyebrow: "Festival Bumper Offer",
+    title: "Bill Faster. Sell Smarter.",
+    titleAccent: "Grow Your Business.",
+    description:
+      "AI-powered Smart Billing Lite helps shops and small businesses bill faster, collect payments easily, and grow smarter.",
+    discount: "Heavy Festival Discount",
+    regularPrice: "Regular price",
+    bundleDetails: "Festival bundle · 13 months + thermal printer",
+    highlights: ["5-Day Free Trial", "Hindi + English", "AI Billing Support", "QR / UPI Payments", "Thermal Printer Ready"],
+    whatsapp: "WhatsApp Us",
+    footnote: "Built for local shops, service businesses, and growing retailers.",
+    imageAlt: "Smart Billing Lite dashboard on a phone with a mobile thermal printer, QR payment stand and printed receipt",
+    brochureShort: "Brochure",
+    brochure: "Download Brochure",
+    brochureLabel: "Download the Smart Billing Lite brochure (PDF)",
+  },
+  benefits: {
+    eyebrow: "Why Smart Billing Lite",
+    title: "Everything Your Business Needs. One Simple App.",
+    description: "Faster billing, easy payments, customer tracking, offers, and smart business growth.",
+    items: [
+      { title: "Quick Billing", text: "Create bills in seconds." },
+      { title: "UPI Payments", text: "Accept UPI, QR, cash and card." },
+      { title: "Udhaar Tracking", text: "Track pending and cleared dues." },
+      { title: "Customer CRM", text: "Save customers for repeat business." },
+      { title: "Offers & Memberships", text: "Run coupons and loyalty plans." },
+      { title: "AI Insights", text: "Smart tips and business reports." },
+    ],
+  },
+  offer: {
+    eyebrow: "Festival Bumper Offer",
+    title: "Go digital for ₹6,500 with Festival Bumper Offer",
+    description:
+      "Special festival pricing for businesses ready to start billing smarter: 13 months of Smart Billing Lite with a mobile thermal printer included.",
+    badge: "Limited Festival Offer",
+    appDescription: "AI-Powered Mobile Billing App",
+    regularBundlePrice: "Regular bundle price",
+    bundleDetails: "Complete festival bundle · works out to ₹500/month, printer included",
+    monthly: "Monthly: ₹800 per Month/per user · Festival yearly app rate: ₹400/month per user",
+    included: [
+      { title: "13-month app access", text: "12-month plan + 30-day bonus" },
+      { title: "Mobile thermal printer", text: "Included in the bundle" },
+      { title: "AI mini insights", text: "Daily tips and reports" },
+      { title: "5-day free trial", text: "Try everything before you pay" },
+    ],
+    termsLabel: "Offer terms",
+    terms: [
+      "The 13 months are a 12-month yearly plan plus a 30-day bonus, activated on yearly purchase.",
+      "The mobile thermal printer comes with the ₹6,500 bundle only, not with the monthly plan or the free trial.",
+      "AI Pro features such as voice billing are a separately chargeable add-on.",
+      "Our team confirms GST, delivery, printer model and warranty with you before any payment.",
+      "Valid for the Festival Bumper Offer campaign period only.",
+    ],
+    proEyebrow: "Also on festival offer",
+    proDescription: "For growing retail businesses",
+    perYear: "/ year",
+    proFeatures: ["Advanced web POS", "Inventory management", "Thermal printer included"],
+    proFootnote: "Best for larger retail businesses.",
+    explorePro: "Explore Smart Billing Pro",
+    askPro: "Ask about the Pro offer",
+  },
+  video: {
+    eyebrow: "Product demo",
+    title: "Watch Smart Billing Lite in Action",
+    description: "See how businesses bill quickly, collect payments, track customers and udhaar, and grow every day.",
+    captions: ["Quick Billing", "Payment Collection", "AI Features"],
+    frameTitle: "Smart Billing Lite demo",
+    playLabel: "Play the Smart Billing Lite demo video",
+    request: "Request Live Demo",
+    nowPlaying: "Now playing",
+    moreVideos: "More videos",
+    /** One short title per video in DEMO_VIDEOS (campaign.ts), same order. */
+    videoTitles: [
+      "Smart Billing Lite & Pro overview",
+      "₹6,500 festive combo: app + printer",
+      "Your mini POS for fast billing",
+      "Bill in seconds with calculator billing",
+      "Product & service billing made easy",
+    ],
+  },
+  cta: {
+    eyebrow: "Festival Bumper Offer",
+    /** Rendered as `title` followed by `titleAccent` in gold. */
+    title: "Your Business Deserves",
+    titleAccent: "Smarter Billing.",
+    description:
+      "Move from manual billing to faster billing, easier payments, better customer management, and smarter business growth.",
+    note: "Start with a 5-day free trial or secure the festival yearly offer today.",
+    whatsapp: "WhatsApp Us",
+    help: "Need help? Our team will help you get started quickly.",
+    call: "Call:",
+    formTitle: "Claim your festival offer",
+    formDescription: "Leave your details and our team will call you to confirm pricing, printer delivery and setup.",
+    interest: "I'm interested in",
+    interests: {
+      lite: "Smart Billing Lite Festival Bundle (₹6,500)",
+      pro: "Smart Billing Pro Festival Offer (₹14,000/year)",
+      demo: "Live demo",
+    },
+    name: "Name",
+    namePlaceholder: "Your name",
+    phone: "Mobile number",
+    phonePlaceholder: "10-digit number",
+    phoneTitle: "Enter a 10-digit mobile number",
+    email: "Email",
+    message: "Message",
+    optional: "(optional)",
+    messagePlaceholder: "Business type, city, or any questions",
+    sending: "Sending...",
+    submit: "Request a Call Back",
+    sent: "Thank you! Our team will contact you soon.",
+    /** Followed by the support email address. */
+    error: "Something went wrong. Please try again or email",
+  },
+  mobile: {
+    whatsapp: "WhatsApp",
+  },
+};
+
+export type FestiveDict = typeof en;

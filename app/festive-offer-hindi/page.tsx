@@ -1,16 +1,6 @@
-import type { Metadata } from "next";
-import FestiveHindiPage from "@/app/components/festive/FestiveHindiPage";
+import { permanentRedirect } from "next/navigation";
 
-const title = "फेस्टिवल ऑफर | Smart Billing Lite";
-const description =
-  "दुकानों और छोटे व्यवसायों के लिए Smart Billing Lite का फेस्टिवल ऑफर।";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  openGraph: { title, description, images: ["/hero-bg.png"] },
-};
-
+/** The Hindi campaign page now lives at /festive-offer/hi, with the other languages. */
 export default function FestiveOfferHindiPage() {
-  return <FestiveHindiPage />;
+  permanentRedirect("/festive-offer/hi");
 }

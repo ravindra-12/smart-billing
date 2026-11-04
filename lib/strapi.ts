@@ -112,5 +112,5 @@ export async function getPageMeta(page: string, populate?: string) {
 }
 
 export async function getHomeMeta() {
-  return await fetchPageMeta("home-meta");
+  return await fetchPageMeta("home");
 }

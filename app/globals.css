@@ -73,12 +73,21 @@ h4,
   font-family: var(--font-display), Georgia, serif;
 }
 
-/* Campaign pages use the body sans for headings (fintech look, per the Dussehra brief). */
+/* Campaign pages use the body sans for headings too (fintech look, per the Dussehra brief). Translated pages set
+   --font-script to a Noto Sans for their script (app/components/festive/i18n/fonts.ts): Inter keeps Latin text,
+   digits and ₹, and the Indian script falls through to Noto. */
+.festive {
+  font-family: var(--font-body), var(--font-script, Arial), Arial, Helvetica, sans-serif;
+}
 .festive h1,
 .festive h2,
 .festive h3,
 .festive h4 {
-  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  font-family: inherit;
+}
+/* Letter-spacing pulls apart the joined letters and vowel signs of Indian scripts, so it is turned off there. */
+.festive-script [class*="tracking-"] {
+  letter-spacing: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -87,6 +96,60 @@ h4,
   .festive *::after {
     transition-duration: 0.01ms !important;
     animation: none !important;
+  }
+}
+
+/* ── Festive campaign decorations (lights, lanterns, diyas, rangoli, fireworks) ──
+   All of them stop under the .festive prefers-reduced-motion rule above. */
+@theme {
+  --color-festive-night: #0a1a3f;
+  --color-festive-night-deep: #050f29;
+  --color-festive-marigold: #f57c00;
+  --color-festive-red: #c1121f;
+
+  --animate-sway: sway 5s ease-in-out infinite;
+  --animate-flicker: flicker 1.6s ease-in-out infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-twinkle: twinkle 2.4s ease-in-out infinite;
+  --animate-burst: burst 3.6s ease-out infinite;
+  --animate-gleam: gleam 4.5s ease-in-out infinite;
+  --animate-confetti: confetti 1.8s ease-out both;
+  --animate-pop-in: pop-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  /* A video swapping into the player or the row below it. */
+  @keyframes pop-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+  @keyframes flicker {
+    0%, 100% { transform: scale(1, 1); opacity: 1; }
+    30% { transform: scale(0.94, 1.08); opacity: 0.92; }
+    60% { transform: scale(1.04, 0.95); opacity: 1; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+  @keyframes burst {
+    0% { transform: scale(0.1); opacity: 0; }
+    12% { opacity: 1; }
+    45% { transform: scale(1); opacity: 0.9; }
+    70%, 100% { transform: scale(1.12); opacity: 0; }
+  }
+  /* A light sweep across gold plaques: runs for the first ~30% of the loop, then rests. */
+  @keyframes gleam {
+    0% { transform: translateX(-120%) skewX(-12deg); }
+    30%, 100% { transform: translateX(520%) skewX(-12deg); }
+  }
+  @keyframes confetti {
+    0% { transform: translate(0, 0) rotate(0) scale(0.4); opacity: 1; }
+    45% { transform: translate(var(--x), var(--y)) rotate(calc(var(--r) * 0.6)) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), calc(var(--y) + 90px)) rotate(var(--r)) scale(1); opacity: 0; }
   }
 }
 

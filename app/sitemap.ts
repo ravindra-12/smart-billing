@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getPosts } from "@/lib/blog";
 import { getDynamicPages } from "@/lib/dynamicPages";
+import { LOCALES, festivePath } from "@/app/components/festive/i18n/locales";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || "https://smartbillinglite.in").replace(/\/$/, "");
 
@@ -45,6 +46,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
+  // Translated festival pages (English, /festive-offer, is in STATIC_ROUTES), each listing all its language versions.
+  const festiveLanguages = Object.fromEntries(LOCALES.map((l) => [l.code, `${SITE_URL}${festivePath(l.code)}`]));
+  const festiveEntries: MetadataRoute.Sitemap = LOCALES.filter((l) => l.code !== "en").map((l) => ({
+    url: `${SITE_URL}${festivePath(l.code)}`,
+    lastModified: new Date(),
+    alternates: { languages: festiveLanguages },
+  }));
+
   const blogEntries: MetadataRoute.Sitemap = posts
     .filter((post) => post?.slug)
     .map((post) => ({
@@ -59,5 +68,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: lastmodToIso((page as any).updatedAt || (page as any).publishedAt || undefined),
     }));
 
-  return [...staticEntries, ...blogEntries, ...dynamicEntries];
+  return [...staticEntries, ...festiveEntries, ...blogEntries, ...dynamicEntries];
 }
