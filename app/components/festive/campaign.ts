@@ -10,11 +10,11 @@ export const BROCHURE_URL = "/smart-billing-lite-brochure.pdf";
  * the same order, so add or remove a title there when changing this list.
  */
 export const DEMO_VIDEOS = [
-  "HIkf0Lt_9io", // Smart Billing Lite & Pro – billing software and business growth partner
+  "3Sa6sE85394", // Smart Billing Lite: mobile billing + thermal printer for ₹6,500
+  "IKXpvrkxzyQ", // Mobile se bill banao, printer se receipt nikalo
+  "kkpFrJh9sYQ", // Festive offer ₹6,500: 13 months + thermal printer
   "7GaZNxmVoK4", // Billing app + thermal printer for ₹6,500 (festive offer)
-  "8xHznTaH1G0", // Your mini POS for fast billing
-  "zELfm9cvzKg", // Bill in seconds with calculator billing
-  "bhVxka75VRM", // Product & service billing made easy
+  "LdjWrzrMHTQ", // Calculator chhodiye, Smart Billing apnaiye
 ] as const;
 export const DEMO_VIDEO_ID = DEMO_VIDEOS[0];
 export const WHATSAPP_NUMBER = "919110176498";

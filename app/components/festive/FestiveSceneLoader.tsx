@@ -2,7 +2,11 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+// Imported (not referenced as "/hero-bg.png") so Next fingerprints the file's contents into the URL: replacing the
+// image changes the URL, so the optimizer and browsers never serve a cached copy of the old one. Width and height
+// come from the file too.
+import heroImage from "@/public/hero-bg.png";
 
 // three.js only loads in the browser, after the hero text and image have painted (the H1/image stay the LCP).
 const FestiveScene = dynamic(() => import("./FestiveScene"), { ssr: false });
@@ -14,6 +18,16 @@ function subscribeReducedMotion(onChange: () => void) {
   return () => mq.removeEventListener("change", onChange);
 }
 const getReducedMotion = () => window.matchMedia(REDUCED_MOTION).matches;
+
+/** Fades the 3D canvas out over its outer 7% on every side, so nothing in the scene ever ends in a hard edge. */
+const EDGE_FADE: CSSProperties = {
+  maskImage:
+    "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent)",
+  maskComposite: "intersect",
+  WebkitMaskImage:
+    "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent)",
+  WebkitMaskComposite: "source-in",
+};
 
 function webglAvailable() {
   try {
@@ -56,19 +70,24 @@ export default function FestiveSceneLoader({ imageAlt }: { imageAlt: string }) {
   return (
     <div ref={box} className="relative aspect-square w-full">
       <div aria-hidden className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(244_185_66/0.4),rgb(37_99_235/0.25)_45%,transparent_70%)] blur-2xl" />
-      <div className={`absolute inset-[6%] overflow-hidden rounded-4xl border border-festive-gold/40 shadow-2xl shadow-black/40 transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-100"}`}>
+      {/* The image is a transparent cut-out of the phones: no frame, no crop (object-contain shows all of it), and
+          a drop shadow that follows the phone shapes rather than a box. */}
+      <div className={`absolute inset-[4%] transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-100"}`}>
         <Image
-          src="/hero-bg.png"
+          src={heroImage}
           alt={imageAlt}
-          width={1024}
-          height={1024}
           priority
           sizes="(min-width: 1024px) 40vw, (min-width: 640px) 32rem, 100vw"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain drop-shadow-[0_24px_40px_rgb(0_0_0/0.45)]"
         />
       </div>
       {mount && (
-        <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
+        <div
+          // -inset-[7%]: the canvas reaches 7% past the column on every side (into the column gap and hero padding;
+          // the faded edges hide the overlap), so the whole scene renders about 14% larger with the same framing.
+          className={`absolute -inset-[7%] transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}
+          style={EDGE_FADE}
+        >
           <FestiveScene active={visible} reduced={reduced} onReady={() => setReady(true)} />
         </div>
       )}

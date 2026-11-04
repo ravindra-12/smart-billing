@@ -99,6 +99,19 @@ h4,
   }
 }
 
+/* Festive decorations are also used outside the campaign page (home, shared promo banner): stop them site-wide
+   for visitors who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-sway,
+  .animate-flicker,
+  .animate-spin-slow,
+  .animate-twinkle,
+  .animate-burst,
+  .animate-gleam {
+    animation: none;
+  }
+}
+
 /* ── Festive campaign decorations (lights, lanterns, diyas, rangoli, fireworks) ──
    All of them stop under the .festive prefers-reduced-motion rule above. */
 @theme {

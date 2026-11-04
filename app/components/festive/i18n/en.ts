@@ -81,11 +81,11 @@ export const en = {
     moreVideos: "More videos",
     /** One short title per video in DEMO_VIDEOS (campaign.ts), same order. */
     videoTitles: [
-      "Smart Billing Lite & Pro overview",
+      "Mobile billing + thermal printer for ₹6,500",
+      "Bill on your mobile, print the receipt",
+      "Festive offer: 13 months + thermal printer",
       "₹6,500 festive combo: app + printer",
-      "Your mini POS for fast billing",
-      "Bill in seconds with calculator billing",
-      "Product & service billing made easy",
+      "Ditch the calculator, switch to Smart Billing",
     ],
   },
   cta: {

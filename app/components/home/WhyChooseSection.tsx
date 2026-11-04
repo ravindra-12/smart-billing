@@ -17,6 +17,7 @@ import Card from "@/app/components/ui/Card";
 import Reveal from "@/app/components/ui/Reveal";
 import TiltCard from "@/app/components/ui/TiltCard";
 import { assetUrl } from "@/app/components/dynamic/helpers";
+import { Rangoli } from "@/app/components/festive/Decorations";
 import type { WhyChooseBlock } from "./types";
 
 const BENEFIT_ICON_MAP: Record<string, LucideIcon> = {
@@ -34,7 +35,11 @@ export default function WhyChooseSection({ whyChoose }: { whyChoose?: WhyChooseB
   return (
     <section className="py-20">
       <Container>
-        <div className="rounded-[2.5rem] border border-line bg-paper-dim p-8 md:p-14">
+        <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-[#f2b84b]/40 bg-paper-dim p-8 md:p-14">
+          {/* Faint gold rangolis in two corners and a marigold edge along the top */}
+          <Rangoli className="absolute -top-28 -right-28 -z-10 size-80 opacity-40" />
+          <Rangoli className="absolute -bottom-32 -left-32 -z-10 hidden size-96 opacity-30 md:block" />
+          <span aria-hidden className="absolute inset-x-0 top-0 -z-10 h-1.5 bg-linear-to-r from-[#f57c00] via-[#f4b942] to-[#c1121f]" />
           <SectionHeading
             eyebrow={whyChoose?.badgeText ?? "Why Smart Billing Lite"}
             title={whyChoose?.title ?? "Why choose Smart Billing Lite?"}

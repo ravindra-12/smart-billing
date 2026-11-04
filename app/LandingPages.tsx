@@ -2,6 +2,7 @@
 import type { MouseEvent } from "react";
 import DownloadApkPromo from "./DownloadApkPromo";
 import FestivePromoCta from "./components/FestivePromoCta";
+import { SectionWave } from "./components/festive/Decorations";
 import JsonLd from "../app/components/JsonLd";
 import { useHomeData } from "./hooks/useHomeData";
 import { useLocale } from "./context/LocaleContext";
@@ -118,8 +119,12 @@ export function HomePage({ homeMeta, blogPosts }: { homeMeta: Record<string, unk
       <JsonLd data={homeMeta} />
       <HeroSection hero={data?.hero} />
       <DownloadApkPromo />
+      {/* Festive boundaries: gold curve with twinkling lights, filled with the colour of the section above */}
+      <SectionWave color="#f2ede1" diya="left" />
       <VideoDemosSection videos={data?.videos} limit={1} />
+      <SectionWave color="#faf7f0" diya="right" />
       <FestivePromoCta variant="home" />
+      <SectionWave color="#f2ede1" />
       <BlogPreviewSection posts={blogPosts} />
       <BusinessTypeSection businessTypes={data?.businessTypes} />
       <WhyChooseSection whyChoose={data?.whyChoose} />
