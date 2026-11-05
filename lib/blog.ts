@@ -240,33 +240,79 @@ export function extractTableOfContents(content?: string) {
   const headings: Array<{ level: number; title: string; slug: string }> = [];
   const seen = new Map<string, number>();
 
-  content.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
-    const cleanTitle = title.trim();
+  const addHeading = (level: number, title: string) => {
+    const cleanTitle = title.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim();
     const baseSlug = slugifyHeading(cleanTitle);
     const count = seen.get(baseSlug) ?? 0;
     seen.set(baseSlug, count + 1);
     headings.push({
-      level: hashes.length,
+      level,
       title: cleanTitle,
       slug: count ? `${baseSlug}-${count + 1}` : baseSlug,
     });
+  };
+
+  const normalized = decodeHtmlEntities(content.trim());
+
+  normalized.replace(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi, (_, level: string, title: string) => {
+    addHeading(Number(level), title);
+    return "";
+  });
+
+  if (headings.length) return headings;
+
+  normalized.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
+    addHeading(hashes.length, title);
     return "";
   });
 
   return headings;
 }
 
+function decodeHtmlEntities(value: string) {
+  const namedEntities: Record<string, string> = {
+    amp: "&",
+    apos: "'",
+    gt: ">",
+    lt: "<",
+    nbsp: "\u00a0",
+    quot: '"',
+  };
+
+  return value.replace(/&(#x[\da-f]+|#\d+|amp|apos|gt|lt|nbsp|quot);/gi, (entity, code: string) => {
+    const lowerCode = code.toLowerCase();
+    if (lowerCode.startsWith("#x")) {
+      const codePoint = Number.parseInt(lowerCode.slice(2), 16);
+      return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : entity;
+    }
+    if (lowerCode.startsWith("#")) {
+      const codePoint = Number.parseInt(lowerCode.slice(1), 10);
+      return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : entity;
+    }
+    return namedEntities[lowerCode] ?? entity;
+  });
+}
+
+function sanitizeHtml(html: string) {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style|iframe|object|embed|form)[^>]*>[\s\S]*?<\/\1>/gi, "")
+    .replace(/<\/?(?:script|style|iframe|object|embed|form|input|button|svg|math)[^>]*>/gi, "")
+    .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s+(?:href|src)\s*=\s*(["'])\s*javascript:[\s\S]*?\1/gi, "")
+    .replace(/\s+(?:href|src)\s*=\s*javascript:[^\s>]+/gi, "");
+}
+
 export function renderBlogContent(content?: string) {
   if (!content) return "<p>Content coming soon.</p>";
 
-  const normalized = content.trim();
+  const normalized = decodeHtmlEntities(content.trim()).replace(/\r\n/g, "\n");
 
   if (/<\/?[a-z][\s\S]*>/i.test(normalized)) {
-    return normalized.replace(/\r\n/g, "\n");
+    return sanitizeHtml(normalized);
   }
 
   const escaped = normalized
-    .replace(/\r\n/g, "\n")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
