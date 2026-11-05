@@ -259,8 +259,14 @@ export function extractTableOfContents(content?: string) {
 export function renderBlogContent(content?: string) {
   if (!content) return "<p>Content coming soon.</p>";
 
-  const normalized = content.replace(/\r\n/g, "\n");
+  const normalized = content.trim();
+
+  if (/<\/?[a-z][\s\S]*>/i.test(normalized)) {
+    return normalized.replace(/\r\n/g, "\n");
+  }
+
   const escaped = normalized
+    .replace(/\r\n/g, "\n")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
