@@ -303,6 +303,33 @@ function sanitizeHtml(html: string) {
     .replace(/\s+(?:href|src)\s*=\s*javascript:[^\s>]+/gi, "");
 }
 
+function renderMarkdownInline(value: string) {
+  return value
+    .trim()
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/\[(.+?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
+}
+
+function splitMarkdownTableRow(row: string) {
+  return row
+    .trim()
+    .replace(/^\||\|$/g, "")
+    .split("|")
+    .map((cell) => renderMarkdownInline(cell));
+}
+
+function renderMarkdownTable(lines: string[]) {
+  const header = splitMarkdownTableRow(lines[0]);
+  const rows = lines.slice(2).map(splitMarkdownTableRow);
+
+  return `<div class="blog-table-wrapper"><table class="blog-table"><thead><tr>${header
+    .map((cell) => `<th scope="col">${cell}</th>`)
+    .join("")}</tr></thead><tbody>${rows
+    .map((row) => `<tr>${header.map((_, index) => `<td>${row[index] ?? ""}</td>`).join("")}</tr>`)
+    .join("")}</tbody></table></div>`;
+}
+
 export function renderBlogContent(content?: string) {
   if (!content) return "<p>Content coming soon.</p>";
 
@@ -331,11 +358,15 @@ export function renderBlogContent(content?: string) {
       return trimmed;
     }
 
-    return `<p>${trimmed
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.+?)\*/g, "<em>$1</em>")
-      .replace(/\[(.+?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
-      .replace(/\n/g, "<br />")}</p>`;
+    const lines = trimmed.split("\n").filter(Boolean);
+    const hasTableHeader = lines.length >= 2 && /^\s*\|?.+\|.+\|?\s*$/.test(lines[0]);
+    const hasTableDivider = /^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[1] ?? "");
+
+    if (hasTableHeader && hasTableDivider && lines.slice(2).every((line) => line.includes("|"))) {
+      return renderMarkdownTable(lines);
+    }
+
+    return `<p>${renderMarkdownInline(trimmed).replace(/\n/g, "<br />")}</p>`;
   });
 
   return blocks.join("");

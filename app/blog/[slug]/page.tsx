@@ -219,7 +219,10 @@ export default async function BlogPostPage({
               [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4
               [&_img]:my-6 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-2xl
               [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-accent [&_blockquote]:pl-4 [&_blockquote]:italic
-              [&_table]:my-6 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto
+              [&_.blog-table-wrapper]:my-6 [&_.blog-table-wrapper]:w-full [&_.blog-table-wrapper]:overflow-x-auto [&_.blog-table-wrapper]:rounded-xl [&_.blog-table-wrapper]:border [&_.blog-table-wrapper]:border-line
+              [&_table]:w-full [&_table]:min-w-[38rem] [&_table]:border-collapse [&_table]:text-left [&_table]:leading-6
+              [&_th]:border-b [&_th]:border-line [&_th]:bg-paper-dim [&_th]:px-4 [&_th]:py-3 [&_th]:font-semibold [&_th]:text-ink
+              [&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_td]:py-3 [&_td]:align-top [&_tr:last-child_td]:border-b-0
               [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:bg-paper-dim [&_pre]:p-4"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
