@@ -207,7 +207,7 @@ export default async function BlogPostPage({
           ) : null}
 
           <div
-            className="mt-10 w-full max-w-none break-words text-base leading-8 text-ink-soft
+            className="mt-10 w-full max-w-none wrap-break-word text-base leading-8 text-ink-soft
               [&_h1]:scroll-mt-28 [&_h2]:scroll-mt-28 [&_h3]:scroll-mt-28
               [&_h1]:mb-4 [&_h1]:mt-10 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:leading-tight [&_h1]:text-ink
               [&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:leading-tight [&_h2]:text-ink
@@ -219,7 +219,11 @@ export default async function BlogPostPage({
               [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4
               [&_img]:my-6 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-2xl
               [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-accent [&_blockquote]:pl-4 [&_blockquote]:italic
-              [&_table]:my-6 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto
+              [&_.blog-table-wrap]:my-6 [&_.blog-table-wrap]:w-full [&_.blog-table-wrap]:overflow-x-auto
+              [&_table]:w-full [&_table]:border-collapse [&_table]:text-left [&_table]:text-sm
+              [&_td]:border [&_td]:border-line [&_td]:px-4 [&_td]:py-2.5 [&_td]:align-top
+              [&_th]:border [&_th]:border-line [&_th]:bg-paper-dim [&_th]:px-4 [&_th]:py-2.5 [&_th]:font-semibold [&_th]:text-ink
+              [&_tr:first-child_td]:bg-paper-dim [&_tr:first-child_td]:font-semibold [&_tr:first-child_td]:text-ink
               [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:bg-paper-dim [&_pre]:p-4"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />

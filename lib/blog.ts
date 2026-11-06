@@ -256,35 +256,146 @@ export function extractTableOfContents(content?: string) {
   return headings;
 }
 
-export function renderBlogContent(content?: string) {
-  if (!content) return "<p>Content coming soon.</p>";
+const HTML_CONTENT_PATTERN = /<(p|h[1-6]|ul|ol|li|table|div|blockquote|img|br|strong|em|a)[\s>/]/i;
 
-  const normalized = content.replace(/\r\n/g, "\n");
-  const escaped = normalized
+// CMS rich-text content arrives as HTML. Strip anything that can run script,
+// then tidy up editor artefacts (nbsp-glued words, empty blocks, bare tables).
+function sanitizeHtmlContent(html: string) {
+  let out = html
+    .replace(/\r\n/g, "\n")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style|iframe|object|embed|form)\b[\s\S]*?<\/\1\s*>/gi, "")
+    .replace(/<\/?(script|style|iframe|object|embed|form|link|meta)\b[^>]*>/gi, "")
+    .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s(href|src)\s*=\s*(["'])\s*(?:javascript|data|vbscript):[\s\S]*?\2/gi, ' $1="#"')
+    // editor leftovers
+    .replace(/\s+data-row="[^"]*"/gi, "")
+    .replace(/\s+class="(?:qrt-[^"]*|)"/gi, "")
+    .replace(/(<table\b[^>]*?)\s+style="[^"]*"/gi, "$1")
+    // the page already renders the post title as its H1
+    .replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi, "")
+    // words glued together with &nbsp; never wrap on mobile
+    .replace(/&nbsp;/gi, " ")
+    // empty blocks
+    .replace(/<(p|h[1-6])\b[^>]*>\s*<\/\1>/gi, "");
+
+  // links that open another site should be safe
+  out = out.replace(/<a\b([^>]*)>/gi, (_m, attrs: string) => {
+    const clean = attrs.replace(/\s+(rel|target)="[^"]*"/gi, "");
+    const external = /href="https?:\/\//i.test(clean);
+    return external ? `<a${clean} target="_blank" rel="noopener noreferrer">` : `<a${clean}>`;
+  });
+
+  // make tables scroll horizontally on small screens without breaking layout
+  out = out
+    .replace(/<table\b[^>]*>/gi, '<div class="blog-table-wrap"><table>')
+    .replace(/<\/table>/gi, "</table></div>");
+
+  return out;
+}
+
+function renderInlineMarkdown(text: string) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g, "$1<em>$2</em>")
+    .replace(
+      /\[([^\]]+)\]\(((?:https?:\/\/|\/|#|mailto:)[^\s)]*)\)/g,
+      (_m, label: string, href: string) =>
+        /^https?:/i.test(href)
+          ? `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+          : `<a href="${href}">${label}</a>`
+    );
+}
+
+function splitTableRow(line: string) {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function renderMarkdownContent(content: string) {
+  const escaped = content
+    .replace(/\r\n/g, "\n")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-  const withHeadings = escaped.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
-    const level = Math.min(6, Math.max(1, hashes.length));
-    const slug = slugifyHeading(title.trim());
-    return `<h${level} id="${slug}" class="scroll-mt-24">${title.trim()}</h${level}>`;
-  });
+  const blocks = escaped.split(/\n\s*\n/);
+  const html: string[] = [];
 
-  const blocks = withHeadings.split(/\n\s*\n/).map((block) => {
-    const trimmed = block.trim();
-    if (!trimmed) return "";
+  for (const block of blocks) {
+    const lines = block.split("\n").map((l) => l.trimEnd()).filter((l) => l.trim());
+    if (!lines.length) continue;
 
-    if (/^<h[1-6]/.test(trimmed)) {
-      return trimmed;
+    // Headings (the page already renders the post title as its H1, so skip "# ")
+    const heading = lines[0].match(/^(#{1,6})\s+(.*)$/);
+    if (heading && lines.length === 1) {
+      const level = heading[1].length;
+      if (level === 1) continue;
+      const title = heading[2].trim();
+      html.push(`<h${level} id="${slugifyHeading(title)}" class="scroll-mt-24">${renderInlineMarkdown(title)}</h${level}>`);
+      continue;
     }
 
-    return `<p>${trimmed
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.+?)\*/g, "<em>$1</em>")
-      .replace(/\[(.+?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
-      .replace(/\n/g, "<br />")}</p>`;
-  });
+    // Tables: header row, |---|---| separator row, then body rows
+    if (lines.length >= 2 && /^\s*\|.*\|\s*$/.test(lines[0]) && /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(lines[1])) {
+      const head = splitTableRow(lines[0]);
+      const rows = lines.slice(2).map(splitTableRow);
+      html.push(
+        `<div class="blog-table-wrap"><table><thead><tr>${head
+          .map((c) => `<th>${renderInlineMarkdown(c)}</th>`)
+          .join("")}</tr></thead><tbody>${rows
+          .map((r) => `<tr>${r.map((c) => `<td>${renderInlineMarkdown(c)}</td>`).join("")}</tr>`)
+          .join("")}</tbody></table></div>`
+      );
+      continue;
+    }
 
-  return blocks.join("");
+    // Lists
+    if (lines.every((l) => /^\s*[-*+]\s+/.test(l))) {
+      html.push(`<ul>${lines.map((l) => `<li>${renderInlineMarkdown(l.replace(/^\s*[-*+]\s+/, ""))}</li>`).join("")}</ul>`);
+      continue;
+    }
+    if (lines.every((l) => /^\s*\d+[.)]\s+/.test(l))) {
+      html.push(`<ol>${lines.map((l) => `<li>${renderInlineMarkdown(l.replace(/^\s*\d+[.)]\s+/, ""))}</li>`).join("")}</ol>`);
+      continue;
+    }
+
+    // Heading line directly followed by text in the same block
+    const parts: string[] = [];
+    let para: string[] = [];
+    const flush = () => {
+      if (para.length) parts.push(`<p>${renderInlineMarkdown(para.join("<br />"))}</p>`);
+      para = [];
+    };
+    for (const line of lines) {
+      const h = line.match(/^(#{2,6})\s+(.*)$/);
+      if (h) {
+        flush();
+        const title = h[2].trim();
+        parts.push(`<h${h[1].length} id="${slugifyHeading(title)}" class="scroll-mt-24">${renderInlineMarkdown(title)}</h${h[1].length}>`);
+      } else if (/^#\s+/.test(line)) {
+        flush();
+      } else {
+        para.push(line.trim());
+      }
+    }
+    flush();
+    html.push(parts.join(""));
+  }
+
+  return html.join("");
+}
+
+export function renderBlogContent(content?: string) {
+  if (!content) return "<p>Content coming soon.</p>";
+
+  if (HTML_CONTENT_PATTERN.test(content)) {
+    return sanitizeHtmlContent(content);
+  }
+
+  return renderMarkdownContent(content);
 }
