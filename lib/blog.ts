@@ -297,6 +297,23 @@ const HTML_CONTENT_PATTERN = /<(p|h[1-6]|ul|ol|li|table|div|blockquote|img|br|st
 
 // CMS rich-text content arrives as HTML. Strip anything that can run script,
 // then tidy up editor artefacts (nbsp-glued words, empty blocks, bare tables).
+// Rich-text editors often turn a pasted Markdown table into one <p> per row.
+// Rebuild those runs of "<p>| a | b |</p>" (header, |---| divider, rows) as a real table.
+function convertPipeParagraphsToTables(html: string) {
+  return html.replace(/(?:<p\b[^>]*>\s*\|[^<]*?\|\s*<\/p>\s*){2,}/gi, (run) => {
+    const lines = Array.from(run.matchAll(/<p\b[^>]*>\s*(\|[^<]*?\|)\s*<\/p>/gi)).map((m) => m[1]);
+    const isDivider = /^\|\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|$/;
+    if (lines.length < 2 || !isDivider.test(lines[1].trim())) return run;
+    const cells = (line: string) =>
+      line.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+    const head = cells(lines[0]);
+    const rows = lines.slice(2).map(cells);
+    return `<table><thead><tr>${head.map((c) => `<th>${c}</th>`).join("")}</tr></thead><tbody>${rows
+      .map((r) => `<tr>${head.map((_, i) => `<td>${r[i] ?? ""}</td>`).join("")}</tr>`)
+      .join("")}</tbody></table>`;
+  });
+}
+
 function sanitizeHtmlContent(html: string) {
   let out = html
     .replace(/\r\n/g, "\n")
@@ -315,6 +332,8 @@ function sanitizeHtmlContent(html: string) {
     .replace(/&nbsp;| /gi, " ")
     // empty blocks
     .replace(/<(p|h[1-6])\b[^>]*>\s*<\/\1>/gi, "");
+
+  out = convertPipeParagraphsToTables(out);
 
   // links that open another site should be safe
   out = out.replace(/<a\b([^>]*)>/gi, (_m, attrs: string) => {
