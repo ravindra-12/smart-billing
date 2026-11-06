@@ -240,20 +240,57 @@ export function extractTableOfContents(content?: string) {
   const headings: Array<{ level: number; title: string; slug: string }> = [];
   const seen = new Map<string, number>();
 
-  content.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
-    const cleanTitle = title.trim();
+  const addHeading = (level: number, title: string) => {
+    const cleanTitle = title.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim();
     const baseSlug = slugifyHeading(cleanTitle);
     const count = seen.get(baseSlug) ?? 0;
     seen.set(baseSlug, count + 1);
     headings.push({
-      level: hashes.length,
+      level,
       title: cleanTitle,
       slug: count ? `${baseSlug}-${count + 1}` : baseSlug,
     });
+  };
+
+  const normalized = decodeHtmlEntities(content.trim());
+
+  normalized.replace(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi, (_, level: string, title: string) => {
+    addHeading(Number(level), title);
+    return "";
+  });
+
+  if (headings.length) return headings;
+
+  normalized.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, title: string) => {
+    addHeading(hashes.length, title);
     return "";
   });
 
   return headings;
+}
+
+function decodeHtmlEntities(value: string) {
+  const namedEntities: Record<string, string> = {
+    amp: "&",
+    apos: "'",
+    gt: ">",
+    lt: "<",
+    nbsp: "\u00a0",
+    quot: '"',
+  };
+
+  return value.replace(/&(#x[\da-f]+|#\d+|amp|apos|gt|lt|nbsp|quot);/gi, (entity, code: string) => {
+    const lowerCode = code.toLowerCase();
+    if (lowerCode.startsWith("#x")) {
+      const codePoint = Number.parseInt(lowerCode.slice(2), 16);
+      return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : entity;
+    }
+    if (lowerCode.startsWith("#")) {
+      const codePoint = Number.parseInt(lowerCode.slice(1), 10);
+      return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : entity;
+    }
+    return namedEntities[lowerCode] ?? entity;
+  });
 }
 
 const HTML_CONTENT_PATTERN = /<(p|h[1-6]|ul|ol|li|table|div|blockquote|img|br|strong|em|a)[\s>/]/i;
@@ -275,7 +312,7 @@ function sanitizeHtmlContent(html: string) {
     // the page already renders the post title as its H1
     .replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi, "")
     // words glued together with &nbsp; never wrap on mobile
-    .replace(/&nbsp;/gi, " ")
+    .replace(/&nbsp;| /gi, " ")
     // empty blocks
     .replace(/<(p|h[1-6])\b[^>]*>\s*<\/\1>/gi, "");
 
@@ -288,7 +325,7 @@ function sanitizeHtmlContent(html: string) {
 
   // make tables scroll horizontally on small screens without breaking layout
   out = out
-    .replace(/<table\b[^>]*>/gi, '<div class="blog-table-wrap"><table>')
+    .replace(/<table\b[^>]*>/gi, '<div class="blog-table-wrapper"><table>')
     .replace(/<\/table>/gi, "</table></div>");
 
   return out;
@@ -345,7 +382,7 @@ function renderMarkdownContent(content: string) {
       const head = splitTableRow(lines[0]);
       const rows = lines.slice(2).map(splitTableRow);
       html.push(
-        `<div class="blog-table-wrap"><table><thead><tr>${head
+        `<div class="blog-table-wrapper"><table><thead><tr>${head
           .map((c) => `<th>${renderInlineMarkdown(c)}</th>`)
           .join("")}</tr></thead><tbody>${rows
           .map((r) => `<tr>${r.map((c) => `<td>${renderInlineMarkdown(c)}</td>`).join("")}</tr>`)
