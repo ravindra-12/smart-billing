@@ -35,11 +35,26 @@ export default function AdminLoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const isLoggedIn = Boolean(window.localStorage.getItem(ADMIN_TOKEN_KEY));
-
-    if (isLoggedIn) {
-      router.replace('/admin');
+    if (!window.localStorage.getItem(ADMIN_TOKEN_KEY)) {
+      return;
     }
+
+    let role: string | undefined;
+    try {
+      role = (JSON.parse(window.localStorage.getItem(ADMIN_USER_KEY) || 'null') as { role?: string } | null)?.role;
+    } catch {
+      role = undefined;
+    }
+
+    if (role === 'admin') {
+      router.replace('/admin');
+      return;
+    }
+
+    // A saved session from a non-admin account: clear it so the user can sign in as an admin.
+    window.localStorage.removeItem(ADMIN_AUTH_KEY);
+    window.localStorage.removeItem(ADMIN_TOKEN_KEY);
+    window.localStorage.removeItem(ADMIN_USER_KEY);
   }, [router]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -51,7 +66,7 @@ export default function AdminLoginPage() {
       const response = await fetch(ADMIN_LOGIN_URL, {
         method: 'POST',
         headers: {
-          Accept: '*/*',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -67,6 +82,12 @@ export default function AdminLoginPage() {
 
       if (!response.ok || !data.token || !data.user) {
         setError(data.message || 'Invalid email or password.');
+        return;
+      }
+
+      // The login API accepts any account; only admins may use this panel (the API also enforces it).
+      if (data.user.role !== 'admin') {
+        setError('This account does not have admin access.');
         return;
       }
 

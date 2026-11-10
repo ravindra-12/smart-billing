@@ -62,7 +62,7 @@ export default function SubscriptionPlansPage() {
     }
 
     return {
-      Accept: '*/*',
+      Accept: 'application/json',
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
@@ -75,7 +75,7 @@ export default function SubscriptionPlansPage() {
     try {
       const response = await fetch(PLANS_API_URL, {
         headers: {
-          Accept: '*/*',
+          Accept: 'application/json',
         },
       });
 

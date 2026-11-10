@@ -158,7 +158,7 @@ export default function AdminDashboardPage() {
         fetch(`${API_BASE_URL}/admin/subscriptions?status=active&per_page=1`, { headers }),
         fetch(`${API_BASE_URL}/admin/subscriptions?status=expired&per_page=1`, { headers }),
         fetch(`${API_BASE_URL}/admin/subscriptions?status=cancelled&per_page=1`, { headers }),
-        fetch(`${API_BASE_URL}/plans`, { headers: { Accept: '*/*' } }),
+        fetch(`${API_BASE_URL}/plans`, { headers: { Accept: 'application/json' } }),
         fetch(`${API_BASE_URL}/storage-packs`, { headers }),
       ]);
 

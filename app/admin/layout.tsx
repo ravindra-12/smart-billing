@@ -20,7 +20,17 @@ const subscribeToAuthChanges = (callback: () => void) => {
 };
 
 const getAdminAuthSnapshot = () => {
-  return Boolean(window.localStorage.getItem(ADMIN_TOKEN_KEY));
+  if (!window.localStorage.getItem(ADMIN_TOKEN_KEY)) {
+    return false;
+  }
+
+  // Sessions saved before the admin-only check may belong to non-admin accounts; treat them as logged out.
+  try {
+    const user = JSON.parse(window.localStorage.getItem(ADMIN_USER_KEY) || 'null') as { role?: string } | null;
+    return user?.role === 'admin';
+  } catch {
+    return false;
+  }
 };
 
 const getAdminAuthServerSnapshot = () => false;
